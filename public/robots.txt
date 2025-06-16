@@ -1,0 +1,17 @@
+# robots.txt for Carinya Parc Website
+# https://www.carinyaparc.com
+
+User-agent: *
+Allow: /
+
+# Disallow admin and potentially sensitive areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/static/development/
+
+# Allow all bots to scan images and assets
+Allow: /images/
+Allow: /public/
+
+# Sitemap location
+Sitemap: https://www.carinyaparc.com/sitemap.xml 
