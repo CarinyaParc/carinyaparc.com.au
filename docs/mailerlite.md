@@ -19,9 +19,11 @@ This document provides steps to set up the MailerLite newsletter integration for
 
 1. Create a `.env.local` file in the root directory of the website project if it doesn't exist already
 2. Add the following line to the file:
+
    ```
    MAILERLITE_API_KEY=your_api_key_here
    ```
+
    Replace `your_api_key_here` with the API key you copied from MailerLite
 
 3. Restart your development server if it's running
@@ -51,6 +53,7 @@ The current implementation adds subscribers to the default subscriber group. If 
 2. Update the `groups` field in the API request in `/src/app/api/subscribe/route.ts` with your group ID
 
 Example:
+
 ```ts
 body: JSON.stringify({
   email,
@@ -58,4 +61,4 @@ body: JSON.stringify({
   status: 'active',
   resubscribe: true,
 }),
-``` 
+```

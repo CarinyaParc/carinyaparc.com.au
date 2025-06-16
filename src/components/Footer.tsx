@@ -3,7 +3,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const navigation = {
+interface NavigationItem {
+  name: string;
+  href: string;
+}
+
+const navigation: {
+  FooterList1: NavigationItem[];
+  FooterList2: NavigationItem[];
+  FooterList3: NavigationItem[];
+  FooterList4: NavigationItem[];
+} = {
   FooterList1: [],
   FooterList2: [
     { name: 'Our Farm', href: '/about' },
@@ -22,8 +32,6 @@ const navigation = {
 };
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="bg-white dark:bg-charcoal-600 border-t border-charcoal-200 dark:border-charcoal-200">
       <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-8 lg:py-24">
@@ -49,8 +57,7 @@ export default function Footer() {
           <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold text-eucalyptus-600 dark:text-eucalyptus-600">
-                </h3>
+                <h3 className="text-sm font-semibold text-eucalyptus-600 dark:text-eucalyptus-600"></h3>
                 <ul role="list" className="mt-4 space-y-3">
                   {navigation.FooterList1.map((item) => (
                     <li key={item.name}>

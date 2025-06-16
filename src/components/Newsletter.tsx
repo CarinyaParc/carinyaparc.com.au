@@ -12,16 +12,16 @@ export default function Newsletter() {
     e.preventDefault();
     setStatus('loading');
     setErrorMessage('');
-    
+
     try {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-      
+
       const data = await res.json();
-      
+
       if (res.ok) {
         console.log('Successfully subscribed');
         setStatus('success');
@@ -74,19 +74,17 @@ export default function Newsletter() {
               {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
             </button>
           </div>
-          
+
           {status === 'success' && (
             <p className="mt-3 text-sm font-medium text-green-100">
               Thank you for subscribing! You'll receive our updates soon.
             </p>
           )}
-          
+
           {status === 'error' && (
-            <p className="mt-3 text-sm font-medium text-red-300">
-              {errorMessage}
-            </p>
+            <p className="mt-3 text-sm font-medium text-red-300">{errorMessage}</p>
           )}
-          
+
           <p className="mt-4 text-sm/6 text-harvest-100">
             We care about your data. Read our{' '}
             <Link href="/privacy-policy" className="font-semibold hover:text-white">

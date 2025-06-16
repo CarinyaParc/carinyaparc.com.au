@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: "Montserrat", sans-serif;
+  --font-sans: 'Montserrat', sans-serif;
 
   /* Eucalyptus (Primary) */
   --color-eucalyptus-100: oklch(0.88 0.04 143);

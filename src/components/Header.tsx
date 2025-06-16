@@ -14,12 +14,12 @@ interface HeaderProps {
 export default function Header({ navigation }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  
+
   // Close mobile menu when route changes
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
-  
+
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -91,7 +91,7 @@ export default function Header({ navigation }: HeaderProps) {
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -99,7 +99,7 @@ export default function Header({ navigation }: HeaderProps) {
             className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <motion.nav 
+            <motion.nav
               id="mobile-menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -146,7 +146,7 @@ export default function Header({ navigation }: HeaderProps) {
                     </motion.div>
                   ))}
               </div>
-              
+
               <div className="mt-10 pt-6 border-t border-gray-200">
                 <a
                   href="#"

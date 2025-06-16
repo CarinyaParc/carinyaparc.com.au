@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       console.error('MAILERLITE_API_KEY is not defined in environment variables');
       return NextResponse.json(
         { error: 'Newsletter service not configured. Please add MAILERLITE_API_KEY to .env.local' },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
         console.error('MailerLite API error:', errorMessage);
         return NextResponse.json(
           { error: `Subscription failed: ${errorMessage}` },
-          { status: response.status }
+          { status: response.status },
         );
       }
 
@@ -68,7 +68,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true });
     } catch (fetchError) {
       console.error('Fetch error:', fetchError);
-      return NextResponse.json({ error: 'Network error. Please try again later.' }, { status: 500 });
+      return NextResponse.json(
+        { error: 'Network error. Please try again later.' },
+        { status: 500 },
+      );
     }
   } catch (error) {
     console.error('Request parsing error:', error);
