@@ -5,16 +5,9 @@ import { render } from '@testing-library/react';
 const MockThemeProvider = ({ children }: { children: React.ReactNode }) => <>{children}</>;
 
 // Custom render function that includes providers needed across the app
-export function renderWithProviders(
-  ui: React.ReactElement,
-  { ...renderOptions } = {}
-) {
+export function renderWithProviders(ui: React.ReactElement, { ...renderOptions } = {}) {
   function Wrapper({ children }: { children: React.ReactNode }) {
-    return (
-      <MockThemeProvider>
-        {children}
-      </MockThemeProvider>
-    );
+    return <MockThemeProvider>{children}</MockThemeProvider>;
   }
 
   return {

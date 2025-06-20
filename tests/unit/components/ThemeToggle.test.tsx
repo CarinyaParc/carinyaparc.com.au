@@ -21,7 +21,7 @@ const { useTheme } = await import('next-themes');
 describe('ThemeToggle Component', () => {
   it('renders the theme toggle button', () => {
     render(<ThemeToggle />);
-    
+
     // Check if the button is rendered
     const themeButton = screen.getByRole('button');
     expect(themeButton).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe('ThemeToggle Component', () => {
     });
 
     render(<ThemeToggle />);
-    
+
     // Check for sun icon or light theme indicator
     const themeButton = screen.getByRole('button');
     expect(themeButton).toHaveAttribute('aria-label', expect.stringMatching(/light|theme|toggle/i));
@@ -51,7 +51,7 @@ describe('ThemeToggle Component', () => {
     });
 
     render(<ThemeToggle />);
-    
+
     // Check for moon icon or dark theme indicator
     const themeButton = screen.getByRole('button');
     expect(themeButton).toHaveAttribute('aria-label', expect.stringMatching(/dark|theme|toggle/i));
@@ -66,10 +66,10 @@ describe('ThemeToggle Component', () => {
     });
 
     render(<ThemeToggle />);
-    
+
     // Click the theme toggle button
     fireEvent.click(screen.getByRole('button'));
-    
+
     // Verify the setTheme was called with 'dark'
     expect(setThemeMock).toHaveBeenCalledWith('dark');
   });
@@ -83,10 +83,10 @@ describe('ThemeToggle Component', () => {
     });
 
     render(<ThemeToggle />);
-    
+
     // Click the theme toggle button
     fireEvent.click(screen.getByRole('button'));
-    
+
     // Verify the setTheme was called with 'light'
     expect(setThemeMock).toHaveBeenCalledWith('light');
   });
