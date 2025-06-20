@@ -1,0 +1,22 @@
+{
+  "validEmail": "test@example.com",
+  "invalidEmail": "invalid-email",
+  "existingEmail": "existing@example.com",
+  "apiResponses": {
+    "success": {
+      "success": true
+    },
+    "error": {
+      "error": "Internal server error"
+    },
+    "validation": {
+      "error": "Validation failed",
+      "errors": {
+        "email": ["Invalid email format"]
+      }
+    },
+    "duplicate": {
+      "error": "Email already exists"
+    }
+  }
+}

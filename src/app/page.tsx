@@ -24,10 +24,12 @@ export default function HomePage() {
       {/* Hero Section */}
       <Hero>
         <HeroImage>
-          <img
+          <Image
             src="/images/hero_image.jpg"
             alt="Carinya Parc landscape"
-            className="absolute inset-0 -z-10 h-full w-full object-cover opacity-80 brightness-50"
+            fill
+            priority
+            className="absolute inset-0 -z-10 object-cover opacity-80 brightness-50"
           />
         </HeroImage>
         <HeroContent>

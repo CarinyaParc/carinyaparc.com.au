@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 // Hero Container Component
 interface HeroProps {
@@ -116,19 +117,19 @@ export function HeroActions({ children }: { children: ReactNode }) {
 
 export function HeroButton({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <a
+    <Link
       href={href}
       className="rounded-md bg-eucalyptus-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-harvest-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600"
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
 export function HeroLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <a href={href} className="text-sm font-semibold leading-6 text-white">
+    <Link href={href} className="text-sm font-semibold leading-6 text-white">
       {children} <span aria-hidden="true">→</span>
-    </a>
+    </Link>
   );
 }

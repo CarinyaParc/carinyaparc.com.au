@@ -108,12 +108,12 @@ export default function Header({ navigation }: HeaderProps) {
             ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="#"
+          <Link
+            href="/blog"
             className={`rounded-md bg-eucalyptus-600 text-white hover:bg-harvest-600 px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600 transition-colors duration-300`}
           >
             Follow our Journey
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -168,12 +168,12 @@ export default function Header({ navigation }: HeaderProps) {
                       ))}
                   </div>
                   <div className="py-6">
-                    <a
-                      href="#"
+                    <Link
+                      href="/blog"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold text-white hover:bg-gray-800"
                     >
                       Follow our Journey
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
