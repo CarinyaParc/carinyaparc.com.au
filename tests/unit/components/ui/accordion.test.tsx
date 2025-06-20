@@ -13,7 +13,7 @@ vi.mock('lucide-react', async () => {
   const actual = await vi.importActual('lucide-react');
   return {
     ...actual,
-    ChevronDown: () => <div data-testid="chevron-down-icon" />
+    ChevronDown: () => <div data-testid="chevron-down-icon" />,
   };
 });
 
@@ -25,12 +25,12 @@ describe('Accordion Component', () => {
           <AccordionTrigger>Accordion Title</AccordionTrigger>
           <AccordionContent>Accordion Content</AccordionContent>
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
-    
+
     // Check for the title which should be visible
     expect(screen.getByText('Accordion Title')).toBeInTheDocument();
-    
+
     // Check for content div which might be hidden but still in DOM
     const contentDiv = container.querySelector('[data-state="closed"]');
     expect(contentDiv).toBeInTheDocument();
@@ -43,30 +43,30 @@ describe('Accordion Component', () => {
           <AccordionTrigger>Accordion Title</AccordionTrigger>
           <AccordionContent>Accordion Content</AccordionContent>
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
-    
+
     // Initially the content is not expanded
     const trigger = screen.getByRole('button', { name: /accordion title/i });
-    
+
     // Find the content container by its role attribute
     const contentContainer = container.querySelector('[role="region"]');
     expect(contentContainer).toBeInTheDocument();
-    
+
     // Verify initial state
     expect(contentContainer).toHaveAttribute('data-state', 'closed');
     expect(contentContainer).toHaveAttribute('hidden');
-    
+
     // Click to expand
     fireEvent.click(trigger);
-    
+
     // Verify expanded state
     expect(contentContainer).toHaveAttribute('data-state', 'open');
     expect(contentContainer).not.toHaveAttribute('hidden');
-    
+
     // Click to collapse
     fireEvent.click(trigger);
-    
+
     // Verify collapsed state
     expect(contentContainer).toHaveAttribute('data-state', 'closed');
   });
@@ -82,13 +82,13 @@ describe('Accordion Component', () => {
           <AccordionTrigger>Second Item</AccordionTrigger>
           <AccordionContent>Second Content</AccordionContent>
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
-    
+
     // Check that the titles are rendered
     expect(screen.getByText('First Item')).toBeInTheDocument();
     expect(screen.getByText('Second Item')).toBeInTheDocument();
-    
+
     // We don't check for content text as it's hidden
   });
 
@@ -103,28 +103,28 @@ describe('Accordion Component', () => {
           <AccordionTrigger>Second Item</AccordionTrigger>
           <AccordionContent>Second Content</AccordionContent>
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
-    
+
     // Find all region elements (the content containers)
     const regions = container.querySelectorAll('[role="region"]');
     expect(regions.length).toBe(2);
-    
+
     // First item should be expanded initially
     expect(regions[0]).toHaveAttribute('data-state', 'open');
     expect(regions[0]).not.toHaveAttribute('hidden');
-    
+
     // Second item should be collapsed initially
     expect(regions[1]).toHaveAttribute('data-state', 'closed');
     expect(regions[1]).toHaveAttribute('hidden');
-    
+
     // Click to expand the second item
     fireEvent.click(screen.getByText('Second Item'));
-    
+
     // Second item should now be expanded
     expect(regions[1]).toHaveAttribute('data-state', 'open');
     expect(regions[1]).not.toHaveAttribute('hidden');
-    
+
     // First item should now be collapsed (only one can be open at a time)
     expect(regions[0]).toHaveAttribute('data-state', 'closed');
   });
@@ -136,9 +136,9 @@ describe('Accordion Component', () => {
           <AccordionTrigger>Title</AccordionTrigger>
           <AccordionContent>Content</AccordionContent>
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
-    
+
     // Find the accordion item element directly by data orientation attribute
     const item = container.querySelector('[data-orientation="vertical"][data-state="closed"]');
     expect(item).toHaveClass('custom-class');
@@ -152,9 +152,9 @@ describe('Accordion Component', () => {
           <AccordionTrigger className="custom-trigger">Title</AccordionTrigger>
           <AccordionContent>Content</AccordionContent>
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
-    
+
     // Find the trigger and check for the custom class
     const trigger = screen.getByRole('button');
     expect(trigger).toHaveClass('custom-trigger');
@@ -167,12 +167,12 @@ describe('Accordion Component', () => {
           <AccordionTrigger>Title</AccordionTrigger>
           <AccordionContent className="custom-content">Content</AccordionContent>
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
-    
+
     // Find the inner content div by first getting the region and then its child div
     const region = container.querySelector('[role="region"]');
-    const contentDiv = region?.querySelector('div'); 
+    const contentDiv = region?.querySelector('div');
     expect(contentDiv).toHaveClass('custom-content');
   });
 });
