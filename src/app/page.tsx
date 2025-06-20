@@ -1,70 +1,51 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, MapPin, Leaf, Heart, Users } from 'lucide-react';
+import { ArrowRight, Leaf, Heart, Users } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  Hero,
+  HeroContent,
+  HeroImage,
+  HeroTitle,
+  HeroText,
+  HeroLocation,
+  HeroActions,
+  HeroButton,
+  HeroLink,
+} from '@/components/Hero';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl lg:text-6xl font-bold text-green-900 mb-6">
-                Restoring the Land,
-                <span className="text-amber-600"> Nurturing the Future</span>
-              </h1>
-              <p className="text-xl text-green-700 mb-8 leading-relaxed">
-                Welcome to Carinya Parc, where we're dedicated to regenerating the Australian
-                landscape through sustainable farming practices and environmental restoration.
-              </p>
-              <div className="flex items-center text-green-600 mb-8">
-                <MapPin className="h-5 w-5 mr-2" />
-                <span>315 Warraba Road, The Branch NSW 2425</span>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
-                  <Link href="/our-farm">
-                    Learn Our Story <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-green-600 text-green-600 hover:bg-green-50"
-                >
-                  <Link href="/regeneration">View Our Project</Link>
-                </Button>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <Image
-                src="/placeholder.svg?height=600&width=800"
-                alt="Carinya Parc landscape"
-                width={800}
-                height={600}
-                className="rounded-2xl shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-green-900/20 to-transparent rounded-2xl" />
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <Hero>
+        <HeroImage>
+          <img
+            src="/images/hero_image.jpg"
+            alt="Carinya Parc landscape"
+            className="absolute inset-0 -z-10 h-full w-full object-cover opacity-80 brightness-50"
+          />
+        </HeroImage>
+        <HeroContent>
+          <HeroTitle>
+            Restoring the Land,
+            <span className="text-eucalyptus-600"> Nurturing the Future</span>
+          </HeroTitle>
+          <HeroText>
+            Welcome to Carinya Parc, where we're dedicated to regenerating the Australian landscape
+            through sustainable farming practices and environmental restoration.
+          </HeroText>
+          <HeroLocation>315 Warraba Road, The Branch NSW 2425</HeroLocation>
+          <HeroActions>
+            <HeroButton href="/our-farm">Learn Our Story</HeroButton>
+            <HeroLink href="/regeneration">View Our Project</HeroLink>
+          </HeroActions>
+        </HeroContent>
+      </Hero>
 
       {/* Features Section */}
       <section className="py-20 bg-white">

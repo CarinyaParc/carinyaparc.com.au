@@ -39,60 +39,84 @@ export default function Newsletter() {
   };
 
   return (
-    <div className="bg-harvest-600 py-12 sm:py-18 lg:py-24">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
-        <div className="lg:col-span-7">
-          <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Subscribe to our newsletter
-          </h2>
-          <p className="mt-4 text-lg text-harvest-100">
-            Stay updated with the latest news and events from Carinya Parc.
-          </p>
-        </div>
-        <form onSubmit={handleSubmit} className="w-full max-w-md lg:col-span-5 lg:pt-2">
-          <div className="flex gap-x-4">
-            <label htmlFor="email-address" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="email-address"
-              name="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={status === 'loading'}
-              placeholder="Enter your email address"
-              autoComplete="email"
-              className="min-w-0 flex-auto rounded-md bg-white/10 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-white/75 focus:outline-2 focus:-outline-offset-2 focus:outline-white sm:text-sm/6"
-            />
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-harvest-600 shadow-xs hover:bg-harvest-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:opacity-70"
-            >
-              {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
-            </button>
-          </div>
-
-          {status === 'success' && (
-            <p className="mt-3 text-sm font-medium text-green-100">
-              Thank you for subscribing! You'll receive our updates soon.
+    <div className="bg-white py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="relative isolate flex flex-col gap-10 overflow-hidden bg-eucalyptus-600 px-6 py-24 shadow-2xl sm:rounded-3xl sm:px-24 xl:flex-row xl:items-center xl:py-32">
+          <div className="flex-1 max-w-xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">
+              Subscribe to our newsletter
+            </h2>
+            <p className="mt-4 text-lg text-eucalyptus-100">
+              Stay updated with the latest news and events from Carinya Parc.
             </p>
-          )}
+          </div>
+          <div className="flex-1 flex justify-center xl:justify-end">
+            <form onSubmit={handleSubmit} className="w-full max-w-md">
+              <div className="flex gap-x-4">
+                <label htmlFor="email-address" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={status === 'loading'}
+                  placeholder="Enter your email address"
+                  autoComplete="email"
+                  className="min-w-0 flex-auto rounded-md bg-white/10 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-white/75 focus:outline-2 focus:-outline-offset-2 focus:outline-white sm:text-sm/6"
+                />
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-eucalyptus-600 shadow-xs hover:bg-eucalyptus-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:opacity-70"
+                >
+                  {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+                </button>
+              </div>
 
-          {status === 'error' && (
-            <p className="mt-3 text-sm font-medium text-red-300">{errorMessage}</p>
-          )}
+              {status === 'success' && (
+                <p className="mt-3 text-sm font-medium text-green-100">
+                  Thank you for subscribing! You'll receive our updates soon.
+                </p>
+              )}
 
-          <p className="mt-4 text-sm/6 text-harvest-100">
-            We care about your data. Read our{' '}
-            <Link href="/privacy-policy" className="font-semibold hover:text-white">
-              privacy&nbsp;policy
-            </Link>
-            .
-          </p>
-        </form>
+              {status === 'error' && (
+                <p className="mt-3 text-sm font-medium text-red-300">{errorMessage}</p>
+              )}
+
+              <p className="mt-4 text-sm/6 text-eucalyptus-100">
+                We care about your data. Read our{' '}
+                <Link href="/privacy-policy" className="font-semibold hover:text-white">
+                  privacy&nbsp;policy
+                </Link>
+                .
+              </p>
+            </form>
+          </div>
+          <svg
+            viewBox="0 0 1024 1024"
+            aria-hidden="true"
+            className="absolute top-1/2 left-1/2 -z-10 size-256 -translate-x-1/2"
+          >
+            <circle r={512} cx={512} cy={512} fill="url(#newsletter-gradient)" fillOpacity="0.7" />
+            <defs>
+              <radialGradient
+                r={1}
+                cx={0}
+                cy={0}
+                id="newsletter-gradient"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(512 512) rotate(90) scale(512)"
+              >
+                <stop stopColor="#10B981" />
+                <stop offset={1} stopColor="#047857" stopOpacity={0} />
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
       </div>
     </div>
   );
