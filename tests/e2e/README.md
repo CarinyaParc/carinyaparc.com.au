@@ -37,6 +37,7 @@ pnpm test:e2e:mobile
 ## Browser Support
 
 The E2E tests run on the following browsers:
+
 - Chromium (Desktop)
 - Firefox (Desktop)
 - WebKit (Safari) (Desktop)
@@ -71,9 +72,10 @@ To add new tests:
 ## Configuration
 
 The Playwright configuration is in `playwright.config.ts` in the project root. It includes:
+
 - Browser configurations
 - Viewport sizes
 - Reporter settings
 - Screenshot and trace options
 
-For more details, refer to the [official Playwright documentation](https://playwright.dev/docs/intro). 
+For more details, refer to the [official Playwright documentation](https://playwright.dev/docs/intro).
