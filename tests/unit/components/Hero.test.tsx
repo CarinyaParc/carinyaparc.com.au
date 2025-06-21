@@ -1,89 +1,114 @@
+import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { screen } from '@testing-library/react';
-import { renderWithProviders } from '../../helpers/renderWithProviders';
-import Hero from '../../../src/components/Hero';
+import { render, screen } from '@testing-library/react';
+import {
+  Hero,
+  HeroContent,
+  HeroTitle,
+  HeroText,
+  HeroButton,
+  HeroLocation,
+  HeroActions,
+  HeroLink,
+} from '../../../src/components/Hero';
 
-// Mock Next.js components
-vi.mock('next/image', () => ({
-  default: ({ alt, ...props }: any) => {
-    return <img alt={alt} {...props} data-testid="hero-image" />;
-  },
-}));
-
+// Mock Next.js Link component
 vi.mock('next/link', () => ({
   default: ({ children, ...props }: any) => {
     return <a {...props}>{children}</a>;
   },
 }));
 
+// Mock framer-motion to avoid animation issues in tests
+vi.mock('framer-motion', () => ({
+  motion: {
+    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+  },
+}));
+
 describe('Hero Component', () => {
   it('renders the hero section with heading and image', () => {
-    renderWithProviders(<Hero />);
+    render(
+      <Hero>
+        <HeroContent>
+          <HeroTitle>Welcome to Carinya Parc</HeroTitle>
+          <HeroText>Discover our sustainable farming practices</HeroText>
+        </HeroContent>
+      </Hero>,
+    );
 
-    // Check for main heading
-    const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toBeInTheDocument();
-
-    // Check for hero image
-    const heroImage = screen.getByTestId('hero-image');
-    expect(heroImage).toBeInTheDocument();
+    // Check if the hero renders with title and text
+    expect(screen.getByText('Welcome to Carinya Parc')).toBeInTheDocument();
+    expect(screen.getByText('Discover our sustainable farming practices')).toBeInTheDocument();
   });
 
   it('displays compelling headline text', () => {
-    renderWithProviders(<Hero />);
+    render(
+      <Hero>
+        <HeroContent>
+          <HeroTitle>Regenerative Agriculture in Action</HeroTitle>
+        </HeroContent>
+      </Hero>,
+    );
 
-    // The hero should contain key messaging about Carinya Parc
-    const headingText = screen.getByRole('heading', { level: 1 }).textContent?.toLowerCase() || '';
-
-    // Check for key terms that should be in the heading (adjust based on actual content)
-    expect(
-      headingText.includes('carinya') ||
-        headingText.includes('sustainable') ||
-        headingText.includes('regenerative') ||
-        headingText.includes('farm'),
-    ).toBeTruthy();
+    // Check if the headline is rendered with appropriate styling
+    const headline = screen.getByText('Regenerative Agriculture in Action');
+    expect(headline).toBeInTheDocument();
+    expect(headline.tagName).toBe('H1');
+    expect(headline).toHaveClass('text-white');
   });
 
   it('includes a call-to-action button or link', () => {
-    renderWithProviders(<Hero />);
+    render(
+      <Hero>
+        <HeroContent>
+          <HeroActions>
+            <HeroButton href="/about">Learn More</HeroButton>
+            <HeroLink href="/blog">Read Our Blog</HeroLink>
+          </HeroActions>
+        </HeroContent>
+      </Hero>,
+    );
 
-    // The hero should have a prominent CTA
-    const ctaButton = screen.getByRole('link') || screen.getByRole('button');
-    expect(ctaButton).toBeInTheDocument();
+    // Check for CTA button and link
+    const button = screen.getByText('Learn More');
+    const link = screen.getByText(/Read Our Blog/);
 
-    // CTA text should be action-oriented
-    const ctaText = ctaButton.textContent?.toLowerCase() || '';
-    expect(
-      ctaText.includes('learn') ||
-        ctaText.includes('discover') ||
-        ctaText.includes('explore') ||
-        ctaText.includes('visit') ||
-        ctaText.includes('join'),
-    ).toBeTruthy();
+    expect(button).toBeInTheDocument();
+    expect(button.closest('a')).toHaveAttribute('href', '/about');
+
+    expect(link).toBeInTheDocument();
+    expect(link.closest('a')).toHaveAttribute('href', '/blog');
   });
 
-  it('has proper image accessibility attributes', () => {
-    renderWithProviders(<Hero />);
+  it('has proper location display', () => {
+    render(
+      <Hero>
+        <HeroContent>
+          <HeroLocation>Carinya Parc, New South Wales</HeroLocation>
+        </HeroContent>
+      </Hero>,
+    );
 
-    // Check image has proper alt text
-    const heroImage = screen.getByTestId('hero-image');
-    expect(heroImage).toHaveAttribute('alt');
-    expect(heroImage.getAttribute('alt')).not.toBe('');
+    // Check for location text
+    expect(screen.getByText('Carinya Parc, New South Wales')).toBeInTheDocument();
   });
 
   it('contains descriptive subheading or supporting text', () => {
-    renderWithProviders(<Hero />);
+    render(
+      <Hero>
+        <HeroContent>
+          <HeroTitle>Main Title</HeroTitle>
+          <HeroText>This is some detailed supporting text that explains our mission.</HeroText>
+        </HeroContent>
+      </Hero>,
+    );
 
-    // Look for paragraph text that describes the farm or mission
-    const paragraphs = screen
-      .getAllByText(/.+/i)
-      .filter((element) => element.tagName.toLowerCase() === 'p');
-
-    // Should have at least one paragraph with descriptive text
-    expect(paragraphs.length).toBeGreaterThan(0);
-
-    // Combined text should be substantial enough to describe the farm
-    const combinedText = paragraphs.map((p) => p.textContent).join(' ');
-    expect(combinedText.length).toBeGreaterThan(20);
+    // Check if supporting text is rendered
+    const supportingText = screen.getByText(
+      'This is some detailed supporting text that explains our mission.',
+    );
+    expect(supportingText).toBeInTheDocument();
+    expect(supportingText).toHaveClass('text-gray-200');
   });
 });

@@ -6,11 +6,11 @@ import userEvent from '@testing-library/user-event';
 
 describe('Input Component', () => {
   it('renders the input element with default properties', () => {
-    render(<Input placeholder="Enter text" />);
+    render(<Input placeholder="Enter text" type="text" />);
 
     const input = screen.getByPlaceholderText('Enter text');
     expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute('type', 'undefined'); // Default when type is not specified
+    expect(input).toHaveAttribute('type', 'text');
   });
 
   it('renders the input with specific type', () => {

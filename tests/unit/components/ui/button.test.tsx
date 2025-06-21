@@ -1,3 +1,4 @@
+import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -39,20 +40,20 @@ describe('Button Component', () => {
     const { rerender } = render(<Button size="default">Default</Button>);
 
     let button = screen.getByRole('button', { name: /default/i });
-    expect(button).toHaveClass('h-9');
+    expect(button).toHaveClass('h-10');
 
     rerender(<Button size="sm">Small</Button>);
     button = screen.getByRole('button', { name: /small/i });
-    expect(button).toHaveClass('h-8');
+    expect(button).toHaveClass('h-9');
 
     rerender(<Button size="lg">Large</Button>);
     button = screen.getByRole('button', { name: /large/i });
-    expect(button).toHaveClass('h-10');
+    expect(button).toHaveClass('h-11');
 
     rerender(<Button size="icon">Icon</Button>);
     button = screen.getByRole('button', { name: /icon/i });
-    expect(button).toHaveClass('h-9');
-    expect(button).toHaveClass('w-9');
+    expect(button).toHaveClass('h-10');
+    expect(button).toHaveClass('w-10');
   });
 
   it('handles click events', async () => {
@@ -97,7 +98,7 @@ describe('Button Component', () => {
   });
 
   it('forwards refs correctly', () => {
-    const ref = { current: null };
+    const ref = React.createRef<HTMLButtonElement>();
     render(<Button ref={ref}>Ref Button</Button>);
 
     expect(ref.current).not.toBeNull();
@@ -109,6 +110,6 @@ describe('Button Component', () => {
 
     const button = screen.getByRole('button', { name: /custom class/i });
     expect(button).toHaveClass('custom-class');
-    expect(button).toHaveClass('inline-flex'); // Should still have default styling
+    expect(button).toHaveClass('inline-flex'); // Still has default styling
   });
 });

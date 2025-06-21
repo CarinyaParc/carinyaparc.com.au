@@ -25,7 +25,7 @@ export const errorHandlers = {
         error: 'Validation failed',
         errors: { email: ['Invalid email format'] },
       },
-      { status: 422 }
+      { status: 422 },
     );
   }),
 

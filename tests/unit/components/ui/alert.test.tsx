@@ -1,3 +1,4 @@
+import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Alert, AlertTitle, AlertDescription } from '../../../../src/components/ui/alert';
@@ -72,9 +73,10 @@ describe('Alert Component', () => {
     const description = screen.getByText('Alert description text');
     expect(description).toBeInTheDocument();
 
-    // Check for description styles
-    const descriptionContainer = description.parentElement;
-    expect(descriptionContainer).toHaveClass('text-sm');
+    // In the implementation, the text-sm class is on the div inside AlertDescription
+    // not on the AlertDescription itself
+    const descriptionDiv = description.closest('div');
+    expect(descriptionDiv).toHaveClass('text-sm');
   });
 
   it('renders a complete alert with title and description', () => {
@@ -126,8 +128,9 @@ describe('Alert Component', () => {
       </Alert>,
     );
 
-    // Check for custom class
-    const descriptionContainer = screen.getByText('Custom Description').parentElement;
-    expect(descriptionContainer).toHaveClass('custom-desc-class');
+    // Custom class is on the div inside the AlertDescription component
+    const description = screen.getByText('Custom Description');
+    const descriptionDiv = description.closest('div');
+    expect(descriptionDiv).toHaveClass('custom-desc-class');
   });
 });

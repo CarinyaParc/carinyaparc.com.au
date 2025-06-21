@@ -19,7 +19,7 @@ describe('Newsletter Subscription API Route', () => {
   beforeEach(() => {
     // Create a new mock for each test
     global.fetch = createFetchMock();
-    
+
     // Mock environment variables
     vi.stubEnv('MAILERLITE_API_KEY', 'test-api-key');
   });
