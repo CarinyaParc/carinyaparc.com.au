@@ -54,14 +54,14 @@ test.describe('Accessibility', () => {
     const navigationLinks = page.getByRole('navigation').getByRole('link');
 
     for (const link of await navigationLinks.all()) {
-      const hasValidContrast = await page.evaluate((element) => {
-        const styles = window.getComputedStyle(element);
+      const hasValidContrast = await link.evaluate((node) => {
+        const styles = window.getComputedStyle(node);
         const bgColor = styles.backgroundColor;
         const color = styles.color;
 
         // This is a simplified check - in a real test you'd calculate actual contrast ratio
         return bgColor !== color;
-      }, link);
+      });
 
       expect(hasValidContrast, 'Navigation links should have sufficient contrast').toBe(true);
     }

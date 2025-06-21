@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import RootLayout, { metadata } from '../../../src/app/layout';
 
@@ -68,7 +68,8 @@ describe('RootLayout Component', () => {
     // Reset environment before each test
     vi.resetModules();
     process.env = { ...originalEnv };
-    process.env.NODE_ENV = 'test';
+    // Use vi.stubEnv instead of direct assignment
+    vi.stubEnv('NODE_ENV', 'test');
     process.env.NEXT_PUBLIC_GTM_ID = undefined;
   });
 
@@ -117,7 +118,7 @@ describe('RootLayout Component', () => {
   });
 
   it('does not render GTM script in non-production environment', () => {
-    process.env.NODE_ENV = 'development';
+    vi.stubEnv('NODE_ENV', 'development');
     process.env.NEXT_PUBLIC_GTM_ID = 'GTM-TEST';
 
     render(
@@ -135,7 +136,7 @@ describe('RootLayout Component', () => {
     // we'll modify the test to check the component's conditional logic
 
     // First verify it's not rendered when NODE_ENV is not production
-    process.env.NODE_ENV = 'development';
+    vi.stubEnv('NODE_ENV', 'development');
     process.env.NEXT_PUBLIC_GTM_ID = 'GTM-TEST';
 
     const { rerender } = render(
@@ -147,7 +148,7 @@ describe('RootLayout Component', () => {
     expect(screen.queryByTestId('mock-script-google-tag-manager')).not.toBeInTheDocument();
 
     // Now check the other condition - when GTM_ID is not available
-    process.env.NODE_ENV = 'production';
+    vi.stubEnv('NODE_ENV', 'production');
     process.env.NEXT_PUBLIC_GTM_ID = undefined;
 
     rerender(
