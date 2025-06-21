@@ -46,8 +46,8 @@ export default function CookiePolicy() {
           >
             Accept all
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             onClick={handleReject}
             className="text-sm/6 font-semibold text-charcoal-600"
           >
