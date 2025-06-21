@@ -98,8 +98,8 @@
 - [x] Implement unit testing framework (Vitest)
 - [x] Add component tests for critical UI components
 - [ ] Add integration tests for key user flows
-- [ ] Implement end-to-end testing with Cypress or Playwright
-- [ ] Perform cross-browser testing
+- [x] Implement end-to-end testing with Cypress or Playwright
+- [x] Perform cross-browser testing
 - [ ] Perform mobile/responsive testing
 - [ ] Set up visual regression testing
 - [ ] Conduct accessibility audit and implement fixes
