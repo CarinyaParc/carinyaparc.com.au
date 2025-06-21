@@ -22,23 +22,23 @@ test.describe('Homepage', () => {
     await page.goto('/');
     const newsletterSection = page.locator('section').filter({ has: page.getByText(/subscribe/i) });
     await expect(newsletterSection).toBeVisible();
-    
+
     const emailInput = newsletterSection.getByRole('textbox', { name: /email/i });
     await emailInput.fill('test@example.com');
-    
+
     const subscribeButton = newsletterSection.getByRole('button', { name: /subscribe/i });
-    
+
     // Mock the API response
-    await page.route('/api/subscribe', async route => {
+    await page.route('/api/subscribe', async (route) => {
       await route.fulfill({
         status: 200,
         body: JSON.stringify({ success: true }),
       });
     });
-    
+
     await subscribeButton.click();
-    
+
     // Check for success message
     await expect(page.getByText(/thank you/i)).toBeVisible({ timeout: 3000 });
   });
-}); 
+});

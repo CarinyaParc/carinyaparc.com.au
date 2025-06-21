@@ -19,4 +19,4 @@ test.describe('Homepage with Page Object Model', () => {
     await homePage.goto();
     await homePage.subscribeToNewsletter('test@example.com');
   });
-}); 
+});

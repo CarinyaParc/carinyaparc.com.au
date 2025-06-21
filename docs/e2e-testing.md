@@ -17,6 +17,7 @@ This document covers the end-to-end (E2E) and cross-browser testing setup for th
 The testing setup includes the following browsers:
 
 1. **Desktop browsers**:
+
    - Chromium (Chrome/Edge)
    - Firefox
    - WebKit (Safari)
@@ -52,6 +53,7 @@ pnpm test:e2e:mobile
 ## CI Testing
 
 Tests run automatically in GitHub Actions when:
+
 - Code is pushed to the main or next branch
 - A pull request is created that modifies source code or tests
 
@@ -92,16 +94,16 @@ import { Page, Locator, expect } from '@playwright/test';
 export class HomePage {
   readonly page: Page;
   readonly heroSection: Locator;
-  
+
   constructor(page: Page) {
     this.page = page;
     this.heroSection = page.locator('section').filter({ hasText: /Welcome to Carinya Parc/ });
   }
-  
+
   async goto() {
     await this.page.goto('/');
   }
-  
+
   async checkHeroVisible() {
     await expect(this.heroSection).toBeVisible();
   }
@@ -130,4 +132,4 @@ export class HomePage {
 
 - [Playwright Documentation](https://playwright.dev/docs/intro)
 - [Page Object Model](https://playwright.dev/docs/pom)
-- [Playwright Test Configuration](https://playwright.dev/docs/test-configuration) 
+- [Playwright Test Configuration](https://playwright.dev/docs/test-configuration)
