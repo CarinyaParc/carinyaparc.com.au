@@ -11,6 +11,7 @@ import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import SubFooter from '../components/SubFooter';
 import Acknowledgement from '../components/Acknowledgement';
+import CookiePolicy from '../components/Policy';
 
 export const metadata: Metadata = {
   title: 'Carinya Parc',
@@ -59,6 +60,7 @@ export default function RootLayout({
         <Footer />
         <SubFooter />
         <Acknowledgement />
+        <CookiePolicy />
       </body>
     </html>
   );
