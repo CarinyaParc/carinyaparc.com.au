@@ -45,8 +45,18 @@ vi.mock('../../../src/components/Acknowledgement', () => ({
 }));
 
 vi.mock('next/script', () => ({
-  default: ({ children, id, strategy }: { children: React.ReactNode; id: string; strategy?: string }) => (
-    <script data-testid={`mock-script-${id}`} data-strategy={strategy}>{children}</script>
+  default: ({
+    children,
+    id,
+    strategy,
+  }: {
+    children: React.ReactNode;
+    id: string;
+    strategy?: string;
+  }) => (
+    <script data-testid={`mock-script-${id}`} data-strategy={strategy}>
+      {children}
+    </script>
   ),
 }));
 
@@ -71,7 +81,7 @@ describe('RootLayout Component', () => {
     render(
       <RootLayout>
         <div data-testid="test-children">Test Content</div>
-      </RootLayout>
+      </RootLayout>,
     );
 
     // Check if all components are rendered
@@ -81,7 +91,7 @@ describe('RootLayout Component', () => {
     expect(screen.getByTestId('mock-footer')).toBeInTheDocument();
     expect(screen.getByTestId('mock-subfooter')).toBeInTheDocument();
     expect(screen.getByTestId('mock-acknowledgement')).toBeInTheDocument();
-    
+
     // Check if children content is rendered
     expect(screen.getByTestId('test-children')).toBeInTheDocument();
     expect(screen.getByText('Test Content')).toBeInTheDocument();
@@ -91,14 +101,14 @@ describe('RootLayout Component', () => {
     render(
       <RootLayout>
         <div>Test Content</div>
-      </RootLayout>
+      </RootLayout>,
     );
 
     // Check for main content area
     const mainElement = screen.getByRole('main');
     expect(mainElement).toBeInTheDocument();
     expect(mainElement).toHaveClass('flex-1');
-    
+
     // Check for body class
     const bodyElement = document.body;
     expect(bodyElement).toHaveClass('flex');
@@ -109,11 +119,11 @@ describe('RootLayout Component', () => {
   it('does not render GTM script in non-production environment', () => {
     process.env.NODE_ENV = 'development';
     process.env.NEXT_PUBLIC_GTM_ID = 'GTM-TEST';
-    
+
     render(
       <RootLayout>
         <div>Test Content</div>
-      </RootLayout>
+      </RootLayout>,
     );
 
     // GTM script should not be rendered in non-production environment
@@ -123,29 +133,29 @@ describe('RootLayout Component', () => {
   it('conditionally renders GTM script in production environment when GTM_ID is available', () => {
     // Since we can't directly test the production environment in the test,
     // we'll modify the test to check the component's conditional logic
-    
+
     // First verify it's not rendered when NODE_ENV is not production
     process.env.NODE_ENV = 'development';
     process.env.NEXT_PUBLIC_GTM_ID = 'GTM-TEST';
-    
+
     const { rerender } = render(
       <RootLayout>
         <div>Test Content</div>
-      </RootLayout>
+      </RootLayout>,
     );
-    
+
     expect(screen.queryByTestId('mock-script-google-tag-manager')).not.toBeInTheDocument();
-    
+
     // Now check the other condition - when GTM_ID is not available
     process.env.NODE_ENV = 'production';
     process.env.NEXT_PUBLIC_GTM_ID = undefined;
-    
+
     rerender(
       <RootLayout>
         <div>Test Content</div>
-      </RootLayout>
+      </RootLayout>,
     );
-    
+
     expect(screen.queryByTestId('mock-script-google-tag-manager')).not.toBeInTheDocument();
   });
 });
@@ -158,4 +168,4 @@ describe('Layout Metadata', () => {
     expect(metadata.keywords).toContain('regenerative farming');
     expect(metadata.keywords).toContain('sustainable agriculture');
   });
-}); 
+});
