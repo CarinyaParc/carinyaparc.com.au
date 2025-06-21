@@ -55,7 +55,7 @@ describe('Header Component', () => {
 
   it('includes a logo with Leaf icon', () => {
     renderWithProviders(<Header navigation={mockNavigation} />);
-    
+
     // Since the Leaf icon is from lucide-react, we can't easily query for it,
     // so we'll check for the logo text which is displayed next to it
     expect(screen.getByText('Carinya Parc')).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe('Header Component', () => {
     // Use getAllByRole since there might be multiple close menu buttons
     const closeButtons = screen.getAllByRole('button', { name: /Close menu/i });
     expect(closeButtons.length).toBeGreaterThan(0);
-    
+
     // Check that navigation content is visible in the modal
     const mobileMenuLinks = screen.getAllByText('About');
     expect(mobileMenuLinks.length).toBeGreaterThan(0);
@@ -90,17 +90,17 @@ describe('Header Component', () => {
     // Find the "About" link and check if it has the current page styling
     // This will need to be adjusted based on your implementation
     const aboutLinks = screen.getAllByText('About');
-    
+
     // At least one About link should exist
     expect(aboutLinks.length).toBeGreaterThan(0);
-    
+
     // Check that at least one of them has the current page class
-    const hasCurrentPageLink = aboutLinks.some(link => {
+    const hasCurrentPageLink = aboutLinks.some((link) => {
       // Get the closest link element
       const linkElement = link.closest('a');
       return linkElement && linkElement.className.includes('text-eucalyptus-100');
     });
-    
+
     expect(hasCurrentPageLink).toBeTruthy();
   });
 
@@ -113,15 +113,15 @@ describe('Header Component', () => {
 
     // Mobile menu should now be open - find the mobile menu by looking for an element that contains links
     const mobileNavLinks = screen.getAllByText('About');
-    
+
     // Find the "About" link that's in the mobile menu
     // This is often the second one (first one is in the desktop nav)
     const mobileAboutLink = mobileNavLinks[mobileNavLinks.length > 1 ? 1 : 0];
     expect(mobileAboutLink).toBeInTheDocument();
-    
+
     // Click the about link in mobile menu
     fireEvent.click(mobileAboutLink);
-    
+
     // With useEffect, clicking the link should close the menu
     // that's difficult to verify in tests, so we'll just check that the link works
     expect(mobileAboutLink).toHaveAttribute('href', '/about');

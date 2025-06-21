@@ -15,12 +15,12 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       reportsDirectory: './coverage',
       exclude: [
-        '**/node_modules/**', 
-        '**/dist/**', 
-        '**/tests/**', 
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/tests/**',
         '**/*.d.ts',
         '**/*.config.{js,ts,mjs}',
-        '**/mocks/**'
+        '**/mocks/**',
       ],
       include: ['src/**/*.{js,jsx,ts,tsx}'],
       all: true,

@@ -15,17 +15,17 @@ vi.mock('next/image', () => ({
 describe('NotFound Component', () => {
   it('renders the 404 page with correct elements', () => {
     render(<NotFound />);
-    
+
     // Check for 404 text
     expect(screen.getByText('404')).toBeInTheDocument();
-    
+
     // Check for page title
     expect(screen.getByText('Page not found')).toBeInTheDocument();
     expect(screen.getByText('Page not found').tagName).toBe('H1');
-    
+
     // Check for descriptive text
     expect(screen.getByText(/Sorry, we couldn't find the page/i)).toBeInTheDocument();
-    
+
     // Check for return home link
     const homeLink = screen.getByText(/Return Home/i).closest('a');
     expect(homeLink).toBeInTheDocument();
@@ -34,7 +34,7 @@ describe('NotFound Component', () => {
 
   it('includes a background image', () => {
     render(<NotFound />);
-    
+
     // Check for background image
     const backgroundImage = screen.getByTestId('not-found-image');
     expect(backgroundImage).toBeInTheDocument();
@@ -46,17 +46,17 @@ describe('NotFound Component', () => {
 
   it('has appropriate styling for error page', () => {
     render(<NotFound />);
-    
+
     // Check for main container
     const mainElement = screen.getByRole('main');
     expect(mainElement).toHaveClass('relative');
     expect(mainElement).toHaveClass('isolate');
     expect(mainElement).toHaveClass('min-h-full');
-    
+
     // Check for content container
     const contentContainer = screen.getByText('Page not found').closest('div');
     expect(contentContainer).toHaveClass('mx-auto');
     expect(contentContainer).toHaveClass('max-w-7xl');
     expect(contentContainer).toHaveClass('text-center');
   });
-}); 
+});
