@@ -17,7 +17,6 @@ This document covers the end-to-end (E2E) and cross-browser testing setup for th
 The testing setup includes the following browsers:
 
 1. **Desktop browsers**:
-
    - Chromium (Chrome/Edge)
    - Firefox
    - WebKit (Safari)

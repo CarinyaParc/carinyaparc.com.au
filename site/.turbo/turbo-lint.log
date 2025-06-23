@@ -1,0 +1,15 @@
+
+
+> site@0.1.0 lint /Users/jonathandaddia/CarinyaParc/carinyaparc.com.au/site
+> next lint
+
+
+[36m./src/app/api/subscribe/route.ts[39m
+[33m10[39m:[33m10[39m  [33m[1mWarning[22m[39m: MAILERLITE_API_KEY is not listed as a dependency in turbo.json  [90m[1mturbo/no-undeclared-env-vars[22m[39m
+[33m27[39m:[33m36[39m  [33m[1mWarning[22m[39m: MAILERLITE_API_KEY is not listed as a dependency in turbo.json  [90m[1mturbo/no-undeclared-env-vars[22m[39m
+
+[36m./src/app/layout.tsx[39m
+[33m33[39m:[33m8[39m  [33m[1mWarning[22m[39m: NODE_ENV is not listed as a dependency in turbo.json  [90m[1mturbo/no-undeclared-env-vars[22m[39m
+[33m46[39m:[33m10[39m  [33m[1mWarning[22m[39m: NODE_ENV is not listed as a dependency in turbo.json  [90m[1mturbo/no-undeclared-env-vars[22m[39m
+
+[36minfo[39m  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
