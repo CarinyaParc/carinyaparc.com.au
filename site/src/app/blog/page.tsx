@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Tag, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/src/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/src/components/ui/card';
+import { Badge } from '@/src/components/ui/badge';
 import { Leaf } from 'lucide-react';
 
 const blogPosts = [

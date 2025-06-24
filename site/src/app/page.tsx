@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Leaf, Heart, Users } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/src/components/ui/button';
+import { Card, CardContent } from '@/src/components/ui/card';
 import {
   Hero,
   HeroContent,
@@ -16,7 +16,7 @@ import {
   HeroActions,
   HeroButton,
   HeroLink,
-} from '@/components/Hero';
+} from '@/src/components/Hero';
 
 export default function HomePage() {
   return (

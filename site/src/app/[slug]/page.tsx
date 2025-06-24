@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Head from "next/head";
 
-import PageBuilderPage from "@/app/components/PageBuilder";
+import PageBuilder from "@/src/components/PageBuilder";
 import { sanityFetch } from "@/sanity/lib/live";
 import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
 import { GetPageQueryResult } from "@/sanity.types";
-import { PageOnboarding } from "@/app/components/Onboarding";
+import { PageOnboarding } from "@/src/components/Onboarding";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -77,7 +77,7 @@ export default async function Page(props: Props) {
           </div>
         </div>
       </div>
-      <PageBuilderPage page={page as GetPageQueryResult} />
+      <PageBuilder page={page as GetPageQueryResult} />
     </div>
   );
 }

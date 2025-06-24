@@ -1,7 +1,8 @@
 import React from "react";
 
-import Cta from "@/app/components/Cta";
-import Info from "@/app/components/InfoSection";
+import Cta from "@/src/components/Cta";
+import Info from "@/src/components/InfoSection";
+import LegalContent from "@/src/components/LegalContent";
 import { dataAttr } from "@/sanity/lib/utils";
 
 type BlocksType = {
@@ -23,6 +24,7 @@ type BlockProps = {
 const Blocks: BlocksType = {
   callToAction: Cta,
   infoSection: Info,
+  legalContent: LegalContent,
 };
 
 /**

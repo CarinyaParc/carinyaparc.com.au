@@ -1,10 +1,18 @@
+import '../styles/globals.css';
+
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from 'next';
+import { Montserrat } from 'next/font/google';
+import { fontClassNames } from '../lib/font';
+import { draftMode } from 'next/headers';
+import { VisualEditing, toPlainText } from "next-sanity";
+import { Toaster } from "sonner";
+
+import DraftModeToast from "@/src/components/DraftModeToast";
+import * as meta from "@/src/app/meta";
 import Script from 'next/script';
 
-import '../styles/globals.css';
-import { fontClassNames } from '../lib/font';
 import { navigation } from './navigation';
-
 import Banner from '../components/Banner';
 import Header from '../components/Header';
 import Newsletter from '../components/Newsletter';
@@ -13,20 +21,55 @@ import SubFooter from '../components/SubFooter';
 import Acknowledgement from '../components/Acknowledgement';
 import CookiePolicy from '../components/Policy';
 
-export const metadata: Metadata = {
-  title: 'Carinya Parc',
-  description:
-    'Carinya Parc is a regenerative farm located at The Branch NSW, focused on land restoration and sustainable agriculture.',
-  keywords: ['regenerative farming', 'sustainable agriculture', 'Carinya Parc', 'Australia'],
-};
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { settingsQuery } from "@/sanity/lib/queries";
+import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import { handleError } from "./client-utils";
+
+/**
+ * Generate metadata for the page.
+ * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const { data: settings } = await sanityFetch({
+    query: settingsQuery,
+    // Metadata should never contain stega
+    stega: false,
+  });
+  const title = settings?.title || meta.title;
+  const description = settings?.description || meta.description;
+
+  const ogImage = resolveOpenGraphImage(settings?.ogImage);
+  let metadataBase: URL | undefined = undefined;
+  try {
+    metadataBase = settings?.ogImage?.metadataBase
+      ? new URL(settings.ogImage.metadataBase)
+      : undefined;
+  } catch {
+    // ignore
+  }
+  return {
+    metadataBase,
+    title: {
+      template: `%s | ${title}`,
+      default: title,
+    },
+    description: toPlainText(description),
+    openGraph: {
+      images: ogImage ? [ogImage] : [],
+    },
+  };
+}
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled: isDraftMode } = await draftMode();
+
   return (
     <html lang="en" className={fontClassNames} suppressHydrationWarning>
       {/* Google Tag Manager */}
@@ -53,6 +96,17 @@ export default function RootLayout({
             ></iframe>
           </noscript>
         )}
+        {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
+        <Toaster />
+        {isDraftMode && (
+            <>
+              <DraftModeToast />
+              {/*  Enable Visual Editing, only to be rendered when Draft Mode is enabled */}
+              <VisualEditing />
+            </>
+          )}
+          {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
+          <SanityLive onError={handleError} />
         <Banner />
         <Header navigation={navigation} />
         <main className="flex-1">{children}</main>
@@ -61,6 +115,7 @@ export default function RootLayout({
         <SubFooter />
         <Acknowledgement />
         <CookiePolicy />
+        <SpeedInsights />
       </body>
     </html>
   );

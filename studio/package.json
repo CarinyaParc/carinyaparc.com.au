@@ -15,7 +15,9 @@
     "sanity"
   ],
   "dependencies": {
+    "@sanity/icons": "^3.7.4",
     "@sanity/vision": "^3.93.0",
+    "date-fns": "4.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "sanity": "^3.93.0",
