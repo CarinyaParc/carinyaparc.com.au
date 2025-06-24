@@ -1,19 +1,24 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "tasks": {
+  "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "env": ["NODE_ENV", "MAILERLITE_API_KEY", "NEXT_PUBLIC_GTM_ID"]
     },
-    "lint": {},
+    "lint": {
+      "env": ["NODE_ENV", "MAILERLITE_API_KEY", "NEXT_PUBLIC_GTM_ID"]
+    },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["NODE_ENV", "MAILERLITE_API_KEY", "NEXT_PUBLIC_GTM_ID"]
     },
     "test": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"],
+      "env": ["NODE_ENV", "MAILERLITE_API_KEY", "NEXT_PUBLIC_GTM_ID"]
     },
     "test:watch": {
       "cache": false
@@ -21,6 +26,9 @@
     "clean": {
       "cache": false
     },
-    "typecheck": {}
-  }
+    "typecheck": {
+      "env": ["NODE_ENV", "MAILERLITE_API_KEY", "NEXT_PUBLIC_GTM_ID"]
+    }
+  },
+  "globalEnv": ["NODE_ENV", "MAILERLITE_API_KEY", "NEXT_PUBLIC_GTM_ID"]
 }
