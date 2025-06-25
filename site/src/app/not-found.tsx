@@ -6,8 +6,11 @@ export default function NotFound() {
     <main className="relative isolate min-h-full">
       <Image
         alt=""
-        src="https://images.unsplash.com/photo-1545972154-9bb223aac798?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3050&q=80&exp=8&con=-15&sat=-75"
+        src="/images/404.jpg"
         className="absolute inset-0 -z-10 size-full object-cover object-top"
+        width={3050}
+        height={1500}
+        priority
       />
       <div className="mx-auto max-w-7xl px-6 py-32 text-center sm:py-40 lg:px-8">
         <p className="text-base/8 font-semibold text-white">404</p>

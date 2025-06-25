@@ -14,23 +14,29 @@ const navigation: {
   FooterList3: NavigationItem[];
   FooterList4: NavigationItem[];
 } = {
-  FooterList1: [],
+  FooterList1: [
+    { name: 'Our Story', href: '/about' },
+    { name: 'Meet Jonathan', href: '/about/jonathan' },
+    { name: 'The Property', href: '/about/property' },
+    { name: 'Our Vision', href: '/about/vision' },
+  ],
   FooterList2: [
-    { name: 'Our Farm', href: '/about' },
-    { name: 'Land Regeneration', href: '/regeneration' },
-    { name: 'Life on the Land', href: '/blog' },
+    { name: 'Farm Tours', href: '/our-farm' },
+    { name: 'Regeneration', href: '/regeneration' },
+    { name: 'Future Produce', href: '/products' },
   ],
   FooterList3: [
-    { name: 'Resource A', href: '#' },
-    { name: 'Resource B', href: '#' },
+    { name: 'Cook From the Hearth', href: '/recipes' },
+    { name: 'Read Out to Pasture', href: '/blog' },
   ],
   FooterList4: [
+    { name: 'Get Involved', href: '/get-involved' },
+    { name: 'Subscribe', href: '/subscribe' },
     { name: 'YouTube', href: 'https://www.youtube.com/@carinyaparc' },
     { name: 'Instagram', href: 'https://www.instagram.com/carinyaparc/' },
-    { name: 'Facebook', href: 'https://www.facebook.com/carinyaparc/' },
   ],
 };
-
+  
 export default function Footer() {
   return (
     <footer className="bg-white dark:bg-charcoal-600 border-t border-charcoal-200 dark:border-charcoal-200">
@@ -57,7 +63,7 @@ export default function Footer() {
           <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold text-eucalyptus-600 dark:text-eucalyptus-600"></h3>
+                <h3 className="text-sm font-semibold text-eucalyptus-600 dark:text-eucalyptus-600">About Carinya Parc</h3>
                 <ul role="list" className="mt-4 space-y-3">
                   {navigation.FooterList1.map((item) => (
                     <li key={item.name}>
