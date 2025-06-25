@@ -1,35 +1,30 @@
 import fs from 'fs';
 import path from 'path';
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import matter from 'gray-matter';
 
-interface PageProps {
-  params: { slug: string };
-}
+// types for Next.js 15 async params/searchParams
+type Params = Promise<{ slug: string }>;
+type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
-interface PageParam {
-  slug: string;
-}
+const CONTENT_DIRECTORIES = ['', 'legal', 'blog'];
 
-// All possible content subdirectories - add more as your content structure grows
-const CONTENT_DIRECTORIES = ['', 'legal', 'blog', 'recipes', 'products'];
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  // Try to find the MDX file in any content subdirectory
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+  searchParams?: SearchParams;
+}): Promise<Metadata> {
+  const { slug } = await params;
   let frontmatter = null;
 
   for (const dir of CONTENT_DIRECTORIES) {
-    try {
-      const filePath = path.join(process.cwd(), 'content', dir, `${params.slug}.mdx`);
-      if (fs.existsSync(filePath)) {
-        const source = fs.readFileSync(filePath, 'utf8');
-        const { data } = matter(source);
-        frontmatter = data;
-        break;
-      }
-    } catch {
-      continue;
+    const filePath = path.join(process.cwd(), 'content', dir, `${slug}.mdx`);
+    if (fs.existsSync(filePath)) {
+      const source = fs.readFileSync(filePath, 'utf8');
+      frontmatter = matter(source).data;
+      break;
     }
   }
 
@@ -41,75 +36,43 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${frontmatter.title} - Carinya Parc`,
+    title: `${frontmatter.title} – Carinya Parc`,
     description: frontmatter.description,
   };
 }
 
-export default async function Page({ params }: PageProps) {
-  const { slug } = params;
+export default async function Page({ params }: { params: Params; searchParams?: SearchParams }) {
+  const { slug } = await params;
 
-  // Try to load MDX from various content subdirectories
+  // …your existing MDX lookup and import logic…
   let ContentComponent;
+  let frontmatter = null;
   let contentPath = '';
 
-  // Check each directory for the file
   for (const dir of CONTENT_DIRECTORIES) {
-    try {
-      const filePath = path.join(process.cwd(), 'content', dir, `${slug}.mdx`);
-      if (fs.existsSync(filePath)) {
-        contentPath = dir ? `${dir}/${slug}` : slug;
-        break;
-      }
-    } catch {
-      continue;
+    const filePath = path.join(process.cwd(), 'content', dir, `${slug}.mdx`);
+    if (fs.existsSync(filePath)) {
+      contentPath = dir ? `${dir}/${slug}` : slug;
+      const source = fs.readFileSync(filePath, 'utf8');
+      frontmatter = matter(source).data;
+      break;
     }
   }
 
-  if (!contentPath) {
-    notFound();
-  }
+  if (!contentPath) notFound();
 
-  // Load the component dynamically
   try {
-    ContentComponent = contentPath.includes('/')
-      ? (await import(`@/content/${contentPath}.mdx`)).default
-      : (await import(`@/content/${slug}.mdx`)).default;
-  } catch (error) {
-    console.error('Error loading MDX content:', error);
+    ContentComponent = (await import(`@/content/${contentPath}.mdx`)).default;
+  } catch {
     notFound();
   }
 
   return (
-    <div className="container mx-auto py-12 px-4 md:px-6 lg:px-8 max-w-4xl prose prose-eucalyptus">
+    <div className="container mx-auto py-12 px-4 max-w-4xl prose prose-eucalyptus">
+      {frontmatter?.date && (
+        <p className="text-sm text-gray-500 mb-4">Published: {frontmatter.date}</p>
+      )}
       <ContentComponent />
     </div>
   );
 }
-
-export function generateStaticParams(): PageParam[] {
-  const pages: PageParam[] = [];
-
-  // Scan all content directories at build time
-  for (const dir of CONTENT_DIRECTORIES) {
-    try {
-      const dirPath = path.join(process.cwd(), 'content', dir);
-      if (fs.existsSync(dirPath)) {
-        const files = fs.readdirSync(dirPath).filter((file) => file.endsWith('.mdx'));
-
-        files.forEach((file) => {
-          pages.push({
-            slug: file.replace('.mdx', ''),
-          });
-        });
-      }
-    } catch {
-      // Skip if directory doesn't exist
-    }
-  }
-
-  return pages;
-}
-
-// Set to true to allow handling paths not returned by generateStaticParams
-export const dynamicParams = true;

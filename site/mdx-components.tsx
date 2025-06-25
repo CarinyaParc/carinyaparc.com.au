@@ -1,5 +1,6 @@
 import type { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -28,6 +29,15 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     code: ({ children }) => (
       <code className="bg-gray-100 rounded px-1 py-0.5 font-mono text-sm">{children}</code>
+    ),
+    img: (props) => (
+      <Image
+        sizes="100vw"
+        style={{ width: '100%', height: 'auto' }}
+        className="rounded-lg my-4"
+        {...props}
+        alt={props.alt || 'Image'}
+      />
     ),
   };
 }

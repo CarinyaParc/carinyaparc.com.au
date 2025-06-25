@@ -8,7 +8,8 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "skipLibCheck": true
   },
   "include": [
     "**/*.ts",
@@ -17,7 +18,8 @@
     "next.config.ts",
     ".next/types/**/*.ts",
     "src/**/*.ts",
-    "src/app/sitemap.bak"
+    "src/app/sitemap.bak",
+    "src/app/[slug]/page.bak"
   ],
   "exclude": ["node_modules"]
 }
