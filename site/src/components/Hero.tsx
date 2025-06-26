@@ -119,7 +119,7 @@ export function HeroButton({ href, children }: { href: string; children: ReactNo
   return (
     <Link
       href={href}
-      className="rounded-md bg-eucalyptus-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-harvest-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600"
+      className="rounded-md bg-eucalyptus-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-eucalyptus-200 hover:text-eucalyptus-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-300"
     >
       {children}
     </Link>

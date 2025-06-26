@@ -51,9 +51,7 @@ export default function Footer() {
                 height={40}
                 className="h-10 w-auto"
               />
-              <h3 className="text-xl font-semibold text-white">
-                Carinya Parc
-              </h3>
+              <h3 className="text-xl font-semibold text-white">Carinya Parc</h3>
             </div>
             <p className="text-sm text-eucalyptus-100 max-w-xs">
               A regenerative farm focused on restoring the land and sustainable agricultural
@@ -78,9 +76,7 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold text-white">
-                  Explore
-                </h3>
+                <h3 className="text-sm font-semibold text-white">Explore</h3>
                 <ul role="list" className="mt-4 space-y-3">
                   {navigation.FooterList2.map((item) => (
                     <li key={item.name}>
@@ -97,9 +93,7 @@ export default function Footer() {
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold text-white">
-                  Resources
-                </h3>
+                <h3 className="text-sm font-semibold text-white">Resources</h3>
                 <ul role="list" className="mt-4 space-y-3">
                   {navigation.FooterList3.map((item) => (
                     <li key={item.name}>
@@ -114,9 +108,7 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold text-white">
-                  Community
-                </h3>
+                <h3 className="text-sm font-semibold text-white">Community</h3>
                 <ul role="list" className="mt-4 space-y-3">
                   {navigation.FooterList4.map((item) => (
                     <li key={item.name}>

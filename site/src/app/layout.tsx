@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/next';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
 import { fontClassNames } from '../lib/font';
@@ -63,7 +63,7 @@ export default async function RootLayout({
         <Acknowledgement />
         <CookiePolicy />
         <SpeedInsights />
-        <Analytics/>
+        <Analytics />
       </body>
     </html>
   );

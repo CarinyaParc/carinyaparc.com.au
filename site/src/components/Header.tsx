@@ -55,8 +55,9 @@ export default function Header({ navigation }: HeaderProps) {
     : 'absolute top-4 left-0 right-0 bg-transparent';
 
   const textColorClass = isScrolled
-    ? 'text-eucalyptus-600 hover:text-charcoal-600'
-    : 'text-white hover:text-eucalyptus-600';
+    ? 'text-eucalyptus-600'
+    : 'text-white';
+  const hoverClass = 'hover:bg-eucalyptus-100 hover:text-eucalyptus-600 rounded-lg';
   const logoColorClass = isScrolled ? 'text-eucalyptus-600' : 'text-white';
 
   return (
@@ -71,7 +72,6 @@ export default function Header({ navigation }: HeaderProps) {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2"
           >
-            <Leaf className={`h-8 w-8 ${logoColorClass} transition-colors duration-300`} />
             <span className={`text-2xl font-bold ${logoColorClass} transition-colors duration-300`}>
               Carinya Parc
             </span>
@@ -92,7 +92,7 @@ export default function Header({ navigation }: HeaderProps) {
         </div>
 
         {/* Desktop navigation */}
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex lg:gap-x-8">
           {navigation
             .filter((item) => item.visible !== false)
             .map((item) => (
@@ -101,18 +101,25 @@ export default function Header({ navigation }: HeaderProps) {
                 href={item.href}
                 className={`text-sm font-semibold ${textColorClass} transition-colors duration-300 ${
                   pathname === item.href ? 'text-eucalyptus-100' : ''
-                }`}
+                } flex flex-col items-start text-left ${hoverClass} px-2 py-1`}
               >
-                {item.label}
+                {item.label ? (
+                  item.label
+                ) : (
+                  <>
+                    <span className="font-bold">{item.verb}</span>
+                    <span className="text-xs mt-1 whitespace-nowrap">{item.rest}</span>
+                  </>
+                )}
               </Link>
             ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
-            href="/blog"
-            className={`rounded-md bg-eucalyptus-600 text-white hover:bg-harvest-600 px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600 transition-colors duration-300`}
+            href="/subscribe"
+            className={`rounded-md bg-eucalyptus-600 text-white hover:bg-eucalyptus-200 hover:text-eucalyptus-600 px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600 transition-colors duration-300`}
           >
-            Follow our Journey
+            Subscribe
           </Link>
         </div>
       </nav>
@@ -163,16 +170,23 @@ export default function Header({ navigation }: HeaderProps) {
                           className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-white hover:bg-gray-800"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          {item.label}
+                          {item.label ? (
+                            item.label
+                          ) : (
+                            <div className="flex flex-col">
+                              <span className="font-bold text-eucalyptus-400">{item.verb}</span>
+                              <span className="text-sm font-normal">{item.rest}</span>
+                            </div>
+                          )}
                         </Link>
                       ))}
                   </div>
                   <div className="py-6">
                     <Link
-                      href="/blog"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold text-white hover:bg-gray-800"
+                      href="/subscribe"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                     >
-                      Follow our Journey
+                      Subscribe
                     </Link>
                   </div>
                 </div>

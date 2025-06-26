@@ -17,6 +17,17 @@ import {
   HeroButton,
   HeroLink,
 } from '@/src/components/Hero';
+import {
+  SectionWithImage,
+  SectionImage,
+  SectionContent,
+  SectionTitle,
+  SectionSubtitle,
+  SectionText,
+  SectionActions,
+  SectionButton,
+  SectionLink,
+} from '@/src/components/SectionWithImage';
 
 export default function HomePage() {
   return (
@@ -38,13 +49,14 @@ export default function HomePage() {
             <span className="text-eucalyptus-600"> Nurturing the Future</span>
           </HeroTitle>
           <HeroText>
-            Welcome to Carinya Parc, where we're dedicated to regenerating the Australian landscape
-            through sustainable farming practices and environmental restoration.
+            Welcome to Carinya Parc. We're creating a living example of how we can heal the land,
+            grow nutrient-dense food and build community through regenerative agriculture.
           </HeroText>
           <HeroLocation>315 Warraba Road, The Branch NSW 2425</HeroLocation>
           <HeroActions>
-            <HeroButton href="/our-farm">Learn Our Story</HeroButton>
-            <HeroLink href="/regeneration">View Our Project</HeroLink>
+            <HeroButton href="/our-farm">
+              Learn Our Story <span aria-hidden="true">→</span>
+            </HeroButton>
           </HeroActions>
         </HeroContent>
       </Hero>
@@ -58,10 +70,10 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-green-900 mb-4">Our Mission</h2>
-            <p className="text-xl text-green-700 max-w-3xl mx-auto">
-              We're committed to transforming degraded land into thriving ecosystems through
-              innovative regenerative practices.
+            <h2 className="text-3xl lg:text-4xl font-bold text-eucalyptus-600 mb-4">Our Mission</h2>
+            <p className="text-xl text-eucalyptus-500 max-w-3xl mx-auto">
+              To heal land and food systems through hands-on ecological restoration, delivering
+              nutrient-dense produce, and inspiring collective action.
             </p>
           </motion.div>
 
@@ -69,21 +81,21 @@ export default function HomePage() {
             {[
               {
                 icon: Leaf,
-                title: 'Land Regeneration',
+                title: 'Regeneration over Extraction',
                 description:
-                  'Restoring soil health and biodiversity through sustainable practices and native plantings.',
+                  'We prioritise practices that rebuild soil health, biodiversity and water systems rather than deplete them. Ensuring every action leaves the land healthier than we found it.',
               },
               {
                 icon: Heart,
-                title: 'Environmental Care',
+                title: 'Stewardship over Ownership',
                 description:
-                  'Protecting and enhancing natural habitats while creating productive agricultural systems.',
+                  "We treat the land as borrowed from future generations. Caring for it with respect and humility, guided by both scientific knowledge and nature's own wisdom.",
               },
               {
                 icon: Users,
-                title: 'Community Impact',
+                title: 'Collaboration & Transparency',
                 description:
-                  'Building connections with local communities and sharing knowledge about sustainable farming.',
+                  'True transformation requires many hands and open sharing. We partner with communities - inviting everyone to learn from our successes and setbacks.',
               },
             ].map((feature, index) => (
               <motion.div
@@ -92,11 +104,11 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="h-full border-green-100 hover:shadow-lg transition-shadow">
+                <Card className="h-full bg-eucalyptus-600 border-eucalyptus-100 hover:shadow-lg transition-shadow">
                   <CardContent className="p-8 text-center">
-                    <feature.icon className="h-12 w-12 text-green-600 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-green-900 mb-4">{feature.title}</h3>
-                    <p className="text-green-700">{feature.description}</p>
+                    <feature.icon className="h-12 w-12 text-eucalyptus-100 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-white mb-4">{feature.title}</h3>
+                    <p className="text-eucalyptus-100">{feature.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -105,8 +117,35 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/*Our Story Section*/}
+      <section className="py-20 bg-white">
+        <SectionWithImage variant="dark" imagePosition="right">
+          <SectionImage imagePosition="right">
+            <Image
+              src="/images/img_9.jpg"
+              alt="Farm landscape"
+              fill
+              className="object-cover"
+              priority
+            />
+          </SectionImage>
+          <SectionContent imagePosition="right">
+            <SectionSubtitle variant="dark">Our Story</SectionSubtitle>
+            <SectionTitle variant="dark">Regenerating Land, Growing Community</SectionTitle>
+            <SectionText variant="dark">
+              We're transforming 42 hectares (104 acres) of previously degraded land into thriving woodland, diverse habitat corridors, and productive agroforestry systems. Founded by Jonathan Daddia — strategic leader turned regenerative farmer — our approach combines evidence-based ecological practices with community engagement.
+            </SectionText>
+            <SectionActions>
+              <SectionButton href="/about" variant="dark">
+                Read Our Story<span aria-hidden="true">→</span>
+              </SectionButton>
+            </SectionActions>
+          </SectionContent>
+        </SectionWithImage>
+      </section>
+
       {/* Latest Updates Section */}
-      <section className="py-20 bg-green-50">
+      <section className="py-20 bg-eucalyptus-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -114,11 +153,11 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-green-900 mb-4">
-              Latest from the Land
+            <h2 className="text-3xl lg:text-4xl font-bold text-charcoal-600 mb-4">
+              Out to Pasture
             </h2>
-            <p className="text-xl text-green-700">
-              Follow our journey as we transform Carinya Parc
+            <p className="text-xl text-eucalyptus-500">
+              Follow our journey as we transform Carinya Parc into a thriving regenerative farm.
             </p>
           </motion.div>
 
@@ -152,7 +191,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                <Card className="overflow-hidden bg-eucalyptus-600 hover:shadow-lg transition-shadow">
                   <Image
                     src={post.image || '/placeholder.svg'}
                     alt={post.title}
@@ -161,14 +200,14 @@ export default function HomePage() {
                     className="w-full h-48 object-cover"
                   />
                   <CardContent className="p-6">
-                    <div className="text-sm text-green-600 mb-2">{post.date}</div>
-                    <h3 className="text-xl font-semibold text-green-900 mb-3">{post.title}</h3>
-                    <p className="text-green-700 mb-4">{post.excerpt}</p>
+                    <div className="text-sm text-charcoal-100 mb-2">{post.date}</div>
+                    <h3 className="text-xl font-semibold text-white mb-3">{post.title}</h3>
+                    <p className="text-eucalyptus-100 mb-4">{post.excerpt}</p>
                     <Button
                       asChild
                       variant="outline"
                       size="sm"
-                      className="border-green-600 text-green-600"
+                      className="border-eucalyptus-600 text-eucalyptus-600"
                     >
                       <Link href="/blog">Read More</Link>
                     </Button>
