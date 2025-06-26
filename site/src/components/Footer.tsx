@@ -36,10 +36,10 @@ const navigation: {
     { name: 'Instagram', href: 'https://www.instagram.com/carinyaparc/' },
   ],
 };
-  
+
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-charcoal-600 border-t border-charcoal-200 dark:border-charcoal-200">
+    <footer className="bg-eucalyptus-600">
       <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-8 lg:py-24">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-6">
@@ -51,11 +51,11 @@ export default function Footer() {
                 height={40}
                 className="h-10 w-auto"
               />
-              <h3 className="text-xl font-semibold text-eucalyptus-600 dark:text-eucalyptus-600">
+              <h3 className="text-xl font-semibold text-white">
                 Carinya Parc
               </h3>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300 max-w-xs">
+            <p className="text-sm text-eucalyptus-100 max-w-xs">
               A regenerative farm focused on restoring the land and sustainable agricultural
               practices.
             </p>
@@ -63,13 +63,13 @@ export default function Footer() {
           <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold text-eucalyptus-600 dark:text-eucalyptus-600">About Carinya Parc</h3>
+                <h3 className="text-sm font-semibold text-white">About Carinya Parc</h3>
                 <ul role="list" className="mt-4 space-y-3">
                   {navigation.FooterList1.map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm text-gray-600 hover:text-eucalyptus-600 dark:text-gray-300 dark:hover:text-eucalyptus-600"
+                        className="text-sm text-eucalyptus-100 hover:text-charcoal-600 dark:text-gray-300 dark:hover:text-eucalyptus-600"
                       >
                         {item.name}
                       </Link>
@@ -78,7 +78,7 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold text-eucalyptus-600 dark:text-eucalyptus-600">
+                <h3 className="text-sm font-semibold text-white">
                   Explore
                 </h3>
                 <ul role="list" className="mt-4 space-y-3">
@@ -86,7 +86,7 @@ export default function Footer() {
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm text-gray-600 hover:text-eucalyptus-600 dark:text-gray-300 dark:hover:text-eucalyptus-600"
+                        className="text-sm text-eucalyptus-100 hover:text-charcoal-600 dark:text-gray-300 dark:hover:text-eucalyptus-600"
                       >
                         {item.name}
                       </Link>
@@ -97,7 +97,7 @@ export default function Footer() {
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold text-eucalyptus-600 dark:text-eucalyptus-600">
+                <h3 className="text-sm font-semibold text-white">
                   Resources
                 </h3>
                 <ul role="list" className="mt-4 space-y-3">
@@ -105,7 +105,7 @@ export default function Footer() {
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm text-gray-600 hover:text-eucalyptus-600 dark:text-gray-300 dark:hover:text-eucalyptus-600"
+                        className="text-sm text-eucalyptus-100 hover:text-charcoal-600 dark:text-gray-300 dark:hover:text-eucalyptus-600"
                       >
                         {item.name}
                       </Link>
@@ -114,7 +114,7 @@ export default function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold text-eucalyptus-600 dark:text-eucalyptus-600">
+                <h3 className="text-sm font-semibold text-white">
                   Community
                 </h3>
                 <ul role="list" className="mt-4 space-y-3">
@@ -122,7 +122,7 @@ export default function Footer() {
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm text-gray-600 hover:text-eucalyptus-600 dark:text-gray-300 dark:hover:text-eucalyptus-600"
+                        className="text-sm text-eucalyptus-100 hover:text-charcoal-600 dark:text-gray-300 dark:hover:text-eucalyptus-600"
                       >
                         {item.name}
                       </Link>

@@ -70,7 +70,7 @@ export default function SubFooter() {
   const currentYear = new Date().getFullYear();
   return (
     <div className="bg-eucalyptus-600 text-white">
-      <div className="mx-auto max-w-7xl px-6 py-8 md:flex md:items-center md:justify-between lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-8 md:flex md:items-center md:justify-between lg:px-8 border-t border-eucalyptus-400">
         <div className="md:flex md:items-center md:order-1">
           <p className="text-center text-sm text-eucalyptus-100 md:text-left">
             &copy; {currentYear} Carinya Parc. All rights reserved.
