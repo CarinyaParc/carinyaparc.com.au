@@ -52,7 +52,7 @@ export default function HomePage() {
             Welcome to Carinya Parc. We're creating a living example of how we can heal the land,
             grow nutrient-dense food and build community through regenerative agriculture.
           </HeroText>
-          <HeroLocation>315 Warraba Road, The Branch NSW 2425</HeroLocation>
+          <HeroLocation>The Branch NSW 2425</HeroLocation>
           <HeroActions>
             <HeroButton href="/our-farm">
               Learn Our Story <span aria-hidden="true">→</span>
