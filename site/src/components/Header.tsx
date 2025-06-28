@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Leaf } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NavItem } from '../app/navigation';
@@ -51,14 +51,10 @@ export default function Header({ navigation }: HeaderProps) {
 
   // Apply styles based on scroll position
   const headerClass = isScrolled
-    ? 'fixed top-4 left-0 right-0 bg-white/80 backdrop-blur-sm shadow-md'
+    ? 'fixed top-4 left-0 right-0 bg-gray-900/90 backdrop-blur-sm shadow-md'
     : 'absolute top-4 left-0 right-0 bg-transparent';
 
-  const textColorClass = isScrolled
-    ? 'text-eucalyptus-600'
-    : 'text-white';
-  const hoverClass = 'hover:bg-eucalyptus-100 hover:text-eucalyptus-600 rounded-lg';
-  const logoColorClass = isScrolled ? 'text-eucalyptus-600' : 'text-white';
+  const hoverClass = 'hover:bg-eucalyptus-100 rounded-lg';
 
   return (
     <header className={`z-40 transition-all duration-300 ${headerClass}`}>
@@ -72,7 +68,7 @@ export default function Header({ navigation }: HeaderProps) {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2"
           >
-            <span className={`text-2xl font-bold ${logoColorClass} transition-colors duration-300`}>
+            <span className={`text-2xl font-bold text-white transition-colors duration-300`}>
               Carinya Parc
             </span>
           </motion.div>
@@ -81,7 +77,7 @@ export default function Header({ navigation }: HeaderProps) {
         {/* Mobile menu button */}
         <div className="flex lg:hidden">
           <button
-            className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${textColorClass} transition-colors duration-300`}
+            className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white transition-colors duration-300`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
@@ -92,14 +88,14 @@ export default function Header({ navigation }: HeaderProps) {
         </div>
 
         {/* Desktop navigation */}
-        <div className="hidden lg:flex lg:gap-x-8">
+        <div className="hidden lg:flex flex-1 justify-evenly max-w-3xl mx-auto">
           {navigation
             .filter((item) => item.visible !== false)
             .map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-semibold ${textColorClass} transition-colors duration-300 ${
+                className={`text-sm font-semibold text-white transition-colors duration-300 ${
                   pathname === item.href ? 'text-eucalyptus-100' : ''
                 } flex flex-col items-start text-left ${hoverClass} px-2 py-1`}
               >
@@ -107,8 +103,8 @@ export default function Header({ navigation }: HeaderProps) {
                   item.label
                 ) : (
                   <>
-                    <span className="font-bold">{item.verb}</span>
-                    <span className="text-xs mt-1 whitespace-nowrap">{item.rest}</span>
+                    <span className="font-bold text-eucalyptus-400">{item.verb}</span>
+                    <span className="text-xs font-normal mt-1 whitespace-nowrap">{item.rest}</span>
                   </>
                 )}
               </Link>
@@ -119,7 +115,7 @@ export default function Header({ navigation }: HeaderProps) {
             href="/subscribe"
             className={`rounded-md bg-eucalyptus-600 text-white hover:bg-eucalyptus-200 hover:text-eucalyptus-600 px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600 transition-colors duration-300`}
           >
-            Subscribe
+            Follow our Journey
           </Link>
         </div>
       </nav>
@@ -146,7 +142,6 @@ export default function Header({ navigation }: HeaderProps) {
             >
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center space-x-2">
-                  <Leaf className="h-7 w-7 text-white" />
                   <span className="text-xl font-bold text-white">Carinya Parc</span>
                 </div>
                 <button
@@ -186,7 +181,7 @@ export default function Header({ navigation }: HeaderProps) {
                       href="/subscribe"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                     >
-                      Subscribe
+                      Follow our Journey
                     </Link>
                   </div>
                 </div>

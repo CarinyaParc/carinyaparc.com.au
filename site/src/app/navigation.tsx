@@ -10,46 +10,46 @@ export type NavItem = {
 
 export const navigation: NavItem[] = [
   { label: 'Home', href: '/', visible: false },
-  { 
+  {
     verb: 'Discover',
     rest: 'Our Story',
-    href: '#', 
-    visible: true 
+    href: '/about',
+    visible: true,
   },
-  { 
+  {
     verb: 'Regenerate',
     rest: 'With Us',
-    href: '#', 
-    visible: true 
+    href: '/regeneration',
+    visible: true,
   },
-  { 
+  {
     verb: 'Experience',
     rest: 'The Farm',
-    href: '#', 
-    visible: true 
+    href: '#',
+    visible: false,
   },
-  { 
+  {
     verb: 'Learn',
     rest: 'About Our Produce',
-    href: '#', 
-    visible: true 
+    href: '#',
+    visible: false,
   },
-  { 
+  {
     verb: 'Cook',
     rest: 'From The Hearth',
-    href: '#', 
-    visible: true 
+    href: '#',
+    visible: false,
   },
-  { 
+  {
     verb: 'Read',
     rest: 'Out to Pasture',
-    href: '#', 
-    visible: true 
+    href: '#',
+    visible: true,
   },
-  { 
+  {
     verb: 'Join',
     rest: 'Our Community',
-    href: '#', 
-    visible: false 
-  }
+    href: '#',
+    visible: false,
+  },
 ];

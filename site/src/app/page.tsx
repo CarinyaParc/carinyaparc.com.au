@@ -133,7 +133,10 @@ export default function HomePage() {
             <SectionSubtitle variant="dark">Our Story</SectionSubtitle>
             <SectionTitle variant="dark">Regenerating Land, Growing Community</SectionTitle>
             <SectionText variant="dark">
-              We're transforming 42 hectares (104 acres) of previously degraded land into thriving woodland, diverse habitat corridors, and productive agroforestry systems. Founded by Jonathan Daddia — strategic leader turned regenerative farmer — our approach combines evidence-based ecological practices with community engagement.
+              We're transforming 42 hectares (104 acres) of previously degraded land into thriving
+              woodland, diverse habitat corridors, and productive agroforestry systems. Founded by
+              Jonathan Daddia — strategic leader turned regenerative farmer — our approach combines
+              evidence-based ecological practices with community engagement.
             </SectionText>
             <SectionActions>
               <SectionButton href="/about" variant="dark">
