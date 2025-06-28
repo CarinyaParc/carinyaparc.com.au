@@ -8,8 +8,8 @@ import {
   Title,
   Description,
   FeaturesList,
-  Image,
-} from './PageSectionA';
+  SectionImage,
+} from '../PageSection/PageSectionA';
 
 // Sample features data
 const features = [
@@ -45,7 +45,7 @@ export default function PageSectionExample() {
         </Description>
         <FeaturesList items={features} />
       </Content>
-      <Image src="/images/hero_image.jpg" alt="Carinya Parc landscape" />
+      <SectionImage src="/images/hero_image.jpg" alt="Carinya Parc landscape" />
     </PageSectionA>
   );
 }

@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { Button } from '@/src/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/src/components/ui/card';
 import { Badge } from '@/src/components/ui/badge';
-import { Leaf } from 'lucide-react';
 
 const blogPosts = [
   {

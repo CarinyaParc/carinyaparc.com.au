@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import Image from 'next/image';
 
 // Main container component
 interface PageSectionAProps {
@@ -91,9 +92,15 @@ interface ImageProps {
   className?: string;
 }
 
-export function Image({ src, alt, width = 2432, height = 1442, className = '' }: ImageProps) {
+export function SectionImage({
+  src,
+  alt,
+  width = 2432,
+  height = 1442,
+  className = '',
+}: ImageProps) {
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
       width={width}

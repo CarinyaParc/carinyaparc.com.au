@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Leaf, Heart, Users, Shovel, Sprout, Newspaper} from 'lucide-react';
+import { ArrowRight, Leaf, Heart, Users, Shovel, Sprout, Newspaper } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/src/components/ui/button';
@@ -15,7 +15,6 @@ import {
   HeroLocation,
   HeroActions,
   HeroButton,
-  HeroLink,
 } from '@/src/components/Hero';
 import {
   SectionWithImage,
@@ -26,7 +25,6 @@ import {
   SectionText,
   SectionActions,
   SectionButton,
-  SectionLink,
 } from '@/src/components/SectionWithImage';
 
 export default function HomePage() {
@@ -34,33 +32,33 @@ export default function HomePage() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section>
-      <Hero>
-        <HeroImage>
-          <Image
-            src="/images/hero_image.jpg"
-            alt="Carinya Parc landscape"
-            fill
-            priority
-            className="absolute inset-0 -z-10 object-cover opacity-80 brightness-50"
-          />
-        </HeroImage>
-        <HeroContent>
-          <HeroTitle>
-            Restoring the Land,
-            <span className="text-eucalyptus-600"> Nurturing the Future</span>
-          </HeroTitle>
-          <HeroText>
-            Welcome to Carinya Parc. We're creating a living example of how we can heal the land,
-            grow nutrient-dense food and build community through regenerative agriculture.
-          </HeroText>
-          <HeroLocation>The Branch NSW 2425</HeroLocation>
-          <HeroActions>
-            <HeroButton href="/our-farm">
-              Learn Our Story <span aria-hidden="true">→</span>
-            </HeroButton>
-          </HeroActions>
-        </HeroContent>
-      </Hero>
+        <Hero>
+          <HeroImage>
+            <Image
+              src="/images/hero_image.jpg"
+              alt="Carinya Parc landscape"
+              fill
+              priority
+              className="absolute inset-0 -z-10 object-cover opacity-80 brightness-50"
+            />
+          </HeroImage>
+          <HeroContent>
+            <HeroTitle>
+              Restoring the Land,
+              <span className="text-eucalyptus-600"> Nurturing the Future</span>
+            </HeroTitle>
+            <HeroText>
+              Welcome to Carinya Parc. We're creating a living example of how we can heal the land,
+              grow nutrient-dense food and build community through regenerative agriculture.
+            </HeroText>
+            <HeroLocation>The Branch NSW 2425</HeroLocation>
+            <HeroActions>
+              <HeroButton href="/our-farm">
+                Learn Our Story <span aria-hidden="true">→</span>
+              </HeroButton>
+            </HeroActions>
+          </HeroContent>
+        </Hero>
       </section>
 
       {/* Features Section */}
@@ -135,8 +133,10 @@ export default function HomePage() {
             <SectionSubtitle variant="dark">Our Story</SectionSubtitle>
             <SectionTitle variant="dark">Regenerating Land, Growing Community</SectionTitle>
             <SectionText variant="dark">
-              We're transforming 42 hectares (104 acres) of previously degraded land into thriving woodland, diverse habitat corridors, and productive agroforestry systems. Founded by
-              Jonathan Daddia — strategic leader turned regenerative farmer — our approach combines evidence-based ecological practices with community engagement.
+              We're transforming 42 hectares (104 acres) of previously degraded land into thriving
+              woodland, diverse habitat corridors, and productive agroforestry systems. Founded by
+              Jonathan Daddia — strategic leader turned regenerative farmer — our approach combines
+              evidence-based ecological practices with community engagement.
             </SectionText>
             <SectionActions>
               <SectionButton href="/about" variant="dark">
@@ -161,26 +161,39 @@ export default function HomePage() {
           </SectionImage>
           <SectionContent imagePosition="left">
             <SectionSubtitle variant="light">Regenerate with Us</SectionSubtitle>
-            <SectionTitle variant="light">Help Restore Diversity, For our Native Wildlife</SectionTitle>
+            <SectionTitle variant="light">
+              Help Restore Diversity, For our Native Wildlife
+            </SectionTitle>
             <SectionText variant="light">
-              How are we restoring biodiversity? Through planting 30,000+ native trees, enhancing waterways and creating wildlife corridors spanning our Branch River frontage. You can help:
+              How are we restoring biodiversity? Through planting 30,000+ native trees, enhancing
+              waterways and creating wildlife corridors spanning our Branch River frontage. You can
+              help:
               <ul role="list" className="mt-8 space-y-6">
                 <li className="flex gap-x-3">
                   <Shovel className="h-6 w-6 text-eucalyptus-600" />
-                  <span><strong class="font-semibold">Join a planting day.</strong> Get your hands dirty at an upcoming planting events.</span>
+                  <span>
+                    <strong className="font-semibold">Join a planting day.</strong> Get your hands
+                    dirty at an upcoming planting events.
+                  </span>
                 </li>
                 <li className="flex gap-x-3">
-                  <Sprout className="h-6 w-6 text-eucalyptus-600" />  
-                  <span><strong class="font-semibold">Support regeneration.</strong> Provide seedlings, fencing and ecological monitoring equipment.</span>
+                  <Sprout className="h-6 w-6 text-eucalyptus-600" />
+                  <span>
+                    <strong className="font-semibold">Support regeneration.</strong> Provide
+                    seedlings, fencing and ecological monitoring equipment.
+                  </span>
                 </li>
                 <li className="flex gap-x-3">
                   <Newspaper className="h-6 w-6 text-eucalyptus-600" />
-                  <span><strong class="font-semibold">Follow our progress.</strong> Access open reports tracking soil health, water quality and biodiversity improvements.</span>
+                  <span>
+                    <strong className="font-semibold">Follow our progress.</strong> Access open
+                    reports tracking soil health, water quality and biodiversity improvements.
+                  </span>
                 </li>
               </ul>
             </SectionText>
             <SectionActions>
-              <SectionButton href="/regeneration" variant="left">
+              <SectionButton href="/regeneration" variant="light">
                 Get Involved<span aria-hidden="true">&nbsp;→</span>
               </SectionButton>
             </SectionActions>

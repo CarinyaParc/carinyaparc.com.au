@@ -16,8 +16,12 @@ export function SectionWithImage({
   variant = 'light',
 }: SectionWithImageProps) {
   const bgColor = variant === 'dark' ? 'bg-eucalyptus-600' : 'bg-white';
+  const sectionClasses = cn('relative', bgColor, {
+    'section-image-left': imagePosition === 'left',
+    'section-image-right': imagePosition === 'right',
+  });
 
-  return <div className={`relative ${bgColor}`}>{children}</div>;
+  return <div className={sectionClasses}>{children}</div>;
 }
 
 export function SectionImage({

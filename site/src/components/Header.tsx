@@ -169,7 +169,9 @@ export default function Header({ navigation }: HeaderProps) {
                             item.label
                           ) : (
                             <div className="flex flex-col">
-                              <span className="text-base font-bold text-eucalyptus-400">{item.verb}</span>
+                              <span className="text-base font-bold text-eucalyptus-400">
+                                {item.verb}
+                              </span>
                               <span className="text-sm font-normal">{item.rest}</span>
                             </div>
                           )}
