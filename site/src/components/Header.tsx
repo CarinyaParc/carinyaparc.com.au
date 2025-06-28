@@ -51,7 +51,7 @@ export default function Header({ navigation }: HeaderProps) {
 
   // Apply styles based on scroll position
   const headerClass = isScrolled
-    ? 'fixed top-4 left-0 right-0 bg-gray-900/90 backdrop-blur-sm shadow-md'
+    ? 'fixed top-4 left-0 right-0 bg-charcoal-900/90 backdrop-blur-sm shadow-md'
     : 'absolute top-4 left-0 right-0 bg-transparent';
 
   const hoverClass = 'hover:bg-eucalyptus-100 rounded-lg';
@@ -95,7 +95,7 @@ export default function Header({ navigation }: HeaderProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-semibold text-white transition-colors duration-300 ${
+                className={`text-white transition-colors duration-300 ${
                   pathname === item.href ? 'text-eucalyptus-100' : ''
                 } flex flex-col items-start text-left ${hoverClass} px-2 py-1`}
               >
@@ -103,7 +103,7 @@ export default function Header({ navigation }: HeaderProps) {
                   item.label
                 ) : (
                   <>
-                    <span className="font-bold text-eucalyptus-400">{item.verb}</span>
+                    <span className="text-base font-bold text-eucalyptus-400">{item.verb}</span>
                     <span className="text-xs font-normal mt-1 whitespace-nowrap">{item.rest}</span>
                   </>
                 )}
@@ -137,7 +137,7 @@ export default function Header({ navigation }: HeaderProps) {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed right-0 top-0 bottom-0 w-full max-w-xs bg-gray-900 shadow-lg p-6 sm:max-w-sm sm:ring-1 sm:ring-white/10"
+              className="fixed right-0 top-0 bottom-0 w-full max-w-xs bg-charcoal-900 shadow-lg p-6 sm:max-w-sm sm:ring-1 sm:ring-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-8">
@@ -154,7 +154,7 @@ export default function Header({ navigation }: HeaderProps) {
               </div>
 
               <div className="mt-6 flow-root">
-                <div className="-my-6 divide-y divide-gray-500/25">
+                <div className="-my-6 divide-y divide-charcoal-100/25">
                   <div className="space-y-2 py-6">
                     {navigation
                       .filter((item) => item.visible !== false)
@@ -169,7 +169,7 @@ export default function Header({ navigation }: HeaderProps) {
                             item.label
                           ) : (
                             <div className="flex flex-col">
-                              <span className="font-bold text-eucalyptus-400">{item.verb}</span>
+                              <span className="text-base font-bold text-eucalyptus-400">{item.verb}</span>
                               <span className="text-sm font-normal">{item.rest}</span>
                             </div>
                           )}
