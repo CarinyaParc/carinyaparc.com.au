@@ -12,7 +12,7 @@ interface HeroProps {
 
 export function Hero({ children }: HeroProps) {
   return (
-    <div className="bg-charcoal-600">
+    <div className="bg-eucalyptus-600">
       <div className="relative isolate overflow-hidden pt-14">
         {children}
 

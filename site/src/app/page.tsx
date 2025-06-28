@@ -111,7 +111,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="h-full bg-eucalyptus-600 border-eucalyptus-100 hover:shadow-lg transition-shadow">
+                <Card className="h-full bg-eucalyptus-600 border-eucalyptus-100 hover:shadow-xl transition-shadow">
                   <CardContent className="p-8 text-center">
                     <feature.icon className="h-12 w-12 text-eucalyptus-100 mx-auto mb-4" />
                     <h3 className="text-xl font-semibold text-white mb-4">{feature.title}</h3>
