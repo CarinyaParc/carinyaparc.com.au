@@ -51,7 +51,7 @@ export default function Header({ navigation }: HeaderProps) {
 
   // Apply styles based on scroll position
   const headerClass = isScrolled
-    ? 'fixed top-4 left-0 right-0 bg-white/80 text-charcoal-300 backdrop-blur-sm shadow-md'
+    ? 'fixed top-4 left-0 right-0 bg-white/90 text-charcoal-300 backdrop-blur-sm shadow-md'
     : 'absolute top-4 left-0 right-0 bg-transparent text-white';
 
   const hoverClass = 'hover:bg-eucalyptus-100 rounded-lg';

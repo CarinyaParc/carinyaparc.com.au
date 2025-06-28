@@ -32,6 +32,7 @@ import {
   SectionButton,
   SectionLink,
 } from '@/src/components/SectionWithImage';
+import { SectionFromBlog } from '@/src/components/SectionFromBlog';
 
 export default function HomePage() {
   return (
@@ -124,7 +125,7 @@ export default function HomePage() {
       </section>
 
       {/*Our Story Section*/}
-      <section className="bg-white py-8 sm:py-12">
+      <section className="bg-eucalyptus-600 py-8 sm:py-12">
         <SectionWithImage variant="dark" imagePosition="right">
           <SectionImage>
             <Image
@@ -201,7 +202,7 @@ export default function HomePage() {
       </section>
 
       {/*Experience Section*/}
-      <section className="bg-white py-8 sm:py-12">
+      <section className="bg-eucalyptus-600 py-8 sm:py-12">
         <SectionWithImage variant="dark" imagePosition="right">
           <SectionImage>
             <Image
@@ -251,86 +252,41 @@ export default function HomePage() {
       </section>
 
       {/*Blog Section */}
-      <section className="py-20 bg-eucalyptus-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-eucalyptus-600 mb-4">
-              Out to Pasture
-            </h2>
-            <p className="text-xl text-eucalyptus-600">
-            What's happening on the farm? Follow our journey as we transform Carinya Parc into a thriving regenerative farm.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Soil Testing Complete',
-                date: 'March 2024',
-                excerpt:
-                  "We've completed comprehensive soil testing across the property to guide our regeneration strategy.",
-                image: '/placeholder.svg?height=300&width=400',
-              },
-              {
-                title: 'Native Tree Planting',
-                date: 'February 2024',
-                excerpt:
-                  'First phase of native tree planting is underway with over 500 seedlings planted this month.',
-                image: '/placeholder.svg?height=300&width=400',
-              },
-              {
-                title: 'Water System Planning',
-                date: 'January 2024',
-                excerpt:
-                  'Designing sustainable water management systems to support both agriculture and wildlife.',
-                image: '/placeholder.svg?height=300&width=400',
-              },
-            ].map((post, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="overflow-hidden bg-eucalyptus-600 hover:shadow-lg transition-shadow">
-                  <Image
-                    src={post.image || '/placeholder.svg'}
-                    alt={post.title}
-                    width={400}
-                    height={300}
-                    className="w-full h-48 object-cover"
-                  />
-                  <CardContent className="p-6">
-                    <div className="text-sm text-charcoal-100 mb-2">{post.date}</div>
-                    <h3 className="text-xl font-semibold text-white mb-3">{post.title}</h3>
-                    <p className="text-eucalyptus-100 mb-4">{post.excerpt}</p>
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="border-eucalyptus-600 text-eucalyptus-600"
-                    >
-                      <Link href="/blog">Read More</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
-              <Link href="/blog">
-                View All Updates <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
+      <section className="bg-white py-8 sm:py-12">
+        <SectionFromBlog
+          title="Out to Pasture"
+          subtitle="What's happening on the farm? Follow our journey as we transform Carinya Parc into a thriving regenerative farm."
+          posts={[
+            {
+              id: 1,
+              title: 'Soil Testing Complete',
+              href: '/blog',
+              description: "We've completed comprehensive soil testing across the property to guide our regeneration strategy.",
+              imageUrl: '/images/img_6.jpg',
+              date: 'March 2024',
+              datetime: '2024-03-15',
+            },
+            {
+              id: 2,
+              title: 'Native Tree Planting',
+              href: '/blog',
+              description: 'First phase of native tree planting is underway with over 500 seedlings planted this month.',
+              imageUrl: '/images/img_8.jpg',
+              date: 'February 2024',
+              datetime: '2024-02-20',
+            },
+            {
+              id: 3,
+              title: 'Water System Planning',
+              href: '/blog',
+              description: 'Designing sustainable water management systems to support both agriculture and wildlife.',
+              imageUrl: '/images/img_12.jpg',
+              date: 'January 2024',
+              datetime: '2024-01-10',
+            },
+          ]}
+          viewAllLink="/blog"
+        />
       </section>
     </div>
   );

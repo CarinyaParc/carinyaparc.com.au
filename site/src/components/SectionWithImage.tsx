@@ -45,7 +45,7 @@ export function SectionImage({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className={`relative h-80 overflow-hidden md:absolute ${positionClasses} md:h-full md:w-1/3 lg:w-1/2`}
+      className={`relative h-80 overflow-hidden rounded-xl shadow-xl ring-1 ring-eucalyptus-100/10 md:absolute ${positionClasses} md:h-full md:w-1/3 lg:w-1/2`}
     >
       {children}
     </div>

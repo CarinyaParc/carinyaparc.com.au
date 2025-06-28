@@ -42,7 +42,7 @@ export const navigation: NavItem[] = [
   },
   {
     verb: 'Read',
-    rest: 'Out to Pasture',
+    rest: 'Life on Pasture',
     href: '#',
     visible: true,
   },
