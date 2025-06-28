@@ -64,7 +64,7 @@ export function SectionTitle({
   children: ReactNode;
   variant?: 'dark' | 'light';
 }) {
-  const textColor = variant === 'dark' ? 'text-white' : 'text-gray-900';
+  const textColor = variant === 'dark' ? 'text-white' : 'text-eucalyptus-600';
   return (
     <h2 className={`text-4xl font-semibold tracking-tight ${textColor} sm:text-5xl`}>{children}</h2>
   );
@@ -77,7 +77,7 @@ export function SectionSubtitle({
   children: ReactNode;
   variant?: 'dark' | 'light';
 }) {
-  const textColor = variant === 'dark' ? 'text-eucalyptus-200' : 'text-eucalyptus-600';
+  const textColor = variant === 'dark' ? 'text-eucalyptus-200' : 'text-eucalyptus-300';
   return <p className={`text-base/7 font-semibold ${textColor}`}>{children}</p>;
 }
 
