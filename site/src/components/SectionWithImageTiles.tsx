@@ -53,7 +53,7 @@ export function ContentHeading({ children }: { children: ReactNode }) {
 }
 
 export function ContentParagraph({ children }: { children: ReactNode }) {
-  return <p className="mt-6 text-base/7 text-charcoal-600">{children}</p>;
+  return <div className="mt-6 text-base/7 text-charcoal-600">{children}</div>;
 }
 
 // Image tiles
@@ -89,17 +89,15 @@ export function ImageTile({ src, alt = '', offset = false }: { src: string; alt?
 export function StatsSection({ children }: { children: ReactNode }) {
   return (
     <div className="max-lg:mt-16 lg:col-span-1">
+      <hr className="my-6 border-t border-eucalyptus-100/30" />
       {children}
+      <hr className="my-6 border-t border-eucalyptus-100/30" />
     </div>
   );
 }
 
 export function StatsLabel({ children }: { children: ReactNode }) {
-  return <p className="text-base/7 font-semibold text-eucalyptus-600">{children}</p>;
-}
-
-export function StatsDivider() {
-  return <hr className="mt-6 border-t border-eucalyptus-100/30" />;
+  return <p className="text-base/7 font-semibold text-eucalyptus-400">{children}</p>;
 }
 
 export function StatsGrid({ children }: { children: ReactNode }) {
