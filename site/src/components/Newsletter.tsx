@@ -43,11 +43,11 @@ export default function Newsletter() {
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="relative isolate flex flex-col gap-10 overflow-hidden bg-eucalyptus-600 px-6 py-24 shadow-2xl sm:rounded-3xl sm:px-24 xl:flex-row xl:items-center xl:py-32">
           <div className="flex-1 max-w-xl">
-            <h2 className="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">
-              Subscribe to our newsletter
+            <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
+              Stay Connected to Us
             </h2>
             <p className="mt-4 text-lg text-eucalyptus-100">
-              Stay updated with the latest news and events from Carinya Parc.
+              Stay updated with our regeneration progress, farm events or product announcements from Carinya Parc.
             </p>
           </div>
           <div className="flex-1 flex justify-center xl:justify-end">

@@ -1,11 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Leaf, Heart, Users, Shovel, Sprout, Newspaper } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/src/components/ui/button';
 import { Card, CardContent } from '@/src/components/ui/card';
+import { 
+  ArrowRight, Heart, Users, 
+  Shovel, Sprout, Newspaper, 
+  Ticket, TentTree, Trees
+} from 'lucide-react';
+
 import {
   Hero,
   HeroContent,
@@ -25,6 +30,7 @@ import {
   SectionText,
   SectionActions,
   SectionButton,
+  SectionLink,
 } from '@/src/components/SectionWithImage';
 
 export default function HomePage() {
@@ -80,7 +86,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: Leaf,
+                icon: Trees,
                 title: 'Regeneration over Extraction',
                 description:
                   'We prioritise practices that rebuild soil health, biodiversity and water systems rather than deplete them. Ensuring every action leaves the land healthier than we found it.',
@@ -118,11 +124,11 @@ export default function HomePage() {
       </section>
 
       {/*Our Story Section*/}
-      <section className="bg-white py-12 sm:py-16">
-        <SectionWithImage variant="light" imagePosition="right">
+      <section className="bg-white py-8 sm:py-12">
+        <SectionWithImage variant="dark" imagePosition="right">
           <SectionImage>
             <Image
-              src="/images/img_9.jpg"
+              src="/images/img_23.jpg"
               alt="Farm landscape"
               fill
               className="object-cover"
@@ -148,11 +154,11 @@ export default function HomePage() {
       </section>
 
       {/*Regenerate Section*/}
-      <section className="bg-white py-12 sm:py-16">
-        <SectionWithImage variant="dark" imagePosition="left">
+      <section className="bg-white py-8 sm:py-12">
+        <SectionWithImage variant="light" imagePosition="left">
           <SectionImage>
             <Image
-              src="/images/img_23.jpg"
+              src="/images/img_5.jpg"
               alt="Farm gate"
               fill
               className="object-cover"
@@ -163,29 +169,24 @@ export default function HomePage() {
             <SectionSubtitle>Regenerate with Us</SectionSubtitle>
             <SectionTitle>Help Restore Diversity, For our Native Wildlife</SectionTitle>
             <SectionText>
-              How are we restoring biodiversity? Through planting 30,000+ native trees, enhancing
-              waterways and creating wildlife corridors spanning our Branch River frontage. You can
-              help:
+              How are we restoring biodiversity? Through planting 30,000+ native trees, enhancing waterways and creating wildlife corridors spanning our Branch River frontage. You can help:
               <ul role="list" className="mt-8 space-y-6">
                 <li className="flex gap-x-3">
-                  <Shovel className="h-6 w-6 text-eucalyptus-100" />
+                  <Shovel className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Join a planting day.</strong> Get your hands
-                    dirty at an upcoming planting events.
+                    <strong className="font-semibold">Join a planting day.</strong> Get your hands dirty at an upcoming planting events.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
-                  <Sprout className="h-6 w-6 text-eucalyptus-100" />
+                  <Sprout className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Support regeneration.</strong> Provide
-                    seedlings, fencing and ecological monitoring equipment.
+                    <strong className="font-semibold">Support regeneration.</strong> Provide seedlings, fencing and ecological monitoring equipment.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
-                  <Newspaper className="h-6 w-6 text-eucalyptus-100" />
+                  <Newspaper className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Follow our progress.</strong> Access open
-                    reports tracking soil health, water quality and biodiversity improvements.
+                    <strong className="font-semibold">Follow our progress.</strong> Access open reports tracking soil health, water quality and biodiversity improvements.
                   </span>
                 </li>
               </ul>
@@ -199,8 +200,58 @@ export default function HomePage() {
         </SectionWithImage>
       </section>
 
-      {/* Latest Updates Section */}
-      <section className="py-20 bg-eucalyptus-100">
+      {/*Experience Section*/}
+      <section className="bg-white py-8 sm:py-12">
+        <SectionWithImage variant="dark" imagePosition="right">
+          <SectionImage>
+            <Image
+              src="/images/img_9.jpg"
+              alt="Farm gate"
+              fill
+              className="object-cover"
+              priority
+            />
+          </SectionImage>
+          <SectionContent>
+            <SectionSubtitle>Experience the Farm</SectionSubtitle>
+            <SectionTitle>Help Restore Diversity, For our Native Wildlife</SectionTitle>
+            <SectionText>
+              Discover regerative farming. Immerse yourself through guided tours, hands-on workshops and eco-stays. Explore our permaculture gardens, syntropic food forest and wildlife corridors.
+              <ul role="list" className="mt-8 space-y-6">
+                <li className="flex gap-x-3">
+                  <Ticket className="h-6 w-6 text-eucalyptus-300" />
+                  <span>
+                    <strong className="font-semibold">Book a tour.</strong> Small-group experiences led by Jonno.
+                  </span>
+                </li>
+                <li className="flex gap-x-3">
+                  <Trees className="h-6 w-6 text-eucalyptus-300" />
+                  <span>
+                    <strong className="font-semibold">Join a workshop.</strong> Learn practical skills in seed saving, soil building and food preservation
+                  </span>
+                </li>
+                <li className="flex gap-x-3">
+                  <TentTree className="h-6 w-6 text-eucalyptus-300" />
+                  <span>
+                    <strong className="font-semibold">Stay on the land.</strong> Connect deeply with the land through our rustic accommodation options.
+                  </span>
+                </li>
+              </ul>
+            </SectionText>
+            <SectionActions>
+              <SectionButton href="#">
+                Coming Soon!
+              </SectionButton>
+              <SectionLink href="#">
+                Sign Up! Be the first to know 
+              </SectionLink>
+            </SectionActions>
+          </SectionContent>
+        </SectionWithImage>
+      </section>
+
+      {/*Blog Section */}
+      <section className="py-20 bg-eucalyptus-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -208,11 +259,11 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-charcoal-600 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-eucalyptus-600 mb-4">
               Out to Pasture
             </h2>
-            <p className="text-xl text-eucalyptus-500">
-              Follow our journey as we transform Carinya Parc into a thriving regenerative farm.
+            <p className="text-xl text-eucalyptus-600">
+            What's happening on the farm? Follow our journey as we transform Carinya Parc into a thriving regenerative farm.
             </p>
           </motion.div>
 

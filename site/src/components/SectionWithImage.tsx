@@ -83,7 +83,7 @@ export function SectionSubtitle({ children }: { children: ReactNode }) {
 export function SectionText({ children }: { children: ReactNode }) {
   const { variant } = useContext(SectionContext);
   const textColor = variant === 'dark' ? 'text-gray-200' : 'text-gray-600';
-  return <p className={`mt-6 text-base/7 ${textColor}`}>{children}</p>;
+  return <div className={`mt-6 text-base/7 ${textColor}`}>{children}</div>;
 }
 
 export function SectionActions({ children }: { children: ReactNode }) {
@@ -112,7 +112,7 @@ export function SectionLink({ href, children }: { href: string; children: ReactN
   const textColor = variant === 'dark' ? 'text-white' : 'text-eucalyptus-600';
 
   return (
-    <a href={href} className={`text-sm font-semibold leading-6 ${textColor}`}>
+    <a href={href} className={`px-3.5 py-2.5 text-sm font-semibold leading-6 ${textColor}`}>
       {children} <span aria-hidden="true">→</span>
     </a>
   );

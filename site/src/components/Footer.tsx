@@ -31,8 +31,6 @@ const navigation: {
   FooterList4: [
     { name: 'Get Involved', href: '/get-involved' },
     { name: 'Subscribe', href: '/subscribe' },
-    { name: 'YouTube', href: 'https://www.youtube.com/@carinyaparc' },
-    { name: 'Instagram', href: 'https://www.instagram.com/carinyaparc/' },
   ],
 };
 
