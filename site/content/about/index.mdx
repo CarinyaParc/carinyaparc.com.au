@@ -1,79 +1,60 @@
----
-title: About Carinya Parc
-date: '2025-06-22'
-status: draft
-section: about
-excerpt: "Discover the story of Carinya Parc, our peaceful home where we're regenerating land, building community, and demonstrating ecological stewardship in practice."
----
+import {
+  SectionWithImageTiles,
+  SectionHeader,
+  SectionTag,
+  SectionTitle,
+  SectionDescription,
+  SectionContent,
+  TextContent,
+  ContentHeading,
+  ContentParagraph,
+  ImageTiles,
+  ImageTile,
+  StatsSection,
+  StatsLabel,
+  StatsDivider,
+  StatsGrid,
+  StatItem
+} from '@/src/components/SectionWithImageTiles';
 
-# About Carinya Parc
+<SectionWithImageTiles>
+  <SectionHeader>
+    <SectionTag>About Carinya Parc</SectionTag>
+    <SectionTitle>Regenerating Country One Landscape at a Time</SectionTitle>
+    <SectionDescription>
+      Discover the story of Carinya Parc, our peaceful home where we're regenerating land, building community, and demonstrating ecological stewardship in practice.
+    </SectionDescription>
+  </SectionHeader>
 
-At Carinya Parc, we're transforming a 42-hectare former grazing property into a living demonstration of regenerative agriculture and ecological restoration. Nestled on the mid-north coast of New South Wales, our land has been resting since early 2024—giving us time to observe, plan and begin the journey of renewal.
+  <SectionContent>
+    <TextContent>
+      <ContentHeading>Our Mission</ContentHeading>
+      <ContentParagraph>
+        At Carinya Parc, we're transforming a 42-hectare former grazing property into a living demonstration of regenerative agriculture and ecological restoration. Nestled on the mid-north coast of New South Wales, our land has been resting since early 2024—giving us time to observe, plan and begin the journey of renewal.
+      </ContentParagraph>
+      <ContentParagraph>
+        What drives us? A vision of thriving landscapes where biodiversity, food production and community connection work in harmony to heal Country.
+      </ContentParagraph>
+    </TextContent>
 
-What drives us? A vision of thriving landscapes where biodiversity, food production and community connection work in harmony to heal Country.
+    <ImageTiles>
+      <ImageTile src="/images/img_1.jpg" alt="Carinya Parc landscape" />
+      <ImageTile src="/images/hero_image.jpg" alt="Carinya Parc river" offset />
+      <ImageTile src="/images/img_1.jpg" alt="Native plantings" />
+      <ImageTile src="/images/hero_image.jpg" alt="Farm dam" offset />
+    </ImageTiles>
 
----
-
-## Our Property
-
-### Where are we located?
-
-**Location:** 315 Warraba Road, The Branch, NSW 2425  
-**Size:** 42 hectares (102 acres)
-
-### What makes our landscape special?
-
-- Gentle hills and protected valleys creating diverse microclimates
-- Five strategically placed farm dams connected by gravity-fed irrigation
-- 400 metres of Branch River frontage with swimming holes and riparian habitat
-- Existing patches of native forest—perfect starting points for habitat corridors
-
-We're actively regenerating this landscape by planting 30,000+ native trees and shrubs across carefully designed zones. Each area serves specific ecological functions—from riparian restoration and wildlife corridors to food forests and syntropic agroforestry systems—guided by ecological science and respecting First Nations knowledge of Country.
-
-[Explore our property →](/about/property)
-
----
-
-## Meet Jonathan Daddia
-
-How does a corporate transformation leader become a regenerative farmer? For Jonathan Daddia, it's a natural evolution of his passion for strategic thinking, continuous learning and hands-on problem solving.
-
-With two decades of experience delivering large-scale transformations for major organisations, Jonathan now applies this strategic mindset to land regeneration and community building. His journey—from MasterChef Australia finalist 14 years ago to Transformation Lead at Temple & Webster—has prepared him to approach farming with both creativity and rigour.
-
-Jonathan's leadership at Carinya Parc is grounded in resilience, built through personal challenges and an unwavering belief that regenerative agriculture can heal both land and communities.
-
-[Read Jonathan's full story →](/about/jonathan)
-
----
-
-## Our Vision & Mission
-
-### What are we working toward?
-
-**Vision:** To demonstrate that regenerative farming can both nourish communities and restore ecosystems.
-
-**Mission:** To heal land and food systems through hands-on ecological restoration, delivering nutrient-dense produce, and inspiring community-led change.
-
-[Explore our guiding principles →](/about/values)
-
----
-
-## Our Guiding Principles
-
-How do we make decisions at Carinya Parc? These core values guide everything from daily farm tasks to long-term planning:
-
-- **Regeneration over extraction:** Building natural capital rather than depleting it
-- **Stewardship over ownership:** Recognising we're temporary custodians of this land
-- **Collaboration over competition:** Working together with nature and community
-- **Nature as teacher:** Learning from ecological systems and First Nations wisdom
-- **Curiosity over certainty:** Embracing continuous learning and adaptation
-
-These principles shape all aspects of our work—from tree-planting methods to community engagement, from livestock management to how we share knowledge and resources.
+    <StatsSection>
+      <StatsLabel>Our Regeneration Plan</StatsLabel>
+      <StatsDivider />
+      <StatsGrid>
+        <StatItem label="Hectares to Rewild" value="10+" />
+        <StatItem label="Natives to Plant" value="30,000" />
+        <StatItem label="Riparian Repair" value="400m" />
+        <StatItem label="Farm Dams" value="5" lastInRow />
+      </StatsGrid>
+    </StatsSection>
+  </SectionContent>
+</SectionWithImageTiles>
 
 ---
-
-## Join Our Journey
-
-At Carinya Parc, we're demonstrating how farming can be a force for ecological healing and community connection. Whether you're interested in volunteering at a planting day, attending a workshop, tasting our future produce, or partnering on research—there's a place for you in our story.
-
-[Get involved →](/get-involved) • [Plan your visit →](/our-farm/overview) • [Subscribe for updates →](/subscribe)

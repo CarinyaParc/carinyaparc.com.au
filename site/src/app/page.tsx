@@ -260,7 +260,7 @@ export default function HomePage() {
             {
               id: 1,
               title: 'Soil Testing Complete',
-              href: '/blog',
+              href: '#',
               description: "We've completed comprehensive soil testing across the property to guide our regeneration strategy.",
               imageUrl: '/images/img_6.jpg',
               date: 'March 2024',
@@ -269,7 +269,7 @@ export default function HomePage() {
             {
               id: 2,
               title: 'Native Tree Planting',
-              href: '/blog',
+              href: '#',
               description: 'First phase of native tree planting is underway with over 500 seedlings planted this month.',
               imageUrl: '/images/img_8.jpg',
               date: 'February 2024',
@@ -278,7 +278,7 @@ export default function HomePage() {
             {
               id: 3,
               title: 'Water System Planning',
-              href: '/blog',
+              href: '#',
               description: 'Designing sustainable water management systems to support both agriculture and wildlife.',
               imageUrl: '/images/img_12.jpg',
               date: 'January 2024',
