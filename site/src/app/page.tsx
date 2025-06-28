@@ -1,15 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/src/components/ui/button';
 import { Card, CardContent } from '@/src/components/ui/card';
-import { 
-  ArrowRight, Heart, Users, 
-  Shovel, Sprout, Newspaper, 
-  Ticket, TentTree, Trees
-} from 'lucide-react';
+import { Heart, Users, Shovel, Sprout, Newspaper, Ticket, TentTree, Trees } from 'lucide-react';
 
 import {
   Hero,
@@ -158,36 +152,35 @@ export default function HomePage() {
       <section className="bg-white py-8 sm:py-12">
         <SectionWithImage variant="light" imagePosition="left">
           <SectionImage>
-            <Image
-              src="/images/img_5.jpg"
-              alt="Farm gate"
-              fill
-              className="object-cover"
-              priority
-            />
+            <Image src="/images/img_5.jpg" alt="Farm gate" fill className="object-cover" priority />
           </SectionImage>
           <SectionContent>
             <SectionSubtitle>Regenerate with Us</SectionSubtitle>
             <SectionTitle>Help Restore Diversity, For our Native Wildlife</SectionTitle>
             <SectionText>
-              How are we restoring biodiversity? Through planting 30,000+ native trees, enhancing waterways and creating wildlife corridors spanning our Branch River frontage. You can help:
+              How are we restoring biodiversity? Through planting 30,000+ native trees, enhancing
+              waterways and creating wildlife corridors spanning our Branch River frontage. You can
+              help:
               <ul role="list" className="mt-8 space-y-6">
                 <li className="flex gap-x-3">
                   <Shovel className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Join a planting day.</strong> Get your hands dirty at an upcoming planting events.
+                    <strong className="font-semibold">Join a planting day.</strong> Get your hands
+                    dirty at an upcoming planting events.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
                   <Sprout className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Support regeneration.</strong> Provide seedlings, fencing and ecological monitoring equipment.
+                    <strong className="font-semibold">Support regeneration.</strong> Provide
+                    seedlings, fencing and ecological monitoring equipment.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
                   <Newspaper className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Follow our progress.</strong> Access open reports tracking soil health, water quality and biodiversity improvements.
+                    <strong className="font-semibold">Follow our progress.</strong> Access open
+                    reports tracking soil health, water quality and biodiversity improvements.
                   </span>
                 </li>
               </ul>
@@ -205,47 +198,42 @@ export default function HomePage() {
       <section className="bg-eucalyptus-600 py-8 sm:py-12">
         <SectionWithImage variant="dark" imagePosition="right">
           <SectionImage>
-            <Image
-              src="/images/img_9.jpg"
-              alt="Farm gate"
-              fill
-              className="object-cover"
-              priority
-            />
+            <Image src="/images/img_9.jpg" alt="Farm gate" fill className="object-cover" priority />
           </SectionImage>
           <SectionContent>
             <SectionSubtitle>Experience the Farm</SectionSubtitle>
             <SectionTitle>Help Restore Diversity, For our Native Wildlife</SectionTitle>
             <SectionText>
-              Discover regerative farming. Immerse yourself through guided tours, hands-on workshops and eco-stays. Explore our permaculture gardens, syntropic food forest and wildlife corridors.
+              Discover regerative farming. Immerse yourself through guided tours, hands-on workshops
+              and eco-stays. Explore our permaculture gardens, syntropic food forest and wildlife
+              corridors.
               <ul role="list" className="mt-8 space-y-6">
                 <li className="flex gap-x-3">
                   <Ticket className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Book a tour.</strong> Small-group experiences led by Jonno.
+                    <strong className="font-semibold">Book a tour.</strong> Small-group experiences
+                    led by Jonno.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
                   <Trees className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Join a workshop.</strong> Learn practical skills in seed saving, soil building and food preservation
+                    <strong className="font-semibold">Join a workshop.</strong> Learn practical
+                    skills in seed saving, soil building and food preservation
                   </span>
                 </li>
                 <li className="flex gap-x-3">
                   <TentTree className="h-6 w-6 text-eucalyptus-300" />
                   <span>
-                    <strong className="font-semibold">Stay on the land.</strong> Connect deeply with the land through our rustic accommodation options.
+                    <strong className="font-semibold">Stay on the land.</strong> Connect deeply with
+                    the land through our rustic accommodation options.
                   </span>
                 </li>
               </ul>
             </SectionText>
             <SectionActions>
-              <SectionButton href="#">
-                Coming Soon!
-              </SectionButton>
-              <SectionLink href="#">
-                Sign Up! Be the first to know 
-              </SectionLink>
+              <SectionButton href="#">Coming Soon!</SectionButton>
+              <SectionLink href="#">Sign Up! Be the first to know</SectionLink>
             </SectionActions>
           </SectionContent>
         </SectionWithImage>
@@ -261,7 +249,8 @@ export default function HomePage() {
               id: 1,
               title: 'Soil Testing Complete',
               href: '#',
-              description: "We've completed comprehensive soil testing across the property to guide our regeneration strategy.",
+              description:
+                "We've completed comprehensive soil testing across the property to guide our regeneration strategy.",
               imageUrl: '/images/img_6.jpg',
               date: 'March 2024',
               datetime: '2024-03-15',
@@ -270,7 +259,8 @@ export default function HomePage() {
               id: 2,
               title: 'Native Tree Planting',
               href: '#',
-              description: 'First phase of native tree planting is underway with over 500 seedlings planted this month.',
+              description:
+                'First phase of native tree planting is underway with over 500 seedlings planted this month.',
               imageUrl: '/images/img_8.jpg',
               date: 'February 2024',
               datetime: '2024-02-20',
@@ -279,7 +269,8 @@ export default function HomePage() {
               id: 3,
               title: 'Water System Planning',
               href: '#',
-              description: 'Designing sustainable water management systems to support both agriculture and wildlife.',
+              description:
+                'Designing sustainable water management systems to support both agriculture and wildlife.',
               imageUrl: '/images/img_12.jpg',
               date: 'January 2024',
               datetime: '2024-01-10',

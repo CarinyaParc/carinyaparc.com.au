@@ -22,12 +22,8 @@ const navigation: {
     { name: 'Regeneration', href: '/regeneration' },
     { name: 'Future Produce', href: '/products' },
   ],
-  FooterList3: [
-    { name: 'Read Life on Pasture', href: '/blog' },
-  ],
-  FooterList4: [
-    { name: 'Subscribe', href: '/subscribe' },
-  ],
+  FooterList3: [{ name: 'Read Life on Pasture', href: '/blog' }],
+  FooterList4: [{ name: 'Subscribe', href: '/subscribe' }],
 };
 
 export default function Footer() {
@@ -40,7 +36,8 @@ export default function Footer() {
               <h3 className="text-xl font-semibold text-white">Carinya Parc</h3>
             </div>
             <p className="text-sm text-eucalyptus-100 max-w-xs">
-              A regenerative farm focused on restoring the land and sustainable agricultural practices.
+              A regenerative farm focused on restoring the land and sustainable agricultural
+              practices.
             </p>
           </div>
           <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">

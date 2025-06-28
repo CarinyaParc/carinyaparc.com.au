@@ -40,7 +40,11 @@ export function SectionDescription({ children }: { children: ReactNode }) {
 
 // Content section
 export function SectionContent({ children }: { children: ReactNode }) {
-  return <section className="mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16">{children}</section>;
+  return (
+    <section className="mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16">
+      {children}
+    </section>
+  );
 }
 
 // Text content
@@ -49,7 +53,11 @@ export function TextContent({ children }: { children: ReactNode }) {
 }
 
 export function ContentHeading({ children }: { children: ReactNode }) {
-  return <h2 className="text-2xl font-semibold tracking-tight text-pretty text-eucalyptus-600">{children}</h2>;
+  return (
+    <h2 className="text-2xl font-semibold tracking-tight text-pretty text-eucalyptus-600">
+      {children}
+    </h2>
+  );
 }
 
 export function ContentParagraph({ children }: { children: ReactNode }) {
@@ -67,16 +75,24 @@ export function ImageTiles({ children }: { children: ReactNode }) {
   );
 }
 
-export function ImageTile({ src, alt = '', offset = false }: { src: string; alt?: string; offset?: boolean }) {
+export function ImageTile({
+  src,
+  alt = '',
+  offset = false,
+}: {
+  src: string;
+  alt?: string;
+  offset?: boolean;
+}) {
   return (
     <div
       className={`${
         offset ? '-mt-8 lg:-mt-40' : ''
       } aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-eucalyptus-100/20 relative`}
     >
-      <Image 
-        alt={alt} 
-        src={src} 
+      <Image
+        alt={alt}
+        src={src}
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
         className="object-cover"
@@ -104,22 +120,26 @@ export function StatsGrid({ children }: { children: ReactNode }) {
   return <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">{children}</dl>;
 }
 
-export function StatItem({ 
-  label, 
-  value, 
-  suffix = '', 
-  lastInRow = false 
-}: { 
-  label: string; 
-  value: string | number; 
+export function StatItem({
+  label,
+  value,
+  suffix = '',
+  lastInRow = false,
+}: {
+  label: string;
+  value: string | number;
   suffix?: string;
   lastInRow?: boolean;
 }) {
   return (
-    <div className={`flex flex-col gap-y-2 ${!lastInRow ? 'border-b border-dotted border-eucalyptus-100/30 pb-4' : ''} ${lastInRow && !suffix ? 'max-sm:border-b max-sm:border-dotted max-sm:border-eucalyptus-100/30 max-sm:pb-4' : ''}`}>
+    <div
+      className={`flex flex-col gap-y-2 ${!lastInRow ? 'border-b border-dotted border-eucalyptus-100/30 pb-4' : ''} ${lastInRow && !suffix ? 'max-sm:border-b max-sm:border-dotted max-sm:border-eucalyptus-100/30 max-sm:pb-4' : ''}`}
+    >
       <dt className="text-sm/6 text-gray-600">{label}</dt>
       <dd className="order-first text-6xl font-semibold tracking-tight text-eucalyptus-600">
-        {suffix && suffix.startsWith('$') && '$'}<span>{value}</span>{suffix && !suffix.startsWith('$') ? suffix : ''}
+        {suffix && suffix.startsWith('$') && '$'}
+        <span>{value}</span>
+        {suffix && !suffix.startsWith('$') ? suffix : ''}
       </dd>
     </div>
   );

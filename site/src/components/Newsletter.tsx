@@ -47,7 +47,8 @@ export default function Newsletter() {
               Stay Connected to Us
             </h2>
             <p className="mt-4 text-lg text-eucalyptus-100">
-              Stay updated with our regeneration progress, farm events or product announcements from Carinya Parc.
+              Stay updated with our regeneration progress, farm events or product announcements from
+              Carinya Parc.
             </p>
           </div>
           <div className="flex-1 flex justify-center xl:justify-end">

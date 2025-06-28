@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { cn } from '@/src/lib/utils';
 
 interface Author {
   name: string;
@@ -48,9 +47,9 @@ export function SectionFromBlog({
               key={post.id}
               className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-eucalyptus-600 px-8 pt-80 pb-8 sm:pt-48 lg:pt-80"
             >
-              <Image 
+              <Image
                 alt={post.title}
-                src={post.imageUrl} 
+                src={post.imageUrl}
                 fill
                 className="absolute inset-0 -z-10 object-cover"
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -68,12 +67,12 @@ export function SectionFromBlog({
                       <circle r={1} cx={1} cy={1} />
                     </svg>
                     <div className="flex gap-x-2.5">
-                      <Image 
+                      <Image
                         alt=""
-                        src={post.author.imageUrl} 
+                        src={post.author.imageUrl}
                         width={24}
                         height={24}
-                        className="size-6 flex-none rounded-full bg-white/10" 
+                        className="size-6 flex-none rounded-full bg-white/10"
                       />
                       {post.author.name}
                     </div>
@@ -87,15 +86,17 @@ export function SectionFromBlog({
                 </Link>
               </h3>
               {post.description && (
-                <p className="mt-2 line-clamp-2 text-sm/6 text-eucalyptus-100">{post.description}</p>
+                <p className="mt-2 line-clamp-2 text-sm/6 text-eucalyptus-100">
+                  {post.description}
+                </p>
               )}
             </article>
           ))}
         </div>
-        
+
         {viewAllLink && (
           <div className="text-center mt-12">
-            <Link 
+            <Link
               href={viewAllLink}
               className="inline-flex rounded-md bg-eucalyptus-600 text-white hover:bg-eucalyptus-700 px-3.5 py-2.5 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600"
             >

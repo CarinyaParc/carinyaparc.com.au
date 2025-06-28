@@ -1,12 +1,13 @@
 import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
-import { BASE_URL, APP_DIR } from './constants';
+import { BASE_URL } from '../lib/constants';
 
 type RouteInfo = {
   route: string;
   lastModified: string;
   priority?: number;
+  changeFrequency?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 };
 
 /**
@@ -14,6 +15,7 @@ type RouteInfo = {
  */
 function getAppRoutes(): RouteInfo[] {
   const routes: RouteInfo[] = [];
+  const appDirectory = path.join(process.cwd(), 'src/app');
 
   // Helper function to recursively scan directories
   function scanDirectory(currentPath: string, routePath: string = '') {
@@ -21,7 +23,13 @@ function getAppRoutes(): RouteInfo[] {
 
     for (const item of items) {
       // Skip special files and directories
-      if (item.startsWith('_') || item.startsWith('.') || item === 'api' || item === 'favicon.ico')
+      if (
+        item.startsWith('_') ||
+        item.startsWith('.') ||
+        item === 'api' ||
+        item === 'sitemap.ts' ||
+        item === 'favicon.ico'
+      )
         continue;
 
       const itemPath = path.join(currentPath, item);
@@ -34,30 +42,35 @@ function getAppRoutes(): RouteInfo[] {
           scanDirectory(itemPath, routePath);
         } else {
           // Regular directory - add to path and scan
-          const newPath = path.join(routePath, item);
+          const newPath = routePath === '' ? item : path.join(routePath, item);
           scanDirectory(itemPath, newPath);
         }
-      } else if (item === 'page.tsx' || item === 'page.js') {
+      } else if (item === 'page.tsx' || item === 'page.js' || item === 'page.mdx') {
         // Found a page - add its route
+        const isHomePage = routePath === '';
+
         routes.push({
-          route: routePath === '' ? '/' : `/${routePath}`,
+          route: isHomePage ? '/' : `/${routePath}`,
           lastModified: new Date(stats.mtime).toISOString(),
-          priority: routePath === '' ? 1.0 : 0.8,
+          priority: isHomePage ? 1.0 : routePath.includes('blog') ? 0.7 : 0.8,
+          changeFrequency: isHomePage ? 'weekly' : routePath.includes('blog') ? 'daily' : 'monthly',
         });
       }
     }
   }
 
-  scanDirectory(APP_DIR);
+  scanDirectory(appDirectory);
   return routes;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = getAppRoutes();
 
-  return routes.map(({ route, lastModified, priority }) => ({
+  // Convert to the expected MetadataRoute.Sitemap format
+  return routes.map(({ route, lastModified, priority, changeFrequency }) => ({
     url: `${BASE_URL}${route}`,
     lastModified,
     priority,
+    changeFrequency,
   }));
 }

@@ -41,11 +41,12 @@ export function SectionWithImage({
 
 export function SectionImage({ children }: { children: ReactNode }) {
   const { imagePosition } = useContext(SectionContext);
-  const positionClasses = imagePosition === 'left' ? 'md:left-0 md:rounded-r-xl' : 'md:right-0 md:rounded-l-xl';
+  const positionClasses =
+    imagePosition === 'left' ? 'md:left-0 md:rounded-r-xl' : 'md:right-0 md:rounded-l-xl';
 
   return (
     <div
-      className={`relative h-80 overflow-hidden shadow-xl ring-1 ring-eucalyptus-100/10 md:absolute ${positionClasses} md:h-full md:w-1/3 lg:w-1/2  `}
+      className={`relative h-80 overflow-hidden shadow-xl ring-1 ring-eucalyptus-100/10 md:absolute ${positionClasses} md:h-full md:w-1/3 lg:w-1/2`}
     >
       {children}
     </div>
