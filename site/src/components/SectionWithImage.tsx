@@ -1,7 +1,18 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, createContext, useContext } from 'react';
 import { cn } from '../lib/utils';
+
+// Create context for section props
+interface SectionContextProps {
+  imagePosition: 'left' | 'right';
+  variant: 'dark' | 'light';
+}
+
+const SectionContext = createContext<SectionContextProps>({
+  imagePosition: 'left',
+  variant: 'light',
+});
 
 // Types
 interface SectionWithImageProps {
@@ -21,16 +32,15 @@ export function SectionWithImage({
     'section-image-right': imagePosition === 'right',
   });
 
-  return <div className={sectionClasses}>{children}</div>;
+  return (
+    <SectionContext.Provider value={{ imagePosition, variant }}>
+      <div className={sectionClasses}>{children}</div>
+    </SectionContext.Provider>
+  );
 }
 
-export function SectionImage({
-  children,
-  imagePosition = 'left',
-}: {
-  children: ReactNode;
-  imagePosition?: 'left' | 'right';
-}) {
+export function SectionImage({ children }: { children: ReactNode }) {
+  const { imagePosition } = useContext(SectionContext);
   const positionClasses = imagePosition === 'left' ? 'md:left-0' : 'md:right-0';
 
   return (
@@ -42,13 +52,8 @@ export function SectionImage({
   );
 }
 
-export function SectionContent({
-  children,
-  imagePosition = 'left',
-}: {
-  children: ReactNode;
-  imagePosition?: 'left' | 'right';
-}) {
+export function SectionContent({ children }: { children: ReactNode }) {
+  const { imagePosition } = useContext(SectionContext);
   const positionClasses =
     imagePosition === 'left'
       ? 'md:ml-auto md:w-2/3 md:pl-16 lg:w-1/2 lg:pl-24 xl:pl-32 lg:pr-0'
@@ -61,37 +66,22 @@ export function SectionContent({
   );
 }
 
-export function SectionTitle({
-  children,
-  variant = 'light',
-}: {
-  children: ReactNode;
-  variant?: 'dark' | 'light';
-}) {
+export function SectionTitle({ children }: { children: ReactNode }) {
+  const { variant } = useContext(SectionContext);
   const textColor = variant === 'dark' ? 'text-white' : 'text-eucalyptus-600';
   return (
     <h2 className={`text-4xl font-semibold tracking-tight ${textColor} sm:text-5xl`}>{children}</h2>
   );
 }
 
-export function SectionSubtitle({
-  children,
-  variant = 'light',
-}: {
-  children: ReactNode;
-  variant?: 'dark' | 'light';
-}) {
+export function SectionSubtitle({ children }: { children: ReactNode }) {
+  const { variant } = useContext(SectionContext);
   const textColor = variant === 'dark' ? 'text-eucalyptus-200' : 'text-eucalyptus-300';
   return <p className={`text-base/7 font-semibold ${textColor}`}>{children}</p>;
 }
 
-export function SectionText({
-  children,
-  variant = 'light',
-}: {
-  children: ReactNode;
-  variant?: 'dark' | 'light';
-}) {
+export function SectionText({ children }: { children: ReactNode }) {
+  const { variant } = useContext(SectionContext);
   const textColor = variant === 'dark' ? 'text-gray-200' : 'text-gray-600';
   return <p className={`mt-6 text-base/7 ${textColor}`}>{children}</p>;
 }
@@ -100,15 +90,8 @@ export function SectionActions({ children }: { children: ReactNode }) {
   return <div className="mt-8 flex gap-4">{children}</div>;
 }
 
-export function SectionButton({
-  href,
-  children,
-  variant = 'light',
-}: {
-  href: string;
-  children: ReactNode;
-  variant?: 'dark' | 'light';
-}) {
+export function SectionButton({ href, children }: { href: string; children: ReactNode }) {
+  const { variant } = useContext(SectionContext);
   const buttonClasses =
     variant === 'dark'
       ? 'bg-white text-eucalyptus-600 hover:bg-gray-100'
@@ -124,15 +107,8 @@ export function SectionButton({
   );
 }
 
-export function SectionLink({
-  href,
-  children,
-  variant = 'light',
-}: {
-  href: string;
-  children: ReactNode;
-  variant?: 'dark' | 'light';
-}) {
+export function SectionLink({ href, children }: { href: string; children: ReactNode }) {
+  const { variant } = useContext(SectionContext);
   const textColor = variant === 'dark' ? 'text-white' : 'text-eucalyptus-600';
 
   return (

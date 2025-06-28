@@ -119,8 +119,8 @@ export default function HomePage() {
 
       {/*Our Story Section*/}
       <section className="bg-white py-12 sm:py-16">
-        <SectionWithImage variant="dark" imagePosition="right">
-          <SectionImage imagePosition="right">
+        <SectionWithImage variant="light" imagePosition="right">
+          <SectionImage>
             <Image
               src="/images/img_9.jpg"
               alt="Farm landscape"
@@ -129,17 +129,17 @@ export default function HomePage() {
               priority
             />
           </SectionImage>
-          <SectionContent imagePosition="right">
-            <SectionSubtitle variant="dark">Our Story</SectionSubtitle>
-            <SectionTitle variant="dark">Regenerating Land, Growing Community</SectionTitle>
-            <SectionText variant="dark">
+          <SectionContent>
+            <SectionSubtitle>Our Story</SectionSubtitle>
+            <SectionTitle>Regenerating Land, Growing Community</SectionTitle>
+            <SectionText>
               We're transforming 42 hectares (104 acres) of previously degraded land into thriving
               woodland, diverse habitat corridors, and productive agroforestry systems. Founded by
               Jonathan Daddia — strategic leader turned regenerative farmer — our approach combines
               evidence-based ecological practices with community engagement.
             </SectionText>
             <SectionActions>
-              <SectionButton href="/about" variant="dark">
+              <SectionButton href="/about">
                 Read Our Story<span aria-hidden="true">&nbsp;→</span>
               </SectionButton>
             </SectionActions>
@@ -149,8 +149,8 @@ export default function HomePage() {
 
       {/*Regenerate Section*/}
       <section className="bg-white py-12 sm:py-16">
-        <SectionWithImage variant="light" imagePosition="left">
-          <SectionImage imagePosition="left">
+        <SectionWithImage variant="dark" imagePosition="left">
+          <SectionImage>
             <Image
               src="/images/img_23.jpg"
               alt="Farm gate"
@@ -159,32 +159,30 @@ export default function HomePage() {
               priority
             />
           </SectionImage>
-          <SectionContent imagePosition="left">
-            <SectionSubtitle variant="light">Regenerate with Us</SectionSubtitle>
-            <SectionTitle variant="light">
-              Help Restore Diversity, For our Native Wildlife
-            </SectionTitle>
-            <SectionText variant="light">
+          <SectionContent>
+            <SectionSubtitle>Regenerate with Us</SectionSubtitle>
+            <SectionTitle>Help Restore Diversity, For our Native Wildlife</SectionTitle>
+            <SectionText>
               How are we restoring biodiversity? Through planting 30,000+ native trees, enhancing
               waterways and creating wildlife corridors spanning our Branch River frontage. You can
               help:
               <ul role="list" className="mt-8 space-y-6">
                 <li className="flex gap-x-3">
-                  <Shovel className="h-6 w-6 text-eucalyptus-600" />
+                  <Shovel className="h-6 w-6 text-eucalyptus-100" />
                   <span>
                     <strong className="font-semibold">Join a planting day.</strong> Get your hands
                     dirty at an upcoming planting events.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
-                  <Sprout className="h-6 w-6 text-eucalyptus-600" />
+                  <Sprout className="h-6 w-6 text-eucalyptus-100" />
                   <span>
                     <strong className="font-semibold">Support regeneration.</strong> Provide
                     seedlings, fencing and ecological monitoring equipment.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
-                  <Newspaper className="h-6 w-6 text-eucalyptus-600" />
+                  <Newspaper className="h-6 w-6 text-eucalyptus-100" />
                   <span>
                     <strong className="font-semibold">Follow our progress.</strong> Access open
                     reports tracking soil health, water quality and biodiversity improvements.
@@ -193,7 +191,7 @@ export default function HomePage() {
               </ul>
             </SectionText>
             <SectionActions>
-              <SectionButton href="/regeneration" variant="light">
+              <SectionButton href="/regeneration">
                 Get Involved<span aria-hidden="true">&nbsp;→</span>
               </SectionButton>
             </SectionActions>

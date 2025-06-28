@@ -51,8 +51,8 @@ export default function Header({ navigation }: HeaderProps) {
 
   // Apply styles based on scroll position
   const headerClass = isScrolled
-    ? 'fixed top-4 left-0 right-0 bg-charcoal-900/90 backdrop-blur-sm shadow-md'
-    : 'absolute top-4 left-0 right-0 bg-transparent';
+    ? 'fixed top-4 left-0 right-0 bg-white/80 text-charcoal-300 backdrop-blur-sm shadow-md'
+    : 'absolute top-4 left-0 right-0 bg-transparent text-white';
 
   const hoverClass = 'hover:bg-eucalyptus-100 rounded-lg';
 
@@ -60,7 +60,7 @@ export default function Header({ navigation }: HeaderProps) {
     <header className={`z-40 transition-all duration-300 ${headerClass}`}>
       <nav
         aria-label="Main navigation"
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
       >
         <div className="flex lg:flex-1">
           <motion.div
@@ -68,7 +68,9 @@ export default function Header({ navigation }: HeaderProps) {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2"
           >
-            <span className={`text-2xl font-bold text-white transition-colors duration-300`}>
+            <span
+              className={`text-2xl font-bold text-eucalyptus-600 transition-colors duration-300`}
+            >
               Carinya Parc
             </span>
           </motion.div>
@@ -95,7 +97,7 @@ export default function Header({ navigation }: HeaderProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-white transition-colors duration-300 ${
+                className={`transition-colors duration-300 ${
                   pathname === item.href ? 'text-eucalyptus-100' : ''
                 } flex flex-col items-start text-left ${hoverClass} px-2 py-1`}
               >
