@@ -72,16 +72,24 @@ export default function AboutPage() {
         </SectionContent>
       </SectionWithImageTiles>
 
-      <div className="max-w-2xl mx-auto px-6 pb-24">
-        <hr className="my-12 border-t border-gray-200" />
-
-        <h3 className="text-2xl font-bold mb-4">What does Carinya mean?</h3>
-        <p className="text-lg">
-          <strong>Carinya</strong> is an Aboriginal Australian word, primarily from the Awabakal
-          language of the Newcastle-Lake Macquarie region, that translates to "peaceful home" or
-          "happy home".
-        </p>
-      </div>
+      {/* Carinya meaning */}
+      <section className="relative isolate overflow-hidden bg-white py-8 sm:py-12">
+        <div className="mx-auto max-w-2xl lg:max-w-6xl border-y border-eucalyptus-500 py-16">
+          <h3 className="text-center text-2xl font-bold text-eucalyptus-400">
+            What does Carinya mean?
+          </h3>
+          <figure className="mt-8">
+            <blockquote className="text-center text-xl/8 font-medium text-gray-900 sm:text-2xl/9">
+              <p>
+                <strong>Carinya</strong> is an Aboriginal Australian word, primarily from the
+                Awabakal language of the Newcastle-Lake Macquarie region, that translates to{' '}
+                <span className="text-eucalyptus-600 font-semibold">"peaceful home"</span> or{' '}
+                <span className="text-eucalyptus-600 font-semibold">"happy home"</span>.
+              </p>
+            </blockquote>
+          </figure>
+        </div>
+      </section>
     </main>
   );
 }
