@@ -15,6 +15,7 @@ export default function Header({ navigation }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
+  const isHomePage = pathname === '/';
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -31,11 +32,14 @@ export default function Header({ navigation }: HeaderProps) {
       }
     };
 
+    // Initialize scroll state - if not homepage, consider "scrolled"
+    setIsScrolled(!isHomePage);
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isHomePage]);
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -49,10 +53,11 @@ export default function Header({ navigation }: HeaderProps) {
     };
   }, [mobileMenuOpen]);
 
-  // Apply styles based on scroll position
-  const headerClass = isScrolled
-    ? 'fixed top-4 left-0 right-0 bg-white/90 text-charcoal-300 backdrop-blur-sm shadow-md'
-    : 'absolute top-4 left-0 right-0 bg-transparent text-white';
+  // Apply styles based on scroll position or page
+  const headerClass =
+    isScrolled || !isHomePage
+      ? 'fixed top-4 left-0 right-0 bg-white/90 text-charcoal-300 backdrop-blur-sm shadow-md'
+      : 'absolute top-4 left-0 right-0 bg-transparent text-white';
 
   const hoverClass = 'hover:bg-eucalyptus-100 rounded-lg';
 

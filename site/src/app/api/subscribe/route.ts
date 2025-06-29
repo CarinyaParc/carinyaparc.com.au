@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    // Parse email from request
-    const { email } = await req.json();
-    console.log('Attempting to subscribe email:', email);
+    // Parse form data from request
+    const { email, name, interests } = await req.json();
+    console.log('Attempting to subscribe:', { email, name, interests });
 
     // Check for API key
     if (!process.env.MAILERLITE_API_KEY) {
@@ -19,6 +19,27 @@ export async function POST(req: Request) {
     // Base URL is https://connect.mailerlite.com/api
     // We need to use Authorization: Bearer XXX header format
     try {
+      const subscriberData: any = {
+        email,
+        // Remove the groups parameter if you don't have a group ID
+        // If you know your group ID, use: groups: [12345]
+      };
+
+      // Add name field if provided
+      if (name && name.trim() !== '') {
+        subscriberData.fields = {
+          name: name,
+        };
+      }
+
+      // Add interests as a custom field if provided
+      if (interests && interests !== '') {
+        subscriberData.fields = {
+          ...subscriberData.fields,
+          interests: interests,
+        };
+      }
+
       const response = await fetch('https://connect.mailerlite.com/api/subscribers', {
         method: 'POST',
         headers: {
@@ -26,11 +47,7 @@ export async function POST(req: Request) {
           Accept: 'application/json',
           Authorization: `Bearer ${process.env.MAILERLITE_API_KEY}`,
         },
-        body: JSON.stringify({
-          email,
-          // Remove the groups parameter if you don't have a group ID
-          // If you know your group ID, use: groups: [12345]
-        }),
+        body: JSON.stringify(subscriberData),
       });
 
       // Get response data
@@ -64,7 +81,7 @@ export async function POST(req: Request) {
         );
       }
 
-      console.log('Successfully subscribed email:', email);
+      console.log('Successfully subscribed:', email);
       return NextResponse.json({ success: true });
     } catch (fetchError) {
       console.error('Fetch error:', fetchError);

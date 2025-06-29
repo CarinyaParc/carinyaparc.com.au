@@ -3,6 +3,7 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
+import { PageLayout } from '@/src/components/PageLayout';
 
 // Types for Next.js 15 async params/searchParams
 type Params = Promise<{ slug: string[] }>;
@@ -81,7 +82,7 @@ export default async function Page({ params }: { params: Params; searchParams?: 
     notFound();
   }
 
-  const { contentPath, frontmatter } = fileResult;
+  const { contentPath } = fileResult;
 
   let ContentComponent;
   try {
@@ -92,11 +93,10 @@ export default async function Page({ params }: { params: Params; searchParams?: 
   }
 
   return (
-    <div className="container mx-auto py-12 px-4 max-w-4xl prose prose-eucalyptus">
-      {frontmatter?.date && (
-        <p className="text-sm text-gray-500 mb-4">Published: {frontmatter.date}</p>
-      )}
-      <ContentComponent />
+    <div className="min-h-screen">
+      <PageLayout variant="wide">
+        <ContentComponent />
+      </PageLayout>
     </div>
   );
 }
