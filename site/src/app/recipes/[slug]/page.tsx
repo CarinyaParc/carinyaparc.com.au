@@ -1,0 +1,181 @@
+import fs from 'fs';
+import path from 'path';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import matter from 'gray-matter';
+import { PageLayout } from '@/src/components/PageLayout';
+
+// Types for Next.js params
+type Params = { slug: string };
+
+// Define the Recipe frontmatter interface
+interface RecipeFrontmatter {
+  title?: string;
+  date?: string;
+  author?: string;
+  description?: string;
+  servings?: number;
+  prepTime?: string;
+  cookTime?: string;
+  totalTime?: string;
+  ingredients?: string[];
+  tags?: string[];
+  [key: string]: any;
+}
+
+// Function to find MDX files in the recipes directory
+async function findRecipe(slug: string) {
+  const mdxPath = path.join(process.cwd(), 'content', 'recipes', `${slug}.mdx`);
+
+  if (fs.existsSync(mdxPath)) {
+    const source = fs.readFileSync(mdxPath, 'utf8');
+    const matterResult = matter(source);
+    return {
+      slug,
+      frontmatter: matterResult.data as RecipeFrontmatter,
+    };
+  }
+
+  return null;
+}
+
+// Generate metadata for the page
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { slug } = params;
+  const recipeData = await findRecipe(slug);
+
+  if (!recipeData) {
+    return {
+      title: 'Recipe Not Found - Carinya Parc',
+      description: 'The requested recipe could not be found.',
+    };
+  }
+
+  const { frontmatter } = recipeData;
+
+  return {
+    title: `${frontmatter.title || slug} - Recipe - Carinya Parc`,
+    description: frontmatter.description || 'A delicious recipe from Carinya Parc',
+    openGraph: {
+      title: frontmatter.title,
+      description: frontmatter.description,
+      type: 'article',
+      publishedTime: frontmatter.date,
+      authors: frontmatter.author ? [frontmatter.author] : undefined,
+    },
+  };
+}
+
+// Generate static paths for the recipes
+export async function generateStaticParams() {
+  const recipesDir = path.join(process.cwd(), 'content', 'recipes');
+  const fileNames = fs.readdirSync(recipesDir);
+
+  return fileNames.map((fileName) => ({
+    slug: fileName.replace(/\.mdx$/, ''),
+  }));
+}
+
+export default async function RecipePage({ params }: { params: Params }) {
+  const { slug } = params;
+  const recipeData = await findRecipe(slug);
+
+  if (!recipeData) {
+    notFound();
+  }
+
+  const { frontmatter } = recipeData;
+
+  let ContentComponent;
+  try {
+    ContentComponent = (await import(`@/content/recipes/${slug}.mdx`)).default;
+  } catch (error) {
+    console.error('Error loading recipe MDX file:', error);
+    notFound();
+  }
+
+  // Function to format ISO duration to human readable format
+  const formatDuration = (isoDuration?: string) => {
+    if (!isoDuration) return null;
+
+    // Basic parsing of PT15M format
+    const minutes = isoDuration.match(/PT(\d+)M/)?.[1];
+    const hours = isoDuration.match(/PT(\d+)H/)?.[1];
+
+    if (hours && minutes) {
+      return `${hours} hr ${minutes} min`;
+    } else if (hours) {
+      return `${hours} hr`;
+    } else if (minutes) {
+      return `${minutes} min`;
+    }
+    return isoDuration;
+  };
+
+  return (
+    <div className="min-h-screen">
+      <PageLayout variant="narrow">
+        <article className="prose max-w-none">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{frontmatter.title}</h1>
+
+          {/* Recipe metadata */}
+          <div className="bg-stone-100 p-4 rounded-lg mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {frontmatter.servings && (
+                <div>
+                  <p className="font-semibold text-sm">Servings</p>
+                  <p>{frontmatter.servings}</p>
+                </div>
+              )}
+              {frontmatter.prepTime && (
+                <div>
+                  <p className="font-semibold text-sm">Prep Time</p>
+                  <p>{formatDuration(frontmatter.prepTime)}</p>
+                </div>
+              )}
+              {frontmatter.cookTime && (
+                <div>
+                  <p className="font-semibold text-sm">Cook Time</p>
+                  <p>{formatDuration(frontmatter.cookTime)}</p>
+                </div>
+              )}
+              {frontmatter.totalTime && (
+                <div>
+                  <p className="font-semibold text-sm">Total Time</p>
+                  <p>{formatDuration(frontmatter.totalTime)}</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Display ingredients if they're in the frontmatter */}
+          {frontmatter.ingredients && frontmatter.ingredients.length > 0 && (
+            <div className="mb-6">
+              <h2>Ingredients</h2>
+              <ul>
+                {frontmatter.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <ContentComponent />
+
+          {/* Display tags if present */}
+          {frontmatter.tags && frontmatter.tags.length > 0 && (
+            <div className="mt-6 pt-4 border-t border-gray-200">
+              <div className="flex flex-wrap gap-2">
+                {frontmatter.tags.map((tag, index) => (
+                  <span key={index} className="bg-stone-200 px-2 py-1 rounded text-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </article>
+      </PageLayout>
+    </div>
+  );
+}

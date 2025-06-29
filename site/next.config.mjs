@@ -3,6 +3,16 @@ import createMDX from '@next/mdx';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+
+  // Configure trailing slashes for consistency
+  trailingSlash: true,
+
+  // Image optimization settings
+  images: {
+    remotePatterns: [],
+    formats: ['image/avif', 'image/webp'],
+  },
+
   headers: async () => {
     return [
       {
@@ -52,8 +62,14 @@ const nextConfig = {
   },
 };
 
+// Configure MDX options
 const withMDX = createMDX({
   extension: /\.mdx?$/,
+  options: {
+    // Optionally provide remark and rehype plugins here
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
 });
 
 // Merge MDX config with Next.js config
