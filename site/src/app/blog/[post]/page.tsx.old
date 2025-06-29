@@ -56,13 +56,17 @@ async function findBlogPost(slug: string) {
   return null;
 }
 
-type Props = {
-  params: { post: string };
-  searchParams: Record<string, string | string[] | undefined>;
+// For a route whose only dynamic param is `post: string`,
+// and with arbitrary searchParams:
+type BlogPageContext = {
+  params: { post: string }
+  searchParams?: Record<string, string | string[] | undefined>
 };
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: BlogPageContext
+): Promise<Metadata> {
   const { post } = params;
   const postData = await findBlogPost(post);
 
@@ -88,8 +92,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// Generate static paths for the blog posts
-export async function generateStaticParams() {
+// Generate static paths for the blog posts - explicitly synchronous with return type
+export function generateStaticParams(): Array<{ post: string }> {
   const postsDir = path.join(process.cwd(), 'content', 'posts');
   const fileNames = fs.readdirSync(postsDir);
 
@@ -100,7 +104,10 @@ export async function generateStaticParams() {
   });
 }
 
-export default async function BlogPostPage({ params }: Props) {
+// Use the same context type for the page component
+export default async function BlogPostPage(
+  { params }: BlogPageContext
+) {
   const { post } = params;
   const postData = await findBlogPost(post);
 

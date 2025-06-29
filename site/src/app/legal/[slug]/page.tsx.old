@@ -29,13 +29,14 @@ async function findLegalPage(slug: string) {
   return null;
 }
 
-type Props = {
+// Explicitly declare what our context looks like
+type LegalPageContext = {
   params: { slug: string };
   searchParams?: Record<string, string | string[] | undefined>;
 };
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: LegalPageContext): Promise<Metadata> {
   const { slug } = params;
   const pageData = await findLegalPage(slug);
 
@@ -54,8 +55,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// Generate static paths for the legal pages
-export async function generateStaticParams() {
+// Generate static paths for the legal pages - explicitly synchronous with return type
+export function generateStaticParams(): Array<{ slug: string }> {
   const legalDir = path.join(process.cwd(), 'content', 'legal');
   const fileNames = fs.readdirSync(legalDir);
 
@@ -64,7 +65,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function LegalPage({ params }: Props) {
+// Use the same context type for the page component
+export default async function LegalPage({ params }: LegalPageContext) {
   const { slug } = params;
   const pageData = await findLegalPage(slug);
 
