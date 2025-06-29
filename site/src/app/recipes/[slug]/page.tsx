@@ -36,12 +36,13 @@ async function findRecipe(slug: string) {
   return null;
 }
 
-type PageParams = {
-  slug: string;
+type Props = {
+  params: { slug: string };
+  searchParams?: Record<string, string | string[] | undefined>;
 };
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = params;
   const recipeData = await findRecipe(slug);
 
@@ -68,7 +69,7 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
 }
 
 // Generate static paths for the recipes
-export async function generateStaticParams(): Promise<PageParams[]> {
+export async function generateStaticParams() {
   const recipesDir = path.join(process.cwd(), 'content', 'recipes');
   const fileNames = fs.readdirSync(recipesDir);
 
@@ -77,7 +78,7 @@ export async function generateStaticParams(): Promise<PageParams[]> {
   }));
 }
 
-export default async function RecipePage({ params }: { params: PageParams }) {
+export default async function RecipePage({ params }: Props) {
   const { slug } = params;
   const recipeData = await findRecipe(slug);
 
