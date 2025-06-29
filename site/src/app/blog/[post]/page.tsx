@@ -56,12 +56,12 @@ async function findBlogPost(slug: string) {
   return null;
 }
 
+type PageParams = {
+  post: string;
+};
+
 // Generate metadata for the page
-export async function generateMetadata({
-  params,
-}: {
-  params: { post: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
   const { post } = params;
   const postData = await findBlogPost(post);
 
@@ -88,7 +88,7 @@ export async function generateMetadata({
 }
 
 // Generate static paths for the blog posts
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<PageParams[]> {
   const postsDir = path.join(process.cwd(), 'content', 'posts');
   const fileNames = fs.readdirSync(postsDir);
 
@@ -99,7 +99,7 @@ export async function generateStaticParams() {
   });
 }
 
-export default async function BlogPostPage({ params }: { params: { post: string } }) {
+export default async function BlogPostPage({ params }: { params: PageParams }) {
   const { post } = params;
   const postData = await findBlogPost(post);
 

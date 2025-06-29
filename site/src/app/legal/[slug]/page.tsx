@@ -29,12 +29,12 @@ async function findLegalPage(slug: string) {
   return null;
 }
 
+type PageParams = {
+  slug: string;
+};
+
 // Generate metadata for the page
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
   const { slug } = params;
   const pageData = await findLegalPage(slug);
 
@@ -54,7 +54,7 @@ export async function generateMetadata({
 }
 
 // Generate static paths for the legal pages
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<PageParams[]> {
   const legalDir = path.join(process.cwd(), 'content', 'legal');
   const fileNames = fs.readdirSync(legalDir);
 
@@ -63,7 +63,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function LegalPage({ params }: { params: { slug: string } }) {
+export default async function LegalPage({ params }: { params: PageParams }) {
   const { slug } = params;
   const pageData = await findLegalPage(slug);
 
