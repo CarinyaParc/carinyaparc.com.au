@@ -202,7 +202,7 @@ export default function HomePage() {
           </SectionImage>
           <SectionContent>
             <SectionSubtitle>Experience the Farm</SectionSubtitle>
-            <SectionTitle>Help Restore Diversity, For our Native Wildlife</SectionTitle>
+            <SectionTitle>Explore Regenerative Farming, Reconnect with Nature</SectionTitle>
             <SectionText>
               Discover regerative farming. Immerse yourself through guided tours, hands-on workshops
               and eco-stays. Explore our permaculture gardens, syntropic food forest and wildlife
@@ -242,7 +242,7 @@ export default function HomePage() {
       {/*Blog Section */}
       <section className="bg-white py-8 sm:py-12">
         <PostsLatest
-          title="Out to Pasture"
+          title="Life on Pasture"
           subtitle="What's happening on the farm? Follow our journey as we transform Carinya Parc into a thriving regenerative farm."
           posts={[
             {
