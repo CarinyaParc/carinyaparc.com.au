@@ -18,8 +18,8 @@ export const navigation: NavItem[] = [
   },
   {
     verb: 'Regenerate',
-    rest: 'With Us',
-    href: '/regeneration',
+    rest: 'Land with Us',
+    href: '/regenerate',
     visible: true,
   },
   {

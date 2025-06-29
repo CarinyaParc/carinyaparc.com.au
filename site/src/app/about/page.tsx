@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
       <SectionWithImageTiles>
         <SectionHeader>
           <SectionTag>About Carinya Parc</SectionTag>
@@ -82,6 +82,6 @@ export default function AboutPage() {
           "happy home".
         </p>
       </div>
-    </div>
+    </main>
   );
 }

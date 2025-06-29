@@ -19,7 +19,7 @@ const navigation: {
     { name: 'The Property', href: '/about/property' },
   ],
   FooterList2: [
-    { name: 'Regeneration', href: '/regeneration' },
+    { name: 'Regeneration Project', href: '/regenerate' },
     { name: 'Future Produce', href: '/products' },
   ],
   FooterList3: [{ name: 'Read Life on Pasture', href: '/blog' }],
