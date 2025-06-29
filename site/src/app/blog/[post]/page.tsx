@@ -6,9 +6,6 @@ import matter from 'gray-matter';
 import { PageLayout } from '@/src/components/PageLayout';
 import DateComponent from '@/src/components/Date';
 
-// Types for Next.js params
-type Params = { post: string };
-
 // Define the frontmatter interface
 interface PostFrontmatter {
   title?: string;
@@ -16,7 +13,7 @@ interface PostFrontmatter {
   author?: string;
   excerpt?: string;
   description?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Function to parse date from post filename (format: YYYYMMDD-slug.mdx)
@@ -60,7 +57,11 @@ async function findBlogPost(slug: string) {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { post: string };
+}): Promise<Metadata> {
   const { post } = params;
   const postData = await findBlogPost(post);
 
@@ -98,7 +99,7 @@ export async function generateStaticParams() {
   });
 }
 
-export default async function BlogPostPage({ params }: { params: Params }) {
+export default async function BlogPostPage({ params }: { params: { post: string } }) {
   const { post } = params;
   const postData = await findBlogPost(post);
 
@@ -107,7 +108,6 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   }
 
   const { fileName, frontmatter } = postData;
-  const fileNameWithoutExt = fileName.replace(/\.mdx$/, '');
 
   let ContentComponent;
   try {

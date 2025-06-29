@@ -5,8 +5,9 @@ import { ArrowLeft, Calendar, Clock, Tag, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/src/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/src/components/ui/card';
+import { Card, CardContent } from '@/src/components/ui/card';
 import { Badge } from '@/src/components/ui/badge';
+import { PostsLatest } from '@/src/components/PostsLatest';
 
 const blogPosts = [
   {
@@ -93,7 +94,7 @@ const categories = ['All', 'Soil Health', 'Biodiversity', 'Water Systems', 'Educ
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
+    <div className="min-h-screen bg-eucalyptus-50">
       {/* Back Button */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <Button asChild variant="ghost" className="text-green-600 hover:text-green-700">
@@ -113,10 +114,10 @@ export default function BlogPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className="text-4xl lg:text-6xl font-bold text-green-900 mb-6">
-              Life on the <span className="text-amber-600">Land</span>
+            <h1 className="text-4xl lg:text-6xl font-bold text-eucalyptus-600 mb-6">
+              Life on Pasture
             </h1>
-            <p className="text-xl text-green-700 max-w-3xl mx-auto">
+            <p className="text-xl text-charcoal-600 max-w-3xl mx-auto">
               Follow our regeneration journey through detailed updates, insights, and lessons
               learned as we transform Carinya Parc into a thriving ecosystem.
             </p>
@@ -136,7 +137,7 @@ export default function BlogPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <Card className="overflow-hidden border-green-100 shadow-lg">
+                <Card className="overflow-hidden border-eucalyptus-100 shadow-lg">
                   <div className="grid lg:grid-cols-2 gap-0">
                     <div className="relative h-64 lg:h-full">
                       <Image
@@ -150,7 +151,7 @@ export default function BlogPage() {
                       </div>
                     </div>
                     <CardContent className="p-8 lg:p-12">
-                      <div className="flex items-center space-x-4 text-sm text-green-600 mb-4">
+                      <div className="flex items-center space-x-4 text-sm text-charcoal-600 mb-4">
                         <div className="flex items-center">
                           <Calendar className="h-4 w-4 mr-1" />
                           {post.date}
@@ -167,8 +168,10 @@ export default function BlogPage() {
                       <h2 className="text-2xl lg:text-3xl font-bold text-green-900 mb-4">
                         {post.title}
                       </h2>
-                      <p className="text-green-700 text-lg mb-6 leading-relaxed">{post.content}</p>
-                      <Button className="bg-green-600 hover:bg-green-700">
+                      <p className="text-eucalyptus-600 text-lg mb-6 leading-relaxed">
+                        {post.content}
+                      </p>
+                      <Button className="bg-eucalyptus-600 hover:bg-eucalyptus-400">
                         Read Full Article <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </CardContent>
@@ -209,62 +212,22 @@ export default function BlogPage() {
 
       {/* Blog Posts Grid */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts
-              .filter((post) => !post.featured)
-              .map((post, index) => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <Card className="h-full overflow-hidden border-green-100 hover:shadow-lg transition-shadow group">
-                    <div className="relative h-48 overflow-hidden">
-                      <Image
-                        src={post.image || '/placeholder.svg'}
-                        alt={post.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center space-x-4 text-xs text-green-600 mb-2">
-                        <div className="flex items-center">
-                          <Calendar className="h-3 w-3 mr-1" />
-                          {post.date}
-                        </div>
-                        <div className="flex items-center">
-                          <Clock className="h-3 w-3 mr-1" />
-                          {post.readTime}
-                        </div>
-                      </div>
-                      <Badge
-                        variant="outline"
-                        className="w-fit border-green-600 text-green-600 mb-3"
-                      >
-                        {post.category}
-                      </Badge>
-                      <h3 className="text-xl font-semibold text-green-900 group-hover:text-green-700 transition-colors">
-                        {post.title}
-                      </h3>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <p className="text-green-700 mb-4 line-clamp-3">{post.excerpt}</p>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-green-600 text-green-600 hover:bg-green-50"
-                      >
-                        Read More <ArrowRight className="ml-2 h-3 w-3" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-          </div>
-        </div>
+        <PostsLatest
+          title="Recent Articles"
+          subtitle="Explore our latest insights and updates from the farm"
+          posts={blogPosts
+            .filter((post) => !post.featured)
+            .map((post) => ({
+              id: post.id,
+              title: post.title,
+              href: `/blog/${post.id}`,
+              description: post.excerpt,
+              imageUrl: post.image,
+              date: post.date,
+              datetime: post.date,
+            }))}
+          viewAllLink=""
+        />
       </section>
     </div>
   );

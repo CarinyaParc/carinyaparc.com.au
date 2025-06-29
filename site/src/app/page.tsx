@@ -26,7 +26,7 @@ import {
   SectionButton,
   SectionLink,
 } from '@/src/components/SectionWithImage';
-import { SectionFromBlog } from '@/src/components/SectionFromBlog';
+import { PostsLatest } from '@/src/components/PostsLatest';
 
 export default function HomePage() {
   return (
@@ -241,7 +241,7 @@ export default function HomePage() {
 
       {/*Blog Section */}
       <section className="bg-white py-8 sm:py-12">
-        <SectionFromBlog
+        <PostsLatest
           title="Out to Pasture"
           subtitle="What's happening on the farm? Follow our journey as we transform Carinya Parc into a thriving regenerative farm."
           posts={[

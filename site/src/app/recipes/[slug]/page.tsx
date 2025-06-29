@@ -5,9 +5,6 @@ import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import { PageLayout } from '@/src/components/PageLayout';
 
-// Types for Next.js params
-type Params = { slug: string };
-
 // Define the Recipe frontmatter interface
 interface RecipeFrontmatter {
   title?: string;
@@ -20,7 +17,7 @@ interface RecipeFrontmatter {
   totalTime?: string;
   ingredients?: string[];
   tags?: string[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Function to find MDX files in the recipes directory
@@ -40,7 +37,11 @@ async function findRecipe(slug: string) {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const { slug } = params;
   const recipeData = await findRecipe(slug);
 
@@ -76,7 +77,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function RecipePage({ params }: { params: Params }) {
+export default async function RecipePage({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const recipeData = await findRecipe(slug);
 

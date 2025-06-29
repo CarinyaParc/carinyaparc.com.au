@@ -4,7 +4,7 @@
   --font-sans: var(--font-raleway), sans-serif;
 
   /* Eucalyptus (Primary) */
-  --color-eucalyptus-50: oklch(0.94 0.03 143);
+  --color-eucalyptus-50: oklch(0.97 0.03 143);
   --color-eucalyptus-100: oklch(0.88 0.04 143);
   --color-eucalyptus-200: oklch(0.83 0.05 143);
   --color-eucalyptus-300: oklch(0.77 0.065 143);
@@ -16,7 +16,7 @@
   --color-eucalyptus-900: oklch(0.42 0.12 143);
 
   /* Harvest Gold (Secondary) */
-  --color-harvest-50: oklch(0.96 0.07 85);
+  --color-harvest-50: oklch(0.98 0.07 85);
   --color-harvest-100: oklch(0.92 0.09 85);
   --color-harvest-200: oklch(0.88 0.11 85);
   --color-harvest-300: oklch(0.84 0.13 85);
@@ -28,7 +28,7 @@
   --color-harvest-900: oklch(0.6 0.25 85);
 
   /* Charcoal (Tertiary) */
-  --color-charcoal-50: oklch(0.96 0.01 0);
+  --color-charcoal-50: oklch(0.98 0.01 0);
   --color-charcoal-100: oklch(0.86 0.01 0);
   --color-charcoal-200: oklch(0.76 0.01 0);
   --color-charcoal-300: oklch(0.66 0.01 0);

@@ -19,7 +19,17 @@ export async function POST(req: Request) {
     // Base URL is https://connect.mailerlite.com/api
     // We need to use Authorization: Bearer XXX header format
     try {
-      const subscriberData: any = {
+      // Define type for subscriber data
+      interface SubscriberData {
+        email: string;
+        fields?: {
+          name?: string;
+          interests?: string;
+          [key: string]: string | undefined;
+        };
+      }
+
+      const subscriberData: SubscriberData = {
         email,
         // Remove the groups parameter if you don't have a group ID
         // If you know your group ID, use: groups: [12345]

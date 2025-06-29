@@ -43,7 +43,7 @@ export const navigation: NavItem[] = [
   {
     verb: 'Read',
     rest: 'Life on Pasture',
-    href: '#',
+    href: '/blog',
     visible: true,
   },
   {

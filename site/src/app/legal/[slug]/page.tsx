@@ -5,15 +5,12 @@ import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import { PageLayout } from '@/src/components/PageLayout';
 
-// Types for Next.js params
-type Params = { slug: string };
-
 // Define the Legal frontmatter interface
 interface LegalFrontmatter {
   title?: string;
   description?: string;
   lastUpdated?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Function to find MDX files in the legal directory
@@ -33,7 +30,11 @@ async function findLegalPage(slug: string) {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const { slug } = params;
   const pageData = await findLegalPage(slug);
 
@@ -62,7 +63,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function LegalPage({ params }: { params: Params }) {
+export default async function LegalPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const pageData = await findLegalPage(slug);
 
