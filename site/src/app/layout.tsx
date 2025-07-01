@@ -1,6 +1,5 @@
 import '../styles/globals.css';
 
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
@@ -62,7 +61,6 @@ export default async function RootLayout({
         <SubFooter />
         <Acknowledgement />
         <CookiePolicy />
-        <SpeedInsights />
         <Analytics />
       </body>
     </html>
