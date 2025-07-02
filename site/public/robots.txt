@@ -3,15 +3,18 @@
 
 User-agent: *
 Allow: /
-
-# Disallow admin and potentially sensitive areas
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/static/development/
+Disallow: /_next/data/
 
-# Allow all bots to scan images and assets
-Allow: /images/
-Allow: /public/
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Crawl-delay: 10
 
 # Sitemap location
 Sitemap: https://www.carinyaparc.com.au/sitemap.xml 
