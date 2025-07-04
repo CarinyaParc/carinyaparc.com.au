@@ -3,7 +3,8 @@ import { generatePageMetadata } from '@/src/lib/generateMetadata';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Blog - Life on Pasture - Carinya Parc',
-  description: 'Follow our regeneration journey through detailed updates, insights, and lessons learned as we transform Carinya Parc into a thriving ecosystem.',
+  description:
+    'Follow our regeneration journey through detailed updates, insights, and lessons learned as we transform Carinya Parc into a thriving ecosystem.',
   path: '/blog',
   image: '/images/img_23.jpg',
   keywords: [
@@ -17,4 +18,4 @@ export const metadata: Metadata = generatePageMetadata({
     'regenerative practices',
     'seasonal updates',
   ],
-}); 
+});

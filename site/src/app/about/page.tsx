@@ -8,11 +8,12 @@ const stats = [
   { label: 'Natives to Plant', value: '30,000' },
   { label: 'Riparian Repair', value: '400m' },
   { label: 'Farm Dams', value: '5' },
-]
+];
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'About - Carinya Parc',
-  description: "Discover the story of Carinya Parc, our peaceful home where we're regenerating land, building community, and demonstrating ecological stewardship in practice.",
+  description:
+    "Discover the story of Carinya Parc, our peaceful home where we're regenerating land, building community, and demonstrating ecological stewardship in practice.",
   path: '/about',
   image: '/images/img_10.jpg',
   keywords: [
@@ -37,11 +38,11 @@ export default function AboutPage() {
           subtitle="About Carinya Parc"
           description="Discover the story of Carinya Parc, our peaceful home where we're regenerating land, building community, and demonstrating ecological stewardship in practice."
           tileImages={[
-            { src: "/images/img_9.jpg", alt: "Carinya Parc landscape" },
-            { src: "/images/img_8.jpg", alt: "Carinya Parc river" },
-            { src: "/images/img_13.jpg", alt: "Native plantings" },
-            { src: "/images/img_23.jpg", alt: "Farm dam" },
-            { src: "/images/img_16.jpg", alt: "Carinya Parc landscape" } // Duplicating first image to ensure we have 5 for the layout
+            { src: '/images/img_9.jpg', alt: 'Carinya Parc landscape' },
+            { src: '/images/img_8.jpg', alt: 'Carinya Parc river' },
+            { src: '/images/img_13.jpg', alt: 'Native plantings' },
+            { src: '/images/img_23.jpg', alt: 'Farm dam' },
+            { src: '/images/img_16.jpg', alt: 'Carinya Parc landscape' }, // Duplicating first image to ensure we have 5 for the layout
           ]}
         />
       </section>
@@ -69,18 +70,20 @@ export default function AboutPage() {
       <section className="isolate py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-            <h2 className="text-3xl font-semibold tracking-tight text-pretty text-eucalyptus-600 sm:text-4xl">Our Mission</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-pretty text-eucalyptus-600 sm:text-4xl">
+              Our Mission
+            </h2>
             <div className="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
               <div className="lg:w-full lg:max-w-2xl lg:flex-auto">
                 <p className="text-xl/8 font-medium text-charcoal-500">
-                  At Carinya Parc, we're transforming a 42-hectare former grazing property into a living
-                  demonstration of regenerative agriculture and ecological restoration. Nestled on the
-                  mid-north coast of New South Wales, our land has been resting since early 2024—giving
-                  us time to observe, plan and begin the journey of renewal.
+                  At Carinya Parc, we're transforming a 42-hectare former grazing property into a
+                  living demonstration of regenerative agriculture and ecological restoration.
+                  Nestled on the mid-north coast of New South Wales, our land has been resting since
+                  early 2024—giving us time to observe, plan and begin the journey of renewal.
                 </p>
                 <p className="mt-10 max-w-xl text-lg/7 font-medium text-charcoal-500">
-                  What drives us? A vision of thriving landscapes where biodiversity, food production
-                  and community connection work in harmony to heal Country.
+                  What drives us? A vision of thriving landscapes where biodiversity, food
+                  production and community connection work in harmony to heal Country.
                 </p>
               </div>
               <div className="lg:flex lg:flex-auto lg:justify-center">
@@ -88,7 +91,9 @@ export default function AboutPage() {
                   {stats.map((stat) => (
                     <div key={stat.label} className="flex flex-col-reverse gap-y-4">
                       <dt className="text-base/7 text-charcoal-500">{stat.label}</dt>
-                      <dd className="text-5xl font-semibold tracking-tight text-eucalyptus-600">{stat.value}</dd>
+                      <dd className="text-5xl font-semibold tracking-tight text-eucalyptus-600">
+                        {stat.value}
+                      </dd>
                     </div>
                   ))}
                 </dl>
@@ -101,15 +106,13 @@ export default function AboutPage() {
       {/* Image section */}
       <section>
         <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-            <img
-              alt=""
-              src="/images/img_23.jpg"
-              className="aspect-5/2 w-full object-cover xl:rounded-3xl"
-            />
+          <img
+            alt=""
+            src="/images/img_23.jpg"
+            className="aspect-5/2 w-full object-cover xl:rounded-3xl"
+          />
         </div>
       </section>
-
-      
     </main>
   );
 }

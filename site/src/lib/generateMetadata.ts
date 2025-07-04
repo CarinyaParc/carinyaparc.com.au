@@ -51,7 +51,7 @@ export async function generateMetadata(
           height: 630,
           alt: 'Carinya Parc regenerative farm landscape',
         },
-        ...previousImages
+        ...previousImages,
       ],
       locale: 'en_AU',
       type: 'website',
@@ -102,12 +102,7 @@ export function generatePageMetadata({
   return {
     title,
     description,
-    keywords: [
-      ...keywords,
-      'Carinya Parc',
-      'regenerative farming',
-      'sustainable agriculture',
-    ],
+    keywords: [...keywords, 'Carinya Parc', 'regenerative farming', 'sustainable agriculture'],
     alternates: {
       canonical: url,
     },

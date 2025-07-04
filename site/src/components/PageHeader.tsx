@@ -1,23 +1,23 @@
 'use client';
 
-import { cn } from "@/src/lib/utils";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import { cn } from '@/src/lib/utils';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 /**
  * PageHeader component for consistent page headers
- * 
+ *
  * @example
  * ```tsx
  * // Light variant with left alignment (default)
- * <PageHeader 
+ * <PageHeader
  *   title="Our Farm"
  *   subtitle="Sustainable Farming"
  *   description="Learn about our regenerative farming practices and how we're working to improve the land."
  * />
- * 
+ *
  * // Dark variant with center alignment
- * <PageHeader 
+ * <PageHeader
  *   variant="dark"
  *   align="center"
  *   title="Get Involved"
@@ -27,8 +27,8 @@ import { motion } from "framer-motion";
  * />
  */
 interface PageHeaderProps {
-  variant?: "light" | "dark";
-  align?: "left" | "center";
+  variant?: 'light' | 'dark';
+  align?: 'left' | 'center';
   title: string;
   subtitle?: string;
   description?: string;
@@ -38,29 +38,29 @@ interface PageHeaderProps {
 }
 
 export default function PageHeader({
-  variant = "light",
-  align = "left",
+  variant = 'light',
+  align = 'left',
   title,
   subtitle,
   description,
   backgroundImage,
-  backgroundImageAlt = "Header background",
+  backgroundImageAlt = 'Header background',
   className,
 }: PageHeaderProps) {
-  const isDark = variant === "dark";
-  const isCenter = align === "center";
-  
-  const textColorClass = isDark ? "text-white" : "text-eucalyptus-600";
-  const subtitleColorClass = isDark ? "text-eucalyptus-300" : "text-eucalyptus-300";
-  const descriptionColorClass = isDark ? "text-eucalyptus-100" : "text-charcoal-500";
-  const bgColorClass = isDark ? "bg-eucalyptus-600" : "bg-white";
-  
+  const isDark = variant === 'dark';
+  const isCenter = align === 'center';
+
+  const textColorClass = isDark ? 'text-white' : 'text-eucalyptus-600';
+  const subtitleColorClass = isDark ? 'text-eucalyptus-300' : 'text-eucalyptus-300';
+  const descriptionColorClass = isDark ? 'text-eucalyptus-100' : 'text-charcoal-500';
+  const bgColorClass = isDark ? 'bg-eucalyptus-600' : 'bg-white';
+
   return (
     <div
       className={cn(
-        "relative isolate overflow-hidden py-24 sm:py-32",
+        'relative isolate overflow-hidden py-24 sm:py-32',
         !backgroundImage && bgColorClass,
-        className
+        className,
       )}
     >
       {backgroundImage && (
@@ -71,9 +71,9 @@ export default function PageHeader({
             animate={{ scale: 1.1 }}
             transition={{
               duration: 40,
-              ease: "linear",
+              ease: 'linear',
               repeat: Infinity,
-              repeatType: "reverse",
+              repeatType: 'reverse',
             }}
           >
             <Image
@@ -85,7 +85,7 @@ export default function PageHeader({
               priority
             />
           </motion.div>
-          
+
           {isDark && (
             <>
               <div
@@ -116,25 +116,24 @@ export default function PageHeader({
           )}
         </div>
       )}
-      
-      <div className={cn(
-        "mx-auto px-6 lg:px-8",
-        isCenter ? "max-w-2xl text-center" : "max-w-7xl"
-      )}>
-        <div className={cn(
-          isCenter ? "mx-auto text-center" : "mx-auto lg:mx-0",
-          "max-w-2xl"
-        )}>
+
+      <div className={cn('mx-auto px-6 lg:px-8', isCenter ? 'max-w-2xl text-center' : 'max-w-7xl')}>
+        <div className={cn(isCenter ? 'mx-auto text-center' : 'mx-auto lg:mx-0', 'max-w-2xl')}>
           {subtitle && (
-            <p className={cn("text-base/7 font-semibold", subtitleColorClass)}>
-              {subtitle}
-            </p>
+            <p className={cn('text-base/7 font-semibold', subtitleColorClass)}>{subtitle}</p>
           )}
-          <h1 className={cn("mt-2 text-4xl font-semibold tracking-tight sm:text-5xl", textColorClass)}>
+          <h1
+            className={cn('mt-2 text-4xl font-semibold tracking-tight sm:text-5xl', textColorClass)}
+          >
             {title}
           </h1>
           {description && (
-            <p className={cn("mt-8 text-lg font-medium text-pretty sm:text-xl/8", descriptionColorClass)}>
+            <p
+              className={cn(
+                'mt-8 text-lg font-medium text-pretty sm:text-xl/8',
+                descriptionColorClass,
+              )}
+            >
               {description}
             </p>
           )}
