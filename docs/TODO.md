@@ -5,9 +5,9 @@
 - [x] Create proper environment configuration for development, staging, and production
 - [x] Document required environment variables
 - [x] Create .env.example file
-- [ ] Set up secrets management for sensitive data
-- [ ] Configure SSL/TLS certificates
-- [ ] Configure proper DNS configuration
+- [x] Set up secrets management for sensitive data
+- [x] Configure SSL/TLS certificates
+- [x] Configure proper DNS configuration
 
 - [x] Review and update dependencies with known vulnerabilities
 - [x] Complete Newsletter subscription functionality (core feature)
