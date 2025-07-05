@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import HeroWithTiles from '@/src/components/HeroWithTiles';
 import { generatePageMetadata } from '@/src/lib/generateMetadata';
 
@@ -49,20 +50,30 @@ export default function AboutPage() {
 
       {/* Carinya meaning */}
       <section className="isolate py-8 sm:py-12">
-        <div className="mx-auto max-w-2xl lg:max-w-6xl border-y border-charcoal-100 py-16">
-          <h2 className="text-center text-3xl font-bold text-eucalyptus-600">
-            What does Carinya mean?
-          </h2>
-          <figure className="mt-8">
-            <blockquote className="text-center text-xl/9 font-medium text-charcoal-600 sm:text-xl/9">
-              <p>
-                <strong>Carinya</strong> is an Aboriginal Australian word, <br /> primarily from the
-                Awabakal language of the Newcastle-Lake Macquarie region, <br /> that translates to{' '}
-                <span className="text-eucalyptus-600 font-semibold">"peaceful home"</span> or{' '}
-                <span className="text-eucalyptus-600 font-semibold">"happy home"</span>.
-              </p>
-            </blockquote>
-          </figure>
+        <div className="mx-auto my-16 max-w-7xl sm:my-20 sm:px-6 lg:px-8">
+          <div className="relative isolate overflow-hidden bg-charcoal-600 px-6 py-24 text-center shadow-2xl sm:rounded-3xl sm:px-16">
+            <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-charcoal-200 sm:text-4xl">
+              What does Carinya mean?
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-xl leading-8 text-white">
+              <strong>Carinya</strong> is an Aboriginal Australian word, primarily from the Awabakal
+              language of the Newcastle-Lake Macquarie region, that translates to{' '}
+              <span className="text-eucalyptus-600 font-semibold">"peaceful home"</span> or{' '}
+              <span className="text-eucalyptus-600 font-semibold">"happy home"</span>.
+            </p>
+            <div
+              aria-hidden="true"
+              className="absolute -top-24 right-0 -z-10 transform-gpu blur-3xl"
+            >
+              <div
+                style={{
+                  clipPath:
+                    'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
+                }}
+                className="aspect-[1404/767] w-[27.875rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-25"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -106,9 +117,11 @@ export default function AboutPage() {
       {/* Image section */}
       <section>
         <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-          <img
-            alt=""
+          <Image
+            alt="Carinya Parc landscape"
             src="/images/img_23.jpg"
+            width={1920}
+            height={768}
             className="aspect-5/2 w-full object-cover xl:rounded-3xl"
           />
         </div>

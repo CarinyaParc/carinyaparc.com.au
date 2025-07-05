@@ -1,9 +1,16 @@
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata, ResolvingMetadata, Viewport } from 'next';
 import { SITE_TITLE, SITE_DESCRIPTION, BASE_URL } from './constants';
 
 type Props = {
   params: { [key: string]: string | string[] };
   searchParams: { [key: string]: string | string[] | undefined };
+};
+
+/**
+ * Generate viewport config for the page.
+ */
+export const viewport: Viewport = {
+  themeColor: '#4CA77F',
 };
 
 /**
@@ -73,7 +80,6 @@ export async function generateMetadata(
       shortcut: '/favicon-16x16.png',
       apple: '/apple-touch-icon.png',
     },
-    themeColor: '#4CA77F',
     metadataBase: new URL(BASE_URL),
   };
 }

@@ -73,11 +73,13 @@ export default function Header({ navigation }: HeaderProps) {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2"
           >
-            <span
-              className={`text-2xl font-bold text-eucalyptus-600 transition-colors duration-300`}
-            >
-              Carinya Parc
-            </span>
+            <Link href="/" className="hover:opacity-80 transition-opacity duration-300">
+              <span
+                className={`text-2xl font-bold text-eucalyptus-600 transition-colors duration-300`}
+              >
+                Carinya Parc
+              </span>
+            </Link>
           </motion.div>
         </div>
 
@@ -149,7 +151,9 @@ export default function Header({ navigation }: HeaderProps) {
             >
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center space-x-2">
-                  <span className="text-xl font-bold text-white">Carinya Parc</span>
+                  <Link href="/" className="hover:opacity-80 transition-opacity duration-300">
+                    <span className="text-xl font-bold text-white">Carinya Parc</span>
+                  </Link>
                 </div>
                 <button
                   className="-m-2.5 rounded-md p-2.5 text-gray-400"

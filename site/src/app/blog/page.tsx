@@ -1,5 +1,6 @@
 'use client';
 
+import PageHeader from '@/src/components/PageHeader';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Tag, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -8,6 +9,19 @@ import { Button } from '@/src/components/ui/button';
 import { Card, CardContent } from '@/src/components/ui/card';
 import { Badge } from '@/src/components/ui/badge';
 import { PostsLatest } from '@/src/components/PostsLatest';
+
+// We use 'use client' so metadata must be in a separate file or layout.tsx
+
+const pageHeaderProps = {
+  variant: 'dark' as const,
+  align: 'center' as const,
+  title: 'Life on Pasture',
+  subtitle: 'Our Blog',
+  description:
+    'Follow our regeneration journey through detailed updates, insights, and lessons learned as we transform Carinya Parc into a thriving ecosystem.',
+  backgroundImage: '/images/img_23.jpg',
+  backgroundImageAlt: 'Carinya Parc landscape',
+};
 
 const blogPosts = [
   {
@@ -94,7 +108,7 @@ const categories = ['All', 'Soil Health', 'Biodiversity', 'Water Systems', 'Educ
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-eucalyptus-50">
+    <div className="min-h-screen">
       {/* Back Button */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <Button asChild variant="ghost" className="text-green-600 hover:text-green-700">
@@ -105,24 +119,9 @@ export default function BlogPage() {
         </Button>
       </div>
 
-      {/* Hero Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-4xl lg:text-6xl font-bold text-eucalyptus-600 mb-6">
-              Life on Pasture
-            </h1>
-            <p className="text-xl text-charcoal-600 max-w-3xl mx-auto">
-              Follow our regeneration journey through detailed updates, insights, and lessons
-              learned as we transform Carinya Parc into a thriving ecosystem.
-            </p>
-          </motion.div>
-        </div>
+      {/* Page Header */}
+      <section>
+        <PageHeader {...pageHeaderProps} />
       </section>
 
       {/* Featured Post */}

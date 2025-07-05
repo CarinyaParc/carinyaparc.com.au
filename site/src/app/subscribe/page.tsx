@@ -1,7 +1,8 @@
-'use client';
-
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { Shovel, Sprout, Newspaper } from 'lucide-react';
+import PageHeader from '@/src/components/PageHeader';
+import { generatePageMetadata } from '@/src/lib/generateMetadata';
 import SubscribeForm from '@/src/components/SubscribeForm';
 
 import {
@@ -13,22 +14,39 @@ import {
   SectionText,
 } from '@/src/components/SectionWithImage';
 
-// Metadata is defined in layout.js or a separate metadata.ts file
+export const metadata: Metadata = generatePageMetadata({
+  title: 'Subscribe - Carinya Parc',
+  description:
+    'Stay connected to our regenerative journey at Carinya Parc to receive thoughtful, seasonal updates directly from the farm to your inbox.',
+  path: '/subscribe',
+  image: '/images/img_5.jpg',
+  keywords: [
+    'subscribe',
+    'newsletter',
+    'farm updates',
+    'seasonal content',
+    'community',
+    'stay connected',
+    'farm news',
+    'join mailing list',
+  ],
+});
+
+const pageHeaderProps = {
+  variant: 'light' as const,
+  align: 'center' as const,
+  title: 'Stay Connected to The Land',
+  subtitle: 'Subscribe',
+  description:
+    'Stay connected to our regenerative journey at Carinya Parc to receive thoughtful, seasonal updates directly from the farm to your inbox.',
+};
 
 export default function SubscribePage() {
   return (
     <div className="min-h-screen">
-      <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-            Stay Connected to The Land
-          </h1>
-          <p className="mt-2 text-lg/8">
-            Stay connected to our regenerative journey at Carinya Parc to receive thoughtful,
-            seasonal updates directly from the farm to your inbox.
-          </p>
-        </div>
-      </div>
+      <section>
+        <PageHeader {...pageHeaderProps} />
+      </section>
 
       <SectionWithImage variant="light" imagePosition="left">
         <SectionImage>

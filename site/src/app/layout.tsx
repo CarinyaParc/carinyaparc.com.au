@@ -14,9 +14,9 @@ import SubFooter from '@/src/components/SubFooter';
 import Acknowledgement from '@/src/components/Acknowledgement';
 import CookiePolicy from '@/src/components/Policy';
 
-import { generateMetadata } from '../lib/generateMetadata';
+import { generateMetadata, viewport } from '../lib/generateMetadata';
 
-export { generateMetadata };
+export { generateMetadata, viewport };
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 

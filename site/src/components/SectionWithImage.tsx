@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, createContext, useContext } from 'react';
+import Link from 'next/link';
 import { cn } from '../lib/utils';
 
 // Create context for section props
@@ -99,12 +100,12 @@ export function SectionButton({ href, children }: { href: string; children: Reac
       : 'bg-eucalyptus-600 text-white hover:bg-eucalyptus-700';
 
   return (
-    <a
+    <Link
       href={href}
       className={`inline-flex rounded-md ${buttonClasses} px-3.5 py-2.5 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600`}
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
@@ -113,8 +114,8 @@ export function SectionLink({ href, children }: { href: string; children: ReactN
   const textColor = variant === 'dark' ? 'text-white' : 'text-eucalyptus-600';
 
   return (
-    <a href={href} className={`px-3.5 py-2.5 text-sm font-semibold leading-6 ${textColor}`}>
+    <Link href={href} className={`px-3.5 py-2.5 text-sm font-semibold leading-6 ${textColor}`}>
       {children} <span aria-hidden="true">→</span>
-    </a>
+    </Link>
   );
 }
