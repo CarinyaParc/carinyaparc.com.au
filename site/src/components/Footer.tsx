@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Heart } from 'lucide-react';
 
 interface NavigationItem {
   name: string;
@@ -98,6 +99,13 @@ export default function Footer() {
               <p className="text-sm text-eucalyptus-100 max-w-xs">
                 A regenerative farm focused on restoring the land and sustainable agricultural
                 practices.
+              </p>
+              <p className="text-sm text-eucalyptus-100 max-w-xs">
+                <span>
+                  Made with &nbsp;
+                  <Heart className="inline-block h-4 w-4" />
+                  &nbsp; in Australia
+                </span>
               </p>
             </div>
             <div className="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
