@@ -10,8 +10,6 @@ import Banner from '@/src/components/Banner';
 import Header from '@/src/components/Header';
 import Newsletter from '@/src/components/Newsletter';
 import Footer from '@/src/components/Footer';
-import SubFooter from '@/src/components/SubFooter';
-import Acknowledgement from '@/src/components/Acknowledgement';
 import CookiePolicy from '@/src/components/Policy';
 
 import { generateMetadata, viewport } from '../lib/generateMetadata';
@@ -36,8 +34,6 @@ export default async function RootLayout({
         <main className="flex-1">{children}</main>
         <Newsletter />
         <Footer />
-        <SubFooter />
-        <Acknowledgement />
         <CookiePolicy />
         <Analytics />
       </body>
