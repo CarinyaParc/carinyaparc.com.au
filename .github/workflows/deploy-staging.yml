@@ -5,24 +5,25 @@ on:
     branches: [dev]
   workflow_dispatch:
     inputs:
-      force_promotion:
-        description: 'Force promotion even if checks fail (use with caution)'
+      force_merge:
+        description: 'Force merge even if checks fail'
         type: boolean
         default: false
 
 jobs:
-  check-and-promote:
+  promote-to-staging:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/dev'
-
+    
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-
-      - name: Wait for Lint workflow
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Wait for CI checks to complete
+      - name: Wait for lint
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.sha }}
@@ -30,8 +31,8 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success
-
-      - name: Wait for Test workflow
+      
+      - name: Wait for tests
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.sha }}
@@ -39,72 +40,34 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success
-
-      # Since E2E tests might not run on all PRs, we make this optional
-      - name: Wait for E2E tests (if running)
-        uses: lewagon/wait-on-check-action@v1.3.4
-        with:
-          ref: ${{ github.sha }}
-          check-name: 'e2e_tests'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
-          allowed-conclusions: success,skipped
-        continue-on-error: true
-
-      - name: Check for merge conflicts with staging
+          
+      # Simple promotion process
+      - name: Merge dev into staging
+        if: success() || github.event.inputs.force_merge == 'true'
         run: |
+          # Configure git
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@github.com"
+          
+          # Make sure we have the latest
+          git fetch origin dev
           git fetch origin staging
-          if git merge-tree $(git merge-base FETCH_HEAD HEAD) FETCH_HEAD HEAD | grep -i "<<<<<"; then
-            echo "::error::Merge conflicts detected with staging branch"
-            exit 1
-          else
-            echo "No merge conflicts detected with staging branch"
-          fi
-        continue-on-error: ${{ github.event.inputs.force_promotion == 'true' }}
-
-      - name: Promote to staging
-        if: success() || github.event.inputs.force_promotion == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Create local branches that track the remote branches
+          git branch -f dev origin/dev
+          git branch -f staging origin/staging
+          
+          # Check out staging and merge dev into it
           git checkout staging
-          git merge dev --ff-only
+          git merge --no-edit dev
+          
+          # Push the result
           git push origin staging
-
-      # Only run this step if we're in a pull request context
-      - name: Create status comment (PR only)
-        if: success() && github.event_name == 'pull_request' && github.event.pull_request.number != ''
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '✅ Successfully promoted to staging! View the staging deployment when it completes.'
-            })
-
-      # Log success message when not in PR context
-      - name: Log success (non-PR)
-        if: success() && github.event_name != 'pull_request'
-        run: echo "✅ Successfully promoted to staging! Vercel will deploy automatically."
-
-      # Only run on PR context for failure notification
-      - name: Notify on failure (PR only)
-        if: failure() && github.event_name == 'pull_request' && github.event.pull_request.number != ''
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '❌ Auto-promotion to staging failed. Please check the workflow run for details.'
-            })
-
-      # Log failure message when not in PR context
-      - name: Log failure (non-PR)
-        if: failure() && github.event_name != 'pull_request'
-        run: echo "❌ Auto-promotion to staging failed. See workflow logs for details."
+          
+      - name: Log success
+        if: success()
+        run: echo "✅ Successfully promoted to staging!"
+        
+      - name: Log failure
+        if: failure()
+        run: echo "❌ Failed to promote to staging. Check the logs for details."
