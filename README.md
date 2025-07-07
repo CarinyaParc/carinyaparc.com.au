@@ -1,0 +1,50 @@
+# CarinyaParc Website
+
+This repository contains the website for CarinyaParc, a regenerative farm committed to sustainable practices and community engagement.
+
+## Technology Stack
+
+- **Framework**: Next.js 14
+- **Styling**: Tailwind CSS
+- **Content**: MDX
+- **Deployment**: Vercel
+
+## Development Workflow
+
+### Branch Structure
+
+- `dev` - Development branch where active work happens
+- `staging` - Pre-production branch for testing and validation
+- `main` - Production branch, deployed to live site
+
+### Local Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Build the site
+pnpm build
+
+# Run tests
+pnpm test
+```
+
+### Deployment Pipeline
+
+We use an automated CI/CD pipeline:
+
+1. Push to `dev` branch → CI checks run → auto-promote to `staging`
+2. Test on `staging` → Manually trigger promotion to `main` when ready
+3. `main` branch is automatically deployed to production
+
+## Contributing
+
+Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+## License
+
+This project is proprietary and not licensed for public use.
