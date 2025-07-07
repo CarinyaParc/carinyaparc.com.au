@@ -1,6 +1,8 @@
 name: Deploy to Production
 
 on:
+  push:
+    branches: [staging]
   workflow_dispatch:
     inputs:
       confirm:
