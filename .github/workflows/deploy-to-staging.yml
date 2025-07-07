@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Wait for CI checks
-        uses: lewagon/wait-on-check-action@v1.3.4
+        uses: lewagon/wait-on-check-action@v1.4.0
         with:
           ref: ${{ github.sha }}
           check-name: 'lint'
@@ -24,7 +24,7 @@ jobs:
           wait-interval: 10
 
       - name: Wait for CI tests
-        uses: lewagon/wait-on-check-action@v1.3.4
+        uses: lewagon/wait-on-check-action@v1.4.0
         with:
           ref: ${{ github.sha }}
           check-name: 'test'
