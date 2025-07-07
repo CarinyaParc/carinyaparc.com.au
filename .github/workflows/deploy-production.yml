@@ -133,7 +133,7 @@ jobs:
           tag_name: release-${{ steps.get-date.outputs.date }}
           body: |
             🚀 Production deployment from staging branch
-            
+
             - Deployment date: ${{ steps.get-date.outputs.date }}
             - Commit: ${{ github.sha }}
           generate_release_notes: true

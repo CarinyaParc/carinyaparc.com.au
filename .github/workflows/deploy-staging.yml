@@ -39,7 +39,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success
-      
+
       # Since E2E tests might not run on all PRs, we make this optional
       - name: Wait for E2E tests (if running)
         uses: lewagon/wait-on-check-action@v1.3.4
@@ -103,7 +103,7 @@ jobs:
               repo: context.repo.repo,
               body: '❌ Auto-promotion to staging failed. Please check the workflow run for details.'
             })
-            
+
       # Log failure message when not in PR context
       - name: Log failure (non-PR)
         if: failure() && github.event_name != 'pull_request'
