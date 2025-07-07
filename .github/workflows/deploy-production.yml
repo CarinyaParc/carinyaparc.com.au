@@ -1,0 +1,128 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_promotion:
+        description: 'Type "YES" to confirm promotion to production'
+        required: true
+        type: string
+
+jobs:
+  validate-input:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation
+        if: github.event.inputs.confirm_promotion != 'YES'
+        run: |
+          echo "::error::You must type YES (all capitals) to confirm production deployment"
+          exit 1
+      - name: Check branch
+        run: |
+          if [[ "${{ github.ref }}" != "refs/heads/staging" ]]; then
+            echo "::error::This workflow must be run from the staging branch"
+            exit 1
+          fi
+    
+  verify-checks:
+    needs: validate-input
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Wait for lint checks
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.sha }}
+          check-name: 'lint'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          
+      - name: Wait for unit tests
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.sha }}
+          check-name: 'test'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          
+      - name: Wait for e2e tests
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.sha }}
+          check-name: 'e2e'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          
+      - name: Verify staging deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.deployments.listDeployments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'staging',
+              environment: 'preview'
+            });
+            
+            if (data.length === 0) {
+              core.setFailed('No staging deployment found');
+              return;
+            }
+            
+            const latestDeployment = data[0];
+            const { data: statuses } = await github.rest.deployments.listDeploymentStatuses({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: latestDeployment.id
+            });
+            
+            if (statuses.length === 0 || statuses[0].state !== 'success') {
+              core.setFailed('Latest staging deployment is not successful');
+              return;
+            }
+            
+            console.log('Staging deployment verified successfully');
+        continue-on-error: true
+
+  promote-to-production:
+    needs: verify-checks
+    runs-on: ubuntu-latest
+    environment: 
+      name: production
+      url: https://carinyaparc.com.au
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Promote to production
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout main
+          git merge staging --ff-only
+          git push origin main
+          
+      - name: Create release tag
+        run: |
+          DATE=$(date '+%Y%m%d-%H%M')
+          git tag "release-${DATE}"
+          git push origin "release-${DATE}"
+          
+      - name: Notify team
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number || 1,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 Successfully deployed to production! \n\nTag: release-' + 
+                    new Date().toISOString().slice(0,10) + '\n\nVercel will automatically deploy the site.'
+            })
+        continue-on-error: true 
