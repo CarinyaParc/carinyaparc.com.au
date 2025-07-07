@@ -41,28 +41,16 @@ jobs:
           wait-interval: 10
           allowed-conclusions: success
 
-      # Simple promotion process
-      - name: Merge dev into staging
+      # Super simple promotion process
+      - name: Push dev branch to staging
         if: success() || github.event.inputs.force_merge == 'true'
         run: |
           # Configure git
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
 
-          # Make sure we have the latest
-          git fetch origin dev
-          git fetch origin staging
-
-          # Create local branches that track the remote branches
-          git branch -f dev origin/dev
-          git branch -f staging origin/staging
-
-          # Check out staging and merge dev into it
-          git checkout staging
-          git merge --no-edit dev
-
-          # Push the result
-          git push origin staging
+          # Push dev directly to staging branch
+          git push origin HEAD:staging -f
 
       - name: Log success
         if: success()

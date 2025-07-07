@@ -63,30 +63,18 @@ jobs:
         run: echo "date=$(date +'%Y%m%d-%H%M')" >> $GITHUB_OUTPUT
 
       # Simple promotion process
-      - name: Merge staging into main
+      - name: Push staging branch to main
         run: |
           # Configure git
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
 
-          # Make sure we have the latest
-          git fetch origin staging
-          git fetch origin main
-
-          # Create local branches that track the remote branches
-          git branch -f staging origin/staging
-          git branch -f main origin/main
-
-          # Check out main and merge staging into it
-          git checkout main
-          git merge --no-edit staging
-
-          # Create release tag
+          # Create and push tag first
           git tag "release-${{ steps.date.outputs.date }}"
-
-          # Push the result and tag
-          git push origin main
           git push origin "release-${{ steps.date.outputs.date }}"
+
+          # Push staging directly to main branch
+          git push origin HEAD:main
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
