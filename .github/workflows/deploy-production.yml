@@ -30,14 +30,14 @@ jobs:
     environment:
       name: production
       url: https://carinyaparc.com.au
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       # Wait for CI checks to complete
       - name: Wait for lint
         uses: lewagon/wait-on-check-action@v1.3.4
@@ -47,7 +47,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success
-      
+
       - name: Wait for tests
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
@@ -56,38 +56,38 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success
-          
+
       # Get current date for release tag
       - name: Get current date
         id: date
         run: echo "date=$(date +'%Y%m%d-%H%M')" >> $GITHUB_OUTPUT
-      
+
       # Simple promotion process
       - name: Merge staging into main
         run: |
           # Configure git
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
-          
+
           # Make sure we have the latest
           git fetch origin staging
           git fetch origin main
-          
+
           # Create local branches that track the remote branches
           git branch -f staging origin/staging
           git branch -f main origin/main
-          
+
           # Check out main and merge staging into it
           git checkout main
           git merge --no-edit staging
-          
+
           # Create release tag
           git tag "release-${{ steps.date.outputs.date }}"
-          
+
           # Push the result and tag
           git push origin main
           git push origin "release-${{ steps.date.outputs.date }}"
-      
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -95,13 +95,13 @@ jobs:
           tag_name: release-${{ steps.date.outputs.date }}
           body: |
             🚀 Production deployment from staging branch
-            
+
             - Deployment date: ${{ steps.date.outputs.date }}
             - Commit: ${{ github.sha }}
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Log success
         if: success()
         run: echo "✅ Successfully deployed to production!"

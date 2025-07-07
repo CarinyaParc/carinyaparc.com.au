@@ -14,14 +14,14 @@ jobs:
   promote-to-staging:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/dev'
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       # Wait for CI checks to complete
       - name: Wait for lint
         uses: lewagon/wait-on-check-action@v1.3.4
@@ -31,7 +31,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success
-      
+
       - name: Wait for tests
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
@@ -40,7 +40,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success
-          
+
       # Simple promotion process
       - name: Merge dev into staging
         if: success() || github.event.inputs.force_merge == 'true'
@@ -48,26 +48,26 @@ jobs:
           # Configure git
           git config user.name "GitHub Actions"
           git config user.email "github-actions@github.com"
-          
+
           # Make sure we have the latest
           git fetch origin dev
           git fetch origin staging
-          
+
           # Create local branches that track the remote branches
           git branch -f dev origin/dev
           git branch -f staging origin/staging
-          
+
           # Check out staging and merge dev into it
           git checkout staging
           git merge --no-edit dev
-          
+
           # Push the result
           git push origin staging
-          
+
       - name: Log success
         if: success()
         run: echo "✅ Successfully promoted to staging!"
-        
+
       - name: Log failure
         if: failure()
         run: echo "❌ Failed to promote to staging. Check the logs for details."
