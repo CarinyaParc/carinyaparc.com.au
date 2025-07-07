@@ -44,21 +44,14 @@ jobs:
           wait-interval: 10
           allowed-conclusions: success
 
-      # Super simple promotion process
-      - name: Push dev branch to staging
-        if: success() || github.event.inputs.force_merge == 'true'
-        run: |
-          # Configure git
-          git config user.name "GitHub Actions"
-          git config user.email "github-actions@github.com"
-
-          # Push dev directly to staging branch
-          git push origin HEAD:staging -f
-
-      - name: Log success
-        if: success()
-        run: echo "✅ Successfully promoted to staging!"
-
-      - name: Log failure
-        if: failure()
-        run: echo "❌ Failed to promote to staging. Check the logs for details."
+      - name: Create or update PR dev → staging
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: promote dev → staging'
+          title: 'Automated promotion of dev → staging'
+          body: |
+            This PR was opened automatically after CI passed on dev.
+          base: staging
+          head: dev
+          merge: ${{ github.event.inputs.force_merge == 'true' || github.event.workflow_run_conclusion == 'success' }}
