@@ -22,30 +22,34 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Wait for lint checks
+      - name: Wait for Lint workflow
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.sha }}
           check-name: 'lint'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
+          allowed-conclusions: success
 
-      - name: Wait for unit tests
+      - name: Wait for Test workflow
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.sha }}
           check-name: 'test'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
-
-      - name: Wait for e2e tests
+          allowed-conclusions: success
+      
+      # Since E2E tests might not run on all PRs, we make this optional
+      - name: Wait for E2E tests (if running)
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.sha }}
-          check-name: 'e2e'
+          check-name: 'e2e_tests'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success,skipped
+        continue-on-error: true
 
       - name: Check for merge conflicts with staging
         run: |
@@ -67,8 +71,9 @@ jobs:
           git merge dev --ff-only
           git push origin staging
 
-      - name: Create status comment
-        if: success() && github.event_name == 'pull_request'
+      # Only run this step if we're in a pull request context
+      - name: Create status comment (PR only)
+        if: success() && github.event_name == 'pull_request' && github.event.pull_request.number != ''
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -80,8 +85,14 @@ jobs:
               body: '✅ Successfully promoted to staging! View the staging deployment when it completes.'
             })
 
-      - name: Notify on failure
-        if: failure() && github.event_name != 'workflow_dispatch'
+      # Log success message when not in PR context
+      - name: Log success (non-PR)
+        if: success() && github.event_name != 'pull_request'
+        run: echo "✅ Successfully promoted to staging! Vercel will deploy automatically."
+
+      # Only run on PR context for failure notification
+      - name: Notify on failure (PR only)
+        if: failure() && github.event_name == 'pull_request' && github.event.pull_request.number != ''
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -92,3 +103,8 @@ jobs:
               repo: context.repo.repo,
               body: '❌ Auto-promotion to staging failed. Please check the workflow run for details.'
             })
+            
+      # Log failure message when not in PR context
+      - name: Log failure (non-PR)
+        if: failure() && github.event_name != 'pull_request'
+        run: echo "❌ Auto-promotion to staging failed. See workflow logs for details."

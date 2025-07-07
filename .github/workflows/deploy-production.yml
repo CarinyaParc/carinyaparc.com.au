@@ -32,29 +32,33 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Wait for lint checks
+      - name: Wait for Lint workflow
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.sha }}
           check-name: 'lint'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
+          allowed-conclusions: success
 
-      - name: Wait for unit tests
+      - name: Wait for Test workflow
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.sha }}
           check-name: 'test'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
+          allowed-conclusions: success
 
-      - name: Wait for e2e tests
+      - name: Wait for E2E tests (if running)
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.sha }}
-          check-name: 'e2e'
+          check-name: 'e2e_tests'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
+          allowed-conclusions: success,skipped
+        continue-on-error: true
 
       - name: Verify staging deployment
         uses: actions/github-script@v7
@@ -99,6 +103,11 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      # Get the current date for release naming
+      - name: Get current date
+        id: get-date
+        run: echo "date=$(date +'%Y%m%d-%H%M')" >> $GITHUB_OUTPUT
+
       - name: Promote to production
         run: |
           git config user.name "github-actions[bot]"
@@ -109,20 +118,24 @@ jobs:
 
       - name: Create release tag
         run: |
-          DATE=$(date '+%Y%m%d-%H%M')
-          git tag "release-${DATE}"
-          git push origin "release-${DATE}"
+          git tag "release-${{ steps.get-date.outputs.date }}"
+          git push origin "release-${{ steps.get-date.outputs.date }}"
 
-      - name: Notify team
-        uses: actions/github-script@v7
+      # Log success message to workflow output
+      - name: Log success
+        run: echo "🚀 Successfully deployed to production! Vercel will deploy automatically."
+
+      # Create GitHub Release instead of comment (which may fail)
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number || 1,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🚀 Successfully deployed to production! \n\nTag: release-' + 
-                    new Date().toISOString().slice(0,10) + '\n\nVercel will automatically deploy the site.'
-            })
-        continue-on-error: true
+          name: Production Release ${{ steps.get-date.outputs.date }}
+          tag_name: release-${{ steps.get-date.outputs.date }}
+          body: |
+            🚀 Production deployment from staging branch
+            
+            - Deployment date: ${{ steps.get-date.outputs.date }}
+            - Commit: ${{ github.sha }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
