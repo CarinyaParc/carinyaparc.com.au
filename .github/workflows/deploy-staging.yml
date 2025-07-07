@@ -55,12 +55,12 @@ jobs:
             This PR was opened automatically after CI passed on dev.
           base: staging
           branch: dev-to-staging
-          
+
       - name: Auto-merge the PR
         if: success()
         uses: pascalgn/automerge-action@v0.15.6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MERGE_LABELS: ""
+          MERGE_LABELS: ''
           MERGE_METHOD: merge
           MERGE_DELETE_BRANCH: true
