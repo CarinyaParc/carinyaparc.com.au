@@ -68,5 +68,6 @@ To roll back:
 ## Environment Variables
 
 Environment-specific variables are managed through:
+
 - GitHub environment settings for each environment
-- Vercel project environment variables 
+- Vercel project environment variables
