@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   promote-to-staging:
@@ -44,7 +45,7 @@ jobs:
           wait-interval: 10
           allowed-conclusions: success
 
-      - name: Create or update PR dev → staging
+      - name: Create PR from dev to staging
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -53,5 +54,13 @@ jobs:
           body: |
             This PR was opened automatically after CI passed on dev.
           base: staging
-          head: dev
-          merge: ${{ github.event.inputs.force_merge == 'true' || github.event.workflow_run_conclusion == 'success' }}
+          branch: dev-to-staging
+          
+      - name: Auto-merge the PR
+        if: success()
+        uses: pascalgn/automerge-action@v0.15.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_LABELS: ""
+          MERGE_METHOD: merge
+          MERGE_DELETE_BRANCH: true
