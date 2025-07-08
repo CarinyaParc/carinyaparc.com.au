@@ -1,12 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 
 export interface FormData {
   email: string;
   name: string;
   interests: string;
+  website?: string; // honeypot field
+  submissionTime?: number;
 }
 
 export default function SubscribeForm() {
@@ -14,9 +17,16 @@ export default function SubscribeForm() {
     email: '',
     name: '',
     interests: '',
+    website: '', // honeypot field
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [formLoadTime, setFormLoadTime] = useState<number>(0);
+
+  // Record the time when the form loads
+  useEffect(() => {
+    setFormLoadTime(Date.now());
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -28,11 +38,29 @@ export default function SubscribeForm() {
     setStatus('loading');
     setErrorMessage('');
 
+    // Check for honeypot field
+    if (formData.website) {
+      // Honeypot triggered - simulate success but don't submit
+      console.log('Honeypot triggered - bot detected');
+      // Wait a bit to simulate submission
+      setTimeout(() => {
+        setStatus('success');
+        setFormData({ email: '', name: '', interests: '', website: '' });
+      }, 1000);
+      return;
+    }
+
+    // Add submission time for anti-bot checks
+    const submissionData = {
+      ...formData,
+      submissionTime: Date.now() - formLoadTime,
+    };
+
     try {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionData),
       });
 
       const data = await res.json();
@@ -40,7 +68,7 @@ export default function SubscribeForm() {
       if (res.ok) {
         console.log('Successfully subscribed');
         setStatus('success');
-        setFormData({ email: '', name: '', interests: '' });
+        setFormData({ email: '', name: '', interests: '', website: '' });
       } else {
         console.error('Subscription failed:', data.error);
         setStatus('error');
@@ -57,6 +85,24 @@ export default function SubscribeForm() {
     <form onSubmit={handleSubmit} className="px-6 py-8">
       <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          {/* Honeypot field - hidden from humans but visible to bots */}
+          <div className="sm:col-span-2" aria-hidden="true" style={{ display: 'none' }}>
+            <label htmlFor="website" className="block text-sm/6 font-semibold text-charcoal-600">
+              Website
+            </label>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                name="website"
+                id="website"
+                value={formData.website}
+                onChange={handleInputChange}
+                tabIndex={-1}
+                autoComplete="off"
+                className="block w-full rounded-md bg-white px-3.5 py-2"
+              />
+            </div>
+          </div>
           <div className="sm:col-span-2">
             <label htmlFor="email" className="block text-sm/6 font-semibold text-charcoal-600">
               Email Address*
@@ -69,10 +115,10 @@ export default function SubscribeForm() {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                disabled={status === 'loading'}
+                disabled={status === 'loading' || status === 'success'}
                 placeholder="you@example.com"
                 autoComplete="email"
-                className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600"
+                className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600 disabled:bg-gray-50"
               />
             </div>
           </div>
@@ -87,9 +133,10 @@ export default function SubscribeForm() {
                 id="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                placeholder="First & last name"
+                disabled={status === 'loading' || status === 'success'}
+                placeholder="Your name"
                 autoComplete="name"
-                className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-charcoal-300 placeholder:text-charcoal-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600"
+                className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-charcoal-300 placeholder:text-charcoal-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600 disabled:bg-gray-50"
               />
             </div>
           </div>
@@ -103,7 +150,8 @@ export default function SubscribeForm() {
                 id="interests"
                 value={formData.interests}
                 onChange={handleInputChange}
-                className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-charcoal-300 placeholder:text-charcoal-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600"
+                disabled={status === 'loading' || status === 'success'}
+                className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-charcoal-300 placeholder:text-charcoal-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600 disabled:bg-gray-50"
               >
                 <option value="">Select your main interest</option>
                 <option value="regeneration">Ecological restoration</option>
@@ -119,20 +167,37 @@ export default function SubscribeForm() {
         <div className="mt-8 flex flex-col">
           <button
             type="submit"
-            disabled={status === 'loading'}
-            className="rounded-md bg-eucalyptus-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-eucalyptus-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600 disabled:opacity-70"
+            disabled={status === 'loading' || status === 'success'}
+            className={`rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600 disabled:opacity-70 flex items-center justify-center ${
+              status === 'success'
+                ? 'bg-eucalyptus-400'
+                : 'bg-eucalyptus-600 hover:bg-eucalyptus-500'
+            }`}
           >
-            {status === 'loading' ? 'Subscribing...' : 'Subscribe to Our Newsletter'}
+            {status === 'loading' && <Loader2 className="animate-spin mr-2 h-4 w-4" />}
+            {status === 'success' && <CheckCircle className="mr-2 h-4 w-4" />}
+            {status === 'loading'
+              ? 'Subscribing...'
+              : status === 'success'
+                ? 'Subscribed!'
+                : 'Subscribe to Our Newsletter'}
           </button>
 
           {status === 'success' && (
-            <p className="mt-3 text-sm font-medium text-eucalyptus-600">
-              Thank you for subscribing! You'll receive our updates soon.
-            </p>
+            <div className="mt-4 p-3 rounded-md bg-eucalyptus-50 text-eucalyptus-800 border border-eucalyptus-200 flex items-start">
+              <CheckCircle className="h-5 w-5 text-eucalyptus-500 mr-2 mt-0.5 flex-shrink-0" />
+              <p className="text-sm">
+                Thank you for subscribing! We've sent a confirmation email to your inbox. Please
+                check your email to complete your subscription.
+              </p>
+            </div>
           )}
 
           {status === 'error' && (
-            <p className="mt-3 text-sm font-medium text-red-600">{errorMessage}</p>
+            <div className="mt-4 p-3 rounded-md bg-red-50 text-red-800 border border-red-200 flex items-start">
+              <AlertCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+              <p className="text-sm">{errorMessage}</p>
+            </div>
           )}
 
           <p className="mt-4 text-sm/6 text-gray-500">

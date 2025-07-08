@@ -1,10 +1,145 @@
 import { NextResponse } from 'next/server';
 
+// Simple in-memory rate limiting
+// In production, you should use a Redis or other persistent store
+interface RateLimitRecord {
+  count: number;
+  lastAttempt: number;
+}
+
+// Cache for rate limiting by email
+const emailRateLimits = new Map<string, RateLimitRecord>();
+
+// Rate limit configuration
+const RATE_LIMIT = {
+  EMAIL_MAX_REQUESTS: 1, // 1 request per email
+  EMAIL_WINDOW_MS: 86400000, // 24 hours in milliseconds
+  MIN_SUBMISSION_TIME_MS: 2000, // Minimum time to fill the form (2 seconds)
+};
+
+// Clean up rate limit caches periodically to prevent memory leaks
+const cleanupInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+setInterval(() => {
+  const now = Date.now();
+
+  // Clean up email rate limits older than 24 hours
+  emailRateLimits.forEach((record, email) => {
+    if (now - record.lastAttempt > cleanupInterval) {
+      emailRateLimits.delete(email);
+    }
+  });
+}, cleanupInterval);
+
+// Check rate limit for a key against a cache
+function checkRateLimit(
+  cache: Map<string, RateLimitRecord>,
+  key: string,
+  maxRequests: number,
+  windowMs: number,
+): { limited: boolean; remainingRequests: number; resetTime: number } {
+  const now = Date.now();
+  const record = cache.get(key);
+
+  // If no record exists or window has expired, create new record
+  if (!record || now - record.lastAttempt > windowMs) {
+    cache.set(key, { count: 1, lastAttempt: now });
+    return {
+      limited: false,
+      remainingRequests: maxRequests - 1,
+      resetTime: now + windowMs,
+    };
+  }
+
+  // Increment count
+  record.count += 1;
+  record.lastAttempt = now;
+
+  // Check if over limit
+  const limited = record.count > maxRequests;
+  const remainingRequests = Math.max(0, maxRequests - record.count);
+  const resetTime = record.lastAttempt + windowMs;
+
+  // Update record
+  cache.set(key, record);
+
+  return { limited, remainingRequests, resetTime };
+}
+
+// Email validation regex
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Common spam patterns
+const SPAM_EMAIL_PATTERNS = [
+  /test@test/i,
+  /example@/i,
+  /\d{8,}@/i, // emails with 8+ consecutive digits
+  /@(example|test|temp|fake)/i,
+  /[a-z0-9]{20,}@/i, // extremely long email local parts
+];
+
+// Name validation regex - letters, spaces, hyphens, and apostrophes
+const NAME_REGEX = /^[a-zA-Z\s'-]{0,50}$/;
+
+// Check if an email matches common spam patterns
+function isSpamEmail(email: string): boolean {
+  return SPAM_EMAIL_PATTERNS.some((pattern) => pattern.test(email));
+}
+
 export async function POST(req: Request) {
   try {
     // Parse form data from request
-    const { email, name, interests } = await req.json();
-    console.log('Attempting to subscribe:', { email, name, interests });
+    const { email, name, interests, website, submissionTime } = await req.json();
+
+    console.log('Attempting to subscribe:', { email, name, interests, submissionTime });
+
+    // 1. Check for honeypot field (should be empty)
+    if (website) {
+      console.log('Honeypot triggered - bot detected');
+      // Return success to prevent the bot from knowing it was detected
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // 2. Check submission time (too fast means bot)
+    if (submissionTime < RATE_LIMIT.MIN_SUBMISSION_TIME_MS) {
+      console.log('Form submitted too quickly - likely a bot');
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // 3. Validate email format
+    if (!email || !EMAIL_REGEX.test(email)) {
+      return NextResponse.json({ error: 'Please provide a valid email address' }, { status: 400 });
+    }
+
+    // 4. Check for spam email patterns
+    if (isSpamEmail(email)) {
+      console.log('Spam email pattern detected:', email);
+      // Silently reject but report success
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // 5. Validate name (if provided)
+    if (name && !NAME_REGEX.test(name)) {
+      return NextResponse.json(
+        { error: 'Please provide a valid name (letters, spaces, hyphens, and apostrophes only)' },
+        { status: 400 },
+      );
+    }
+
+    // 7. Check email rate limit
+    const emailLimitResult = checkRateLimit(
+      emailRateLimits,
+      email,
+      RATE_LIMIT.EMAIL_MAX_REQUESTS,
+      RATE_LIMIT.EMAIL_WINDOW_MS,
+    );
+
+    if (emailLimitResult.limited) {
+      console.log(`Rate limit exceeded for email: ${email}`);
+      return NextResponse.json(
+        { error: 'This email address has already been submitted recently.' },
+        { status: 429 },
+      );
+    }
 
     // Check for API key
     if (!process.env.MAILERLITE_API_KEY) {
