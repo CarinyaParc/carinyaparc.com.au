@@ -17,7 +17,7 @@ const navigation: {
   FooterList1: [
     { name: 'Our Story', href: '/about' },
     { name: 'Meet Jonathan', href: '/about/jonathan' },
-    { name: 'The Property', href: '/about/property' },
+    { name: 'The Property', href: '/about/the-property' },
   ],
   FooterList2: [
     { name: 'Regeneration Project', href: '/regenerate' },
