@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
-import { Droplets, MapPin, Clock, Mountain } from 'lucide-react';
+import { Droplets, MapPin, Clock } from 'lucide-react';
 import { generatePageMetadata } from '@/src/lib/generateMetadata';
 
 export const metadata: Metadata = generatePageMetadata({
@@ -42,38 +42,66 @@ export default function PropertyPage() {
               The Property
             </h1>
             <p className="mt-6 text-xl/8 text-charcoal-700">
-              Carinya Parc is 42 hectares (approximately 102 acres) of gently undulating countryside at The Branch, on New South Wales's mid-north coast.
+              Carinya Parc is 42 hectares (approximately 102 acres) of gently undulating countryside
+              at The Branch, on New South Wales's mid-north coast.
             </p>
             <div className="mt-10 max-w-xl text-base/7 text-charcoal-700 lg:max-w-none">
               <p>
-                The site runs for more than 400 metres along the Branch River, offering natural frontage that supports swimming holes, fishing and, in time, improved riparian habitat. Scattered remnants of native woodland peek through cleared paddocks, hinting at the bush corridors we are reestablishing to connect fragmented habitats for koalas, gliders and native birds. A network of five farm dams, gravity-fed irrigation lines and four troughs ensures reliable water supply across the property, while a sealed driveway and visitor parking beside the homestead provide easy access for guests and volunteers.
+                The site runs for more than 400 metres along the Branch River, offering natural
+                frontage that supports swimming holes, fishing and, in time, improved riparian
+                habitat. Scattered remnants of native woodland peek through cleared paddocks,
+                hinting at the bush corridors we are reestablishing to connect fragmented habitats
+                for koalas, gliders and native birds. A network of five farm dams, gravity-fed
+                irrigation lines and four troughs ensures reliable water supply across the property,
+                while a sealed driveway and visitor parking beside the homestead provide easy access
+                for guests and volunteers.
               </p>
               <ul role="list" className="mt-8 space-y-8 text-charcoal-600">
-              <li className="flex gap-x-3">
-                  <MapPin aria-hidden="true" className="mt-1 size-5 flex-none text-eucalyptus-600" />
+                <li className="flex gap-x-3">
+                  <MapPin
+                    aria-hidden="true"
+                    className="mt-1 size-5 flex-none text-eucalyptus-600"
+                  />
                   <span>
-                    Located in NSW's mid-north coast, 5 km from Stroud, 70 km to Newcastle, and within easy reach of Barrington Tops National Park, Port Stephens, and the Great Lakes region.
+                    Located in NSW's mid-north coast, 5 km from Stroud, 70 km to Newcastle, and
+                    within easy reach of Barrington Tops National Park, Port Stephens, and the Great
+                    Lakes region.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
                   <Clock aria-hidden="true" className="mt-1 size-5 flex-none text-eucalyptus-600" />
                   <span>
-                    Previously an alpaca farm, Carinya Parc has entered a deliberate rest period in early 2024 to allow natural regeneration following decades of grazing pressure.
+                    Previously an alpaca farm, Carinya Parc has entered a deliberate rest period in
+                    early 2024 to allow natural regeneration following decades of grazing pressure.
                   </span>
                 </li>
                 <li className="flex gap-x-3">
-                  <Droplets aria-hidden="true" className="mt-1 size-5 flex-none text-eucalyptus-600" />
+                  <Droplets
+                    aria-hidden="true"
+                    className="mt-1 size-5 flex-none text-eucalyptus-600"
+                  />
                   <span>
-                    The property includes five farm dams across undulating hills, frost-free ridges and sheltered valleys. The Branch River frontage provides important riparian habitat for local wildlife.
+                    The property includes five farm dams across undulating hills, frost-free ridges
+                    and sheltered valleys. The Branch River frontage provides important riparian
+                    habitat for local wildlife.
                   </span>
                 </li>
               </ul>
-              <h2 className="mt-16 text-2xl font-bold tracking-tight text-charcoal-900">A Canvas for Ecological Renewal</h2>
+              <h2 className="mt-16 text-2xl font-bold tracking-tight text-charcoal-900">
+                A Canvas for Ecological Renewal
+              </h2>
               <p className="mt-6">
-                Carinya Parc is a blank canvas poised for ecological renewal. Over the coming years we will plant more than 30,000 native trees and shrubs across five carefully defined zones, stabilise eroded riverbanks, trial syntropic agroforestry guilds and monitor soil health, water quality and biodiversity through an open-data framework. Every contour, watercourse and forest remnant has been mapped to guide this long-term vision, ensuring that each hectare moves steadily closer to its natural potential.
+                Carinya Parc is a blank canvas poised for ecological renewal. Over the coming years
+                we will plant more than 30,000 native trees and shrubs across five carefully defined
+                zones, stabilise eroded riverbanks, trial syntropic agroforestry guilds and monitor
+                soil health, water quality and biodiversity through an open-data framework. Every
+                contour, watercourse and forest remnant has been mapped to guide this long-term
+                vision, ensuring that each hectare moves steadily closer to its natural potential.
               </p>
               <p className="mt-6">
-                Whether you are here to learn, to lend a hand or simply to enjoy the peace and privacy of rural NSW, The Property at Carinya Parc offers both a working farm and a living laboratory for regeneration in action.
+                Whether you are here to learn, to lend a hand or simply to enjoy the peace and
+                privacy of rural NSW, The Property at Carinya Parc offers both a working farm and a
+                living laboratory for regeneration in action.
               </p>
               <div className="mt-10 flex items-center gap-x-6">
                 <a

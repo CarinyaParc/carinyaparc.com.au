@@ -17,7 +17,10 @@ interface SubscribeFormProps {
   showInterests?: boolean;
 }
 
-export default function SubscribeForm({ showName = true, showInterests = true }: SubscribeFormProps) {
+export default function SubscribeForm({
+  showName = true,
+  showInterests = true,
+}: SubscribeFormProps) {
   const [formData, setFormData] = useState<FormData>({
     email: '',
     name: '',
@@ -149,7 +152,10 @@ export default function SubscribeForm({ showName = true, showInterests = true }:
           )}
           {showInterests && (
             <div className="sm:col-span-2">
-              <label htmlFor="interests" className="block text-sm/6 font-semibold text-charcoal-600">
+              <label
+                htmlFor="interests"
+                className="block text-sm/6 font-semibold text-charcoal-600"
+              >
                 What interests you most about Carinya Parc?
               </label>
               <div className="mt-2.5">
