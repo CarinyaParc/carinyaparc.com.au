@@ -20,20 +20,12 @@ export default function SubscribeModal({ open, onOpenChange }: SubscribeModalPro
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-eucalyptus-600">
+          <DialogTitle className="text-4xl font-bold text-eucalyptus-600">
             Stay Connected to The Land
           </DialogTitle>
-          <DialogDescription className="text-eucalyptus-400">
-            Subscribe to receive thoughtful, seasonal updates directly from the farm to your inbox.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="mt-6">
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold text-eucalyptus-600 mb-4">
-              When you join our mailing list, you'll be the first to receive:
-            </h3>
-            <ul role="list" className="space-y-4">
+          <DialogDescription className="px-6 mt-6 text-base/7 text-charcoal-600">
+            When you join our mailing list, you'll be the first to receive:
+            <ul role="list" className="mt-8 space-y-6">
               <li className="flex gap-x-3">
                 <Shovel className="h-5 w-5 text-eucalyptus-300 mt-0.5" />
                 <span className="text-sm">
@@ -56,10 +48,9 @@ export default function SubscribeModal({ open, onOpenChange }: SubscribeModalPro
                 </span>
               </li>
             </ul>
-          </div>
-
-          <SubscribeForm />
-        </div>
+          </DialogDescription>
+        </DialogHeader>
+        <SubscribeForm showName={false} showInterests={false} />
       </DialogContent>
     </Dialog>
   );

@@ -84,7 +84,7 @@ export function SectionSubtitle({ children }: { children: ReactNode }) {
 
 export function SectionText({ children }: { children: ReactNode }) {
   const { variant } = useContext(SectionContext);
-  const textColor = variant === 'dark' ? 'text-gray-200' : 'text-gray-600';
+  const textColor = variant === 'dark' ? 'text-charcoal-200' : 'text-charcoal-600';
   return <div className={`mt-6 text-base/7 ${textColor}`}>{children}</div>;
 }
 

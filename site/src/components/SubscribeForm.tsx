@@ -12,7 +12,12 @@ export interface FormData {
   submissionTime?: number;
 }
 
-export default function SubscribeForm() {
+interface SubscribeFormProps {
+  showName?: boolean;
+  showInterests?: boolean;
+}
+
+export default function SubscribeForm({ showName = true, showInterests = true }: SubscribeFormProps) {
   const [formData, setFormData] = useState<FormData>({
     email: '',
     name: '',
@@ -83,7 +88,7 @@ export default function SubscribeForm() {
 
   return (
     <form onSubmit={handleSubmit} className="px-6 py-8">
-      <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
+      <div className="mx-auto max-w-xl lg:max-w-lg">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           {/* Honeypot field - hidden from humans but visible to bots */}
           <div className="sm:col-span-2" aria-hidden="true" style={{ display: 'none' }}>
@@ -122,46 +127,50 @@ export default function SubscribeForm() {
               />
             </div>
           </div>
-          <div className="sm:col-span-2">
-            <label htmlFor="name" className="block text-sm/6 font-semibold text-charcoal-600">
-              Your Name
-            </label>
-            <div className="mt-2.5">
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                disabled={status === 'loading' || status === 'success'}
-                placeholder="Your name"
-                autoComplete="name"
-                className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-charcoal-300 placeholder:text-charcoal-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600 disabled:bg-gray-50"
-              />
+          {showName && (
+            <div className="sm:col-span-2">
+              <label htmlFor="name" className="block text-sm/6 font-semibold text-charcoal-600">
+                Your Name
+              </label>
+              <div className="mt-2.5">
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  disabled={status === 'loading' || status === 'success'}
+                  placeholder="Your name"
+                  autoComplete="name"
+                  className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-charcoal-300 placeholder:text-charcoal-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600 disabled:bg-gray-50"
+                />
+              </div>
             </div>
-          </div>
-          <div className="sm:col-span-2">
-            <label htmlFor="interests" className="block text-sm/6 font-semibold text-charcoal-600">
-              What interests you most about Carinya Parc?
-            </label>
-            <div className="mt-2.5">
-              <select
-                name="interests"
-                id="interests"
-                value={formData.interests}
-                onChange={handleInputChange}
-                disabled={status === 'loading' || status === 'success'}
-                className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-charcoal-300 placeholder:text-charcoal-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600 disabled:bg-gray-50"
-              >
-                <option value="">Select your main interest</option>
-                <option value="regeneration">Ecological restoration</option>
-                <option value="farming">Regenerative farming</option>
-                <option value="community">Community involvement</option>
-                <option value="produce">Future produce</option>
-                <option value="learning">Learning opportunities</option>
-              </select>
+          )}
+          {showInterests && (
+            <div className="sm:col-span-2">
+              <label htmlFor="interests" className="block text-sm/6 font-semibold text-charcoal-600">
+                What interests you most about Carinya Parc?
+              </label>
+              <div className="mt-2.5">
+                <select
+                  name="interests"
+                  id="interests"
+                  value={formData.interests}
+                  onChange={handleInputChange}
+                  disabled={status === 'loading' || status === 'success'}
+                  className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-charcoal-600 outline-1 -outline-offset-1 outline-charcoal-300 placeholder:text-charcoal-400 focus:outline-2 focus:-outline-offset-2 focus:outline-eucalyptus-600 disabled:bg-gray-50"
+                >
+                  <option value="">Select your main interest</option>
+                  <option value="regeneration">Ecological restoration</option>
+                  <option value="farming">Regenerative farming</option>
+                  <option value="community">Community involvement</option>
+                  <option value="produce">Future produce</option>
+                  <option value="learning">Learning opportunities</option>
+                </select>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className="mt-8 flex flex-col">
