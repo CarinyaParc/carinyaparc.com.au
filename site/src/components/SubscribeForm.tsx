@@ -49,7 +49,6 @@ export default function SubscribeForm({
     // Check for honeypot field
     if (formData.website) {
       // Honeypot triggered - simulate success but don't submit
-      console.log('Honeypot triggered - bot detected');
       // Wait a bit to simulate submission
       setTimeout(() => {
         setStatus('success');
@@ -74,7 +73,6 @@ export default function SubscribeForm({
       const data = await res.json();
 
       if (res.ok) {
-        console.log('Successfully subscribed');
         setStatus('success');
         setFormData({ email: '', name: '', interests: '', website: '' });
       } else {

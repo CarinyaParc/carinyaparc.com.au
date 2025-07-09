@@ -20,17 +20,11 @@ This repository contains the website for CarinyaParc, a regenerative farm commit
 ### Local Development
 
 ```bash
-# Install dependencies
-pnpm install
+# Install and build the site
+pnpm install && pnpm build
 
 # Start development server
 pnpm dev
-
-# Build the site
-pnpm build
-
-# Run tests
-pnpm test
 ```
 
 ### Deployment Pipeline

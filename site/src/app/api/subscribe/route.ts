@@ -90,18 +90,14 @@ export async function POST(req: Request) {
     // Parse form data from request
     const { email, name, interests, website, submissionTime } = await req.json();
 
-    console.log('Attempting to subscribe:', { email, name, interests, submissionTime });
-
     // 1. Check for honeypot field (should be empty)
     if (website) {
-      console.log('Honeypot triggered - bot detected');
       // Return success to prevent the bot from knowing it was detected
       return NextResponse.json({ success: true }, { status: 200 });
     }
 
     // 2. Check submission time (too fast means bot)
     if (submissionTime < RATE_LIMIT.MIN_SUBMISSION_TIME_MS) {
-      console.log('Form submitted too quickly - likely a bot');
       return NextResponse.json({ success: true }, { status: 200 });
     }
 
@@ -112,7 +108,6 @@ export async function POST(req: Request) {
 
     // 4. Check for spam email patterns
     if (isSpamEmail(email)) {
-      console.log('Spam email pattern detected:', email);
       // Silently reject but report success
       return NextResponse.json({ success: true }, { status: 200 });
     }
@@ -134,7 +129,6 @@ export async function POST(req: Request) {
     );
 
     if (emailLimitResult.limited) {
-      console.log(`Rate limit exceeded for email: ${email}`);
       return NextResponse.json(
         { error: 'This email address has already been submitted recently.' },
         { status: 429 },
@@ -204,9 +198,6 @@ export async function POST(req: Request) {
         data = { message: 'Failed to parse response' };
       }
 
-      console.log(`MailerLite API response status: ${response.status}`);
-      console.log('MailerLite API response data:', JSON.stringify(data));
-
       // Handle different response codes
       if (!response.ok) {
         let errorMessage = 'Unknown error';
@@ -226,7 +217,6 @@ export async function POST(req: Request) {
         );
       }
 
-      console.log('Successfully subscribed:', email);
       return NextResponse.json({ success: true });
     } catch (fetchError) {
       console.error('Fetch error:', fetchError);

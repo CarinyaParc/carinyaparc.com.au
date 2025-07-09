@@ -23,7 +23,6 @@ export default function Newsletter() {
       const data = await res.json();
 
       if (res.ok) {
-        console.log('Successfully subscribed');
         setStatus('success');
         setEmail('');
       } else {

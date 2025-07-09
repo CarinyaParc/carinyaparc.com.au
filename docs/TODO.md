@@ -1,4 +1,4 @@
-# Carinya Parc Website - Production Readiness TODO List
+# Carinya Parc Website - TODO List
 
 ## Priority 1: Critical Foundation
 
@@ -14,13 +14,14 @@
 - [ ] Implement contact form with validation and submission (core feature)
 - [x] Set up proper 404 page with correct status code
 - [ ] Configure environment variables for MailerLite API key
+- [ ] Create contact form API endpoint
 
 ## Priority 2: Security & Compliance
 
 - [x] Implement Content Security Policy (CSP)
 - [x] Add secure HTTP headers (Strict-Transport-Security, X-Content-Type-Options)
 - [ ] Conduct security vulnerability scan
-- [ ] Implement rate limiting for API endpoints
+- [x] Implement rate limiting for API endpoints
 - [x] Sanitize user inputs
 - [x] Add Privacy Policy page
 - [x] Add Terms of Service page
@@ -42,11 +43,12 @@
 - [x] Add loading states and error handling for user actions
 - [ ] Update contact email addresses throughout the site
 - [ ] Complete all phone numbers in contact information
+- [ ] Create ContactForm component for contact page
 
 ## Priority 4: Performance & SEO
 
 - [ ] Audit and optimize image assets (compression, formats, lazy loading)
-- [ ] Implement code splitting for JavaScript bundles
+- [x] Implement code splitting for JavaScript bundles
 - [ ] Add proper caching headers for static assets
 - [ ] Optimize font loading strategy
 - [ ] Configure CDN for static assets
@@ -87,17 +89,18 @@
 
 - [x] Run linting on all code files
 - [x] Enforce code style consistency
-- [ ] Remove console.log statements
+- [x] Remove console.log statements
 - [x] Address all TypeScript errors
 
 - [x] Implement automated code formatting
 - [x] Set up CI checks for code quality
+- [ ] Add integration tests for contact form
 
 ## Priority 8: Testing & QA
 
 - [x] Implement unit testing framework (Vitest)
 - [x] Add component tests for critical UI components
-- [ ] Add integration tests for key user flows
+- [x] Add integration tests for key user flows
 - [x] Implement end-to-end testing with Cypress or Playwright
 - [x] Perform cross-browser testing
 - [ ] Perform mobile/responsive testing
@@ -105,14 +108,16 @@
 - [ ] Conduct accessibility audit and implement fixes
 - [ ] Conduct accessibility compliance check (WCAG)
 - [ ] Conduct usability testing
-- [ ] Test newsletter subscription with real emails
+- [x] Test newsletter subscription with real emails
+- [ ] Add test for contact form functionality
 
 ## Priority 9: Documentation
 
 - [x] Create comprehensive README with setup instructions
-- [ ] Document architecture decisions
+- [x] Document architecture decisions
 - [x] Create API documentation for subscription endpoint
 - [ ] Add inline code documentation for complex functions
+- [ ] Document contact form API endpoint when implemented
 
 ## Priority 10: Legal & Compliance
 
@@ -128,13 +133,13 @@
 - [ ] Review component architecture for consistency
 - [ ] Analyze and reduce third-party dependencies
 
-- [ ] Document content management process
-- [ ] Document architecture decisions
-- [ ] Create technical documentation for developers
+- [x] Document content management process
+- [x] Document architecture decisions
+- [x] Create technical documentation for developers
 - [ ] Document website maintenance procedures
 
 - [ ] Set up backup strategy
-- [ ] Create cookie policy
+- [x] Create cookie policy
 - [ ] Set up data processing agreements with third-party services
 - [ ] Review compliance with Australian privacy laws
 - [ ] Create data retention policy
