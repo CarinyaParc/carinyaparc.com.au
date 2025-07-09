@@ -216,7 +216,7 @@ export default function SubscribeForm({
           )}
 
           <p className="mt-4 text-sm/6 text-gray-500">
-            We value your privacy and promise to respect your inbox. Read our{' '}
+            We promise to respect your privacy and your inbox. Read our{' '}
             <Link
               href="/legal/privacy-policy"
               className="font-semibold text-eucalyptus-600 hover:text-eucalyptus-500"
