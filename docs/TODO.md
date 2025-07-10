@@ -2,17 +2,7 @@
 
 ## Priority 1: Critical Foundation
 
-- [x] Create proper environment configuration for development, staging, and production
-- [x] Document required environment variables
-- [x] Create .env.example file
-- [x] Set up secrets management for sensitive data
-- [x] Configure SSL/TLS certificates
-- [x] Configure proper DNS configuration
-
-- [x] Review and update dependencies with known vulnerabilities
-- [x] Complete Newsletter subscription functionality (core feature)
 - [ ] Implement contact form with validation and submission (core feature)
-- [x] Set up proper 404 page with correct status code
 - [ ] Configure environment variables for MailerLite API key
 - [ ] Create contact form API endpoint
 
@@ -21,16 +11,6 @@
 - [x] Implement Content Security Policy (CSP)
 - [x] Add secure HTTP headers (Strict-Transport-Security, X-Content-Type-Options)
 - [ ] Conduct security vulnerability scan
-- [x] Implement rate limiting for API endpoints
-- [x] Sanitize user inputs
-- [x] Add Privacy Policy page
-- [x] Add Terms of Service page
-- [x] Implement cookie consent mechanism
-
-- [x] Add X-Frame-Options header
-- [x] Add X-XSS-Protection header
-- [x] Add Referrer-Policy header
-- [x] Add Permissions-Policy header
 
 ## Priority 3: Core Functionality & Content
 
@@ -77,7 +57,7 @@
 ## Priority 6: Monitoring & Analytics
 
 - [x] Complete Google Tag Manager setup
-- [ ] Implement error tracking (Sentry, LogRocket)
+- [x] Implement error tracking (Sentry, LogRocket)
 - [ ] Set up performance monitoring
 - [ ] Configure uptime monitoring
 - [ ] Set up API endpoint monitoring
@@ -87,13 +67,6 @@
 
 ## Priority 7: Code Quality
 
-- [x] Run linting on all code files
-- [x] Enforce code style consistency
-- [x] Remove console.log statements
-- [x] Address all TypeScript errors
-
-- [x] Implement automated code formatting
-- [x] Set up CI checks for code quality
 - [ ] Add integration tests for contact form
 
 ## Priority 8: Testing & QA
@@ -143,3 +116,31 @@
 - [ ] Set up data processing agreements with third-party services
 - [ ] Review compliance with Australian privacy laws
 - [ ] Create data retention policy
+
+---
+
+## Done
+
+- [x] Create proper environment configuration for development, staging, and production
+- [x] Document required environment variables
+- [x] Create .env.example file
+- [x] Set up secrets management for sensitive data
+- [x] Configure SSL/TLS certificates
+- [x] Configure proper DNS configuration
+- [x] Review and update dependencies with known vulnerabilities
+- [x] Complete Newsletter subscription functionality (core feature)
+- [x] Implement rate limiting for API endpoints
+- [x] Sanitize user inputs
+- [x] Add Privacy Policy page
+- [x] Add Terms of Service page
+- [x] Implement cookie consent mechanism
+- [x] Add X-Frame-Options header
+- [x] Add X-XSS-Protection header
+- [x] Add Referrer-Policy header
+- [x] Add Permissions-Policy header
+- [x] Run linting on all code files
+- [x] Enforce code style consistency
+- [x] Remove console.log statements
+- [x] Address all TypeScript errors
+- [x] Implement automated code formatting
+- [x] Set up CI checks for code quality

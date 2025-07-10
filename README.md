@@ -1,10 +1,10 @@
 # CarinyaParc Website
 
-This repository contains the website for CarinyaParc, a regenerative farm committed to sustainable practices and community engagement.
+This repository contains the website for Carinya Parc, a regenerative farm committed to sustainable practices and community engagement.
 
 ## Technology Stack
 
-- **Framework**: Next.js 14
+- **Framework**: Next.js v15.3 App Router with Typescript
 - **Styling**: Tailwind CSS
 - **Content**: MDX
 - **Deployment**: Vercel

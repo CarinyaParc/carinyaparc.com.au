@@ -2,14 +2,16 @@ name: Accessibility and Visual Regression Tests
 
 on:
   push:
-    branches:
-      - main
-      - next
+    branches: [dev, staging, main]
     paths:
-      - 'src/**'
+      - 'site/**'
   pull_request:
+    branches: [dev, staging, main]
     paths:
-      - 'src/**'
+      - 'site/**'
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
