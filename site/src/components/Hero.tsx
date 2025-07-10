@@ -1,135 +1,184 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { MapPin } from 'lucide-react';
+import { cn } from '@/src/lib/utils';
 import Link from 'next/link';
+import { ResponsiveImage } from './ResponsiveImage';
 
-// Hero Container Component
-interface HeroProps {
-  children: ReactNode;
-}
-
-export function Hero({ children }: HeroProps) {
+export function Hero({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="bg-eucalyptus-600">
-      <div className="relative isolate overflow-hidden pt-14">
-        {children}
-
-        {/* Decorative background elements */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-        >
-          <motion.div
-            animate={{
-              rotate: [30, 35, 30],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            style={{
-              clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-            }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-green-400 to-emerald-600 opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
-        </div>
-
-        {/* Bottom decorative element */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-        >
-          <motion.div
-            animate={{
-              x: [-10, 10, -10],
-              y: [5, -5, 5],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            style={{
-              clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-            }}
-            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-eucalyptus-500 to-emerald-700 opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-          />
-        </div>
-      </div>
+    <div className={cn('relative isolate overflow-hidden', className)}>
+      {children}
     </div>
   );
 }
 
-// Hero Content Components
-export function HeroContent({ children }: { children: ReactNode }) {
+export function HeroContent({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="mx-auto max-w-7xl px-6 lg:px-8">
-      <div className="mx-auto max-w-3xl py-32 sm:py-32 lg:py-36">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          {children}
-        </motion.div>
-      </div>
+    <div
+      className={cn(
+        'mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40 relative z-10',
+        className
+      )}
+    >
+      {children}
     </div>
   );
 }
 
-export function HeroImage({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+export function HeroImage({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <div className={cn('absolute inset-0 -z-10', className)}>{children}</div>;
 }
 
-export function HeroTitle({ children }: { children: ReactNode }) {
+// Updated to use ResponsiveImage
+export function HeroBackgroundImage({
+  src,
+  alt,
+  className,
+  priority = true,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  priority?: boolean;
+}) {
   return (
-    <h1 className="text-6xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+    <HeroImage>
+      <ResponsiveImage
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes="100vw"
+        className={cn('absolute inset-0 -z-10 opacity-80 brightness-50', className)}
+      />
+    </HeroImage>
+  );
+}
+
+export function HeroTitle({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <h1
+      className={cn(
+        'text-5xl/[1.1] font-semibold tracking-tight text-balance text-white sm:text-6xl/[1.1] lg:text-7xl/[1.1]',
+        className
+      )}
+    >
       {children}
     </h1>
   );
 }
 
-export function HeroText({ children }: { children: ReactNode }) {
+export function HeroText({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <p className="mt-8 text-xl font-medium text-pretty text-gray-200 sm:text-2xl">{children}</p>
+    <p
+      className={cn(
+        'mt-6 text-lg/8 text-white/85 text-pretty max-w-3xl mx-auto sm:text-xl/8',
+        className
+      )}
+    >
+      {children}
+    </p>
   );
 }
 
-export function HeroLocation({ children }: { children: ReactNode }) {
+export function HeroLocation({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="flex items-center justify-center text-white mt-6">
-      <MapPin className="h-5 w-5 mr-2" />
-      <span>{children}</span>
+    <div className={cn('mt-4 text-lg/8 text-white/75 font-medium', className)}>
+      {children}
     </div>
   );
 }
 
-export function HeroActions({ children }: { children: ReactNode }) {
-  return <div className="mt-10 flex items-center justify-center gap-6">{children}</div>;
+export function HeroActions({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn('mt-10 flex flex-wrap items-center gap-6', className)}>
+      {children}
+    </div>
+  );
 }
 
-export function HeroButton({ href, children }: { href: string; children: ReactNode }) {
+export function HeroButton({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
   return (
     <Link
       href={href}
-      className="rounded-md bg-eucalyptus-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-eucalyptus-200 hover:text-eucalyptus-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-300"
+      className={cn(
+        'rounded-md bg-eucalyptus-600 px-5 py-3 text-base/7 font-semibold text-white shadow-sm hover:bg-eucalyptus-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600',
+        className
+      )}
     >
       {children}
     </Link>
   );
 }
 
-export function HeroLink({ href, children }: { href: string; children: ReactNode }) {
+export function HeroSecondaryButton({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
   return (
-    <Link href={href} className="text-sm font-semibold leading-6 text-white">
-      {children} <span aria-hidden="true">→</span>
+    <Link
+      href={href}
+      className={cn(
+        'rounded-md bg-white/10 px-5 py-3 text-base/7 font-semibold text-white ring-1 ring-white/20 hover:bg-white/20 hover:ring-white/30',
+        className
+      )}
+    >
+      {children}
     </Link>
   );
 }

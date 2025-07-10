@@ -4,10 +4,11 @@ This repository contains the website for Carinya Parc, a regenerative farm commi
 
 ## Technology Stack
 
-- **Framework**: Next.js v15.3 App Router with Typescript
-- **Styling**: Tailwind CSS
-- **Content**: MDX
-- **Deployment**: Vercel
+- Next.js App Router v15 with TypeScript
+- React v19 with React DOM v19
+- Tailwind CSS
+- MDX
+- Vercel
 
 ## Development Workflow
 

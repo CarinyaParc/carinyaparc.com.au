@@ -8,7 +8,7 @@ import { Heart, Users, Shovel, Sprout, Newspaper, Ticket, TentTree, Trees } from
 import {
   Hero,
   HeroContent,
-  HeroImage,
+  HeroBackgroundImage,
   HeroTitle,
   HeroText,
   HeroLocation,
@@ -34,15 +34,11 @@ export default function HomePage() {
       {/* Hero Section */}
       <section>
         <Hero>
-          <HeroImage>
-            <Image
-              src="/images/hero_image.jpg"
-              alt="Carinya Parc landscape"
-              fill
-              priority
-              className="absolute inset-0 -z-10 object-cover opacity-80 brightness-50"
-            />
-          </HeroImage>
+          <HeroBackgroundImage
+            src="/images/hero_image.jpg"
+            alt="Carinya Parc landscape"
+            priority
+          />
           <HeroContent>
             <HeroTitle>
               Restoring the Land,
