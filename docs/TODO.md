@@ -36,7 +36,7 @@
 - [ ] Implement structured data (JSON-LD) for relevant content
 - [x] Add Open Graph and Twitter card meta tags
 - [x] Create robots.txt file
-- [ ] Implement canonical URLs
+- [x] Implement canonical URLs
 - [ ] Register site with Google Search Console and Bing Webmaster Tools
 
 ## Priority 5: Deployment & Infrastructure
@@ -90,11 +90,6 @@
 - [ ] Add inline code documentation for complex functions
 - [ ] Document contact form API endpoint when implemented
 
-## Priority 10: Legal & Compliance
-
-- [x] Review and finalize Privacy Policy
-- [x] Review and finalize Terms of Service
-
 ## Next Phase Activities
 
 - [ ] Set up backup strategy
@@ -104,13 +99,12 @@
 - [ ] Review component architecture for consistency
 - [ ] Analyze and reduce third-party dependencies
 
-- [x] Document content management process
-- [x] Document architecture decisions
-- [x] Create technical documentation for developers
+- [ ] Document content management process
+- [ ] Document architecture decisions
+- [ ] Create technical documentation for developers
 - [ ] Document website maintenance procedures
 
 - [ ] Set up backup strategy
-- [x] Create cookie policy
 - [ ] Set up data processing agreements with third-party services
 - [ ] Review compliance with Australian privacy laws
 - [ ] Create data retention policy
@@ -119,6 +113,8 @@
 
 ## Done
 
+- [x] Create cookie policy
+- [x] Register site with Google Search Console and Bing Webmaster Tools
 - [x] Create proper environment configuration for development, staging, and production
 - [x] Document required environment variables
 - [x] Create .env.example file
@@ -142,3 +138,11 @@
 - [x] Address all TypeScript errors
 - [x] Implement automated code formatting
 - [x] Set up CI checks for code quality
+- [x] Review and finalize Privacy Policy
+- [x] Review and finalize Terms of Service
+- [x] Complete mobile navigation implementation
+- [x] Implement comprehensive form validation
+- [x] Add loading states and error handling for user actions
+- [x] Implement Content Security Policy (CSP)
+- [x] Add secure HTTP headers (Strict-Transport-Security, X-Content-Type-Options)
+- [x] Replace placeholder images with final assets

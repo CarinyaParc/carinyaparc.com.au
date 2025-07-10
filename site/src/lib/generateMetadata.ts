@@ -18,12 +18,31 @@ export const viewport: Viewport = {
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
 export async function generateMetadata(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  { params, searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
+
+  // Determine the current path based on params
+  let currentPath = '/';
+
+  // Handle dynamic routes by checking params
+  if (Object.keys(params).length > 0) {
+    // Handle each param type separately
+    if (params.post) {
+      currentPath = `/blog/${params.post}`;
+    } else if (params.param) {
+      currentPath = `/test-canonical/${params.param}`;
+    } else if (params.slug) {
+      // For legal pages, this is handled at the page level via generateMetadata
+      // This is a fallback for any other slug-based routes
+      currentPath = `/${params.slug}`;
+    }
+  }
+
+  // Generate the canonical URL
+  const canonicalUrl = `${BASE_URL}${currentPath}`;
 
   return {
     title: {
@@ -44,12 +63,12 @@ export async function generateMetadata(
       'The Branch',
     ],
     alternates: {
-      canonical: BASE_URL,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title: SITE_TITLE,
       description: SITE_DESCRIPTION,
-      url: BASE_URL,
+      url: canonicalUrl,
       siteName: SITE_TITLE,
       images: [
         {
@@ -102,7 +121,9 @@ export function generatePageMetadata({
   type?: 'website' | 'article';
   keywords?: string[];
 }): Metadata {
-  const url = `${BASE_URL}${path}`;
+  // Ensure path has a leading slash and normalize it
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const url = `${BASE_URL}${normalizedPath}`;
   const imageUrl = image ? `${BASE_URL}${image}` : `${BASE_URL}/images/hero_image.jpg`;
 
   return {
