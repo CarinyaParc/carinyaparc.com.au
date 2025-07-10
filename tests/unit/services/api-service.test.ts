@@ -1,6 +1,7 @@
-import { describe, it, expect, beforeAll, afterEach, afterAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterEach, afterAll, vi } from 'vitest';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
+import { handlers } from '../../mocks/handlers';
 
 // Since we don't have a direct API service file to import, we'll create a mock service for testing
 class ApiService {
@@ -22,38 +23,10 @@ class ApiService {
   }
 }
 
-// Set up MSW server for mocking API responses
-const server = setupServer(
-  // Mock successful posts endpoint
-  http.get('/api/posts', () => {
-    return HttpResponse.json({
-      posts: [
-        { id: 1, title: 'First Post', content: 'Content of first post' },
-        { id: 2, title: 'Second Post', content: 'Content of second post' },
-      ],
-    });
-  }),
+// Set up MSW server with imported handlers
+const server = setupServer(...handlers);
 
-  // Mock successful subscribe endpoint
-  http.post('/api/subscribe', async ({ request }) => {
-    const body = await request.json();
-    if (!body.email) {
-      return new HttpResponse(JSON.stringify({ error: 'Email is required' }), { status: 400 });
-    }
-
-    return HttpResponse.json({
-      success: true,
-      message: 'Subscription successful',
-    });
-  }),
-
-  // Mock failed API requests
-  http.get('/api/posts/error', () => {
-    return new HttpResponse(null, { status: 500 });
-  }),
-);
-
-beforeAll(() => server.listen());
+beforeAll(() => server.listen({ onUnhandledRequest: 'bypass' }));
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
@@ -66,19 +39,30 @@ describe('API Service', () => {
       // Assert
       expect(result).toHaveProperty('posts');
       expect(result.posts.length).toBe(2);
-      expect(result.posts[0].title).toBe('First Post');
+      expect(result.posts[0].title).toBe('Seasonal Soil Care: Winter Composting & Cover Crops');
+      expect(result.posts[1].title).toBe('Designing Polyculture Systems');
     });
 
-    it('should throw an error when the request fails', async () => {
-      // Arrange - Override the handler to return an error
-      server.use(
-        http.get('/api/posts', () => {
-          return new HttpResponse(null, { status: 500 });
-        }),
-      );
+    it('should handle errors properly', async () => {
+      // Arrange - Setup a spy to test error handling
+      const fetchSpy = vi
+        .spyOn(global, 'fetch')
+        .mockImplementation(() =>
+          Promise.resolve(new Response(null, { status: 500, statusText: 'Server Error' })),
+        );
 
       // Act & Assert
-      await expect(ApiService.fetchPosts()).rejects.toThrow('Failed to fetch posts');
+      try {
+        await ApiService.fetchPosts();
+        // If we get here, the test should fail
+        expect(true).toBe(false); // This should not be reached
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect((error as Error).message).toBe('Failed to fetch posts');
+      }
+
+      // Cleanup
+      fetchSpy.mockRestore();
     });
   });
 
@@ -97,16 +81,26 @@ describe('API Service', () => {
       await expect(ApiService.subscribe('')).rejects.toThrow();
     });
 
-    it('should throw an error when the request fails', async () => {
-      // Arrange - Override the handler to return an error
-      server.use(
-        http.post('/api/subscribe', () => {
-          return new HttpResponse(null, { status: 500 });
-        }),
-      );
+    it('should handle errors properly', async () => {
+      // Arrange - Setup a spy to test error handling
+      const fetchSpy = vi
+        .spyOn(global, 'fetch')
+        .mockImplementation(() =>
+          Promise.resolve(new Response(null, { status: 500, statusText: 'Server Error' })),
+        );
 
       // Act & Assert
-      await expect(ApiService.subscribe('test@example.com')).rejects.toThrow('Failed to subscribe');
+      try {
+        await ApiService.subscribe('test@example.com');
+        // If we get here, the test should fail
+        expect(true).toBe(false); // This should not be reached
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect((error as Error).message).toBe('Failed to subscribe');
+      }
+
+      // Cleanup
+      fetchSpy.mockRestore();
     });
   });
 });

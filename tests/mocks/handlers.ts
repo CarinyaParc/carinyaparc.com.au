@@ -1,9 +1,23 @@
 import { http, HttpResponse } from 'msw';
 
+// Type for subscription request data
+interface SubscriptionRequest {
+  email: string;
+}
+
 // Mock API handlers for testing
 export const handlers = [
-  // Mock subscription endpoint
-  http.post('/api/subscribe', async () => {
+  // Mock subscription endpoint - handle all subscription requests including those with empty emails
+  http.post('/api/subscribe', async ({ request }) => {
+    const data = (await request.json()) as SubscriptionRequest;
+
+    // Check if the email is provided
+    if (!data || !data.email) {
+      return new HttpResponse(JSON.stringify({ success: false, message: 'Email is required' }), {
+        status: 400,
+      });
+    }
+
     return HttpResponse.json({ success: true, message: 'Subscription successful' });
   }),
 
