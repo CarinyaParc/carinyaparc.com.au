@@ -25,7 +25,13 @@ const eslintConfig = [
       'turbo/no-undeclared-env-vars': [
         'warn',
         {
-          allowList: ['NODE_ENV', 'MAILERLITE_API_KEY', 'NEXT_PUBLIC_GTM_ID'],
+          allowList: [
+            'NODE_ENV',
+            'MAILERLITE_API_KEY',
+            'NEXT_PUBLIC_GTM_ID',
+            'NEXT_RUNTIME',
+            'SESSION_SECRET',
+          ],
         },
       ],
     },

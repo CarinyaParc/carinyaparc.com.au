@@ -26,7 +26,7 @@ export function ResponsiveImage({
   const [isLoaded, setIsLoaded] = useState(false);
 
   const aspectRatioClasses = {
-    'auto': 'aspect-auto',
+    auto: 'aspect-auto',
     '1:1': 'aspect-square',
     '4:3': 'aspect-4/3',
     '16:9': 'aspect-video',
@@ -34,11 +34,13 @@ export function ResponsiveImage({
   };
 
   return (
-    <div className={cn(
-      'overflow-hidden',
-      fill ? 'relative w-full h-full' : aspectRatioClasses[aspectRatio],
-      className
-    )}>
+    <div
+      className={cn(
+        'overflow-hidden',
+        fill ? 'relative w-full h-full' : aspectRatioClasses[aspectRatio],
+        className,
+      )}
+    >
       <Image
         src={src}
         alt={alt || ''}
@@ -51,16 +53,14 @@ export function ResponsiveImage({
         className={cn(
           'object-cover transition-opacity duration-500',
           isLoaded ? 'opacity-100' : 'opacity-0',
-          fill ? 'absolute inset-0' : 'h-auto w-full'
+          fill ? 'absolute inset-0' : 'h-auto w-full',
         )}
         onLoad={() => setIsLoaded(true)}
         {...props}
       />
-      
+
       {/* Show placeholder until image loads */}
-      {!isLoaded && !priority && (
-        <div className="absolute inset-0 bg-gray-100 animate-pulse" />
-      )}
+      {!isLoaded && !priority && <div className="absolute inset-0 bg-gray-100 animate-pulse" />}
     </div>
   );
-} 
+}

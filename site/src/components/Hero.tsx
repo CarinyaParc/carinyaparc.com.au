@@ -4,18 +4,8 @@ import { cn } from '@/src/lib/utils';
 import Link from 'next/link';
 import { ResponsiveImage } from './ResponsiveImage';
 
-export function Hero({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={cn('relative isolate overflow-hidden', className)}>
-      {children}
-    </div>
-  );
+export function Hero({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <div className={cn('relative isolate overflow-hidden', className)}>{children}</div>;
 }
 
 export function HeroContent({
@@ -29,7 +19,7 @@ export function HeroContent({
     <div
       className={cn(
         'mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40 relative z-10',
-        className
+        className,
       )}
     >
       {children}
@@ -84,7 +74,7 @@ export function HeroTitle({
     <h1
       className={cn(
         'text-5xl/[1.1] font-semibold tracking-tight text-balance text-white sm:text-6xl/[1.1] lg:text-7xl/[1.1]',
-        className
+        className,
       )}
     >
       {children}
@@ -103,7 +93,7 @@ export function HeroText({
     <p
       className={cn(
         'mt-6 text-lg/8 text-white/85 text-pretty max-w-3xl mx-auto sm:text-xl/8',
-        className
+        className,
       )}
     >
       {children}
@@ -119,9 +109,7 @@ export function HeroLocation({
   className?: string;
 }) {
   return (
-    <div className={cn('mt-4 text-lg/8 text-white/75 font-medium', className)}>
-      {children}
-    </div>
+    <div className={cn('mt-4 text-lg/8 text-white/75 font-medium', className)}>{children}</div>
   );
 }
 
@@ -132,11 +120,7 @@ export function HeroActions({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={cn('mt-10 flex flex-wrap items-center gap-6', className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn('mt-10 flex flex-wrap items-center gap-6', className)}>{children}</div>;
 }
 
 export function HeroButton({
@@ -153,7 +137,7 @@ export function HeroButton({
       href={href}
       className={cn(
         'rounded-md bg-eucalyptus-600 px-5 py-3 text-base/7 font-semibold text-white shadow-sm hover:bg-eucalyptus-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600',
-        className
+        className,
       )}
     >
       {children}
@@ -175,7 +159,7 @@ export function HeroSecondaryButton({
       href={href}
       className={cn(
         'rounded-md bg-white/10 px-5 py-3 text-base/7 font-semibold text-white ring-1 ring-white/20 hover:bg-white/20 hover:ring-white/30',
-        className
+        className,
       )}
     >
       {children}

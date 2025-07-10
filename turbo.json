@@ -63,5 +63,12 @@
       "env": ["NODE_ENV", "MAILERLITE_API_KEY", "NEXT_PUBLIC_GTM_ID"]
     }
   },
-  "globalEnv": ["NODE_ENV", "MAILERLITE_API_KEY", "NEXT_PUBLIC_GTM_ID", "CI"]
+  "globalEnv": [
+    "NODE_ENV",
+    "MAILERLITE_API_KEY",
+    "NEXT_PUBLIC_GTM_ID",
+    "CI",
+    "NEXT_RUNTIME",
+    "SESSION_SECRET"
+  ]
 }

@@ -17,7 +17,7 @@ const nextConfig = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    quality: 80,
+    // quality: 80, - This is not a valid option in next.config.js
   },
 
   headers: async () => {
