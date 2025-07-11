@@ -11,6 +11,8 @@
 - [x] Implement Content Security Policy (CSP)
 - [x] Add secure HTTP headers (Strict-Transport-Security, X-Content-Type-Options)
 - [ ] Conduct security vulnerability scan
+- [ ] Review and refine CSP settings to remove 'unsafe-inline' and 'unsafe-eval'
+- [ ] Implement Subresource Integrity (SRI) for critical assets
 
 ## Priority 3: Core Functionality & Content
 
@@ -62,10 +64,12 @@
 - [ ] Create dashboard for key metrics
 - [ ] Configure alerts for critical incidents
 - [ ] Set up real-time monitoring for API endpoints
+- [ ] Implement custom Sentry error boundaries for critical UI sections
 
 ## Priority 7: Code Quality
 
 - [ ] Add integration tests for contact form
+- [ ] Implement Component Story Book for UI component documentation and testing
 
 ## Priority 8: Testing & QA
 
@@ -81,6 +85,7 @@
 - [ ] Conduct usability testing
 - [x] Test newsletter subscription with real emails
 - [ ] Add test for contact form functionality
+- [ ] Add automated accessibility testing to CI pipeline
 
 ## Priority 9: Documentation
 
@@ -89,6 +94,29 @@
 - [x] Create API documentation for subscription endpoint
 - [ ] Add inline code documentation for complex functions
 - [ ] Document contact form API endpoint when implemented
+
+## Priority 10: Performance & Web Core Vitals Enhancements
+
+- [ ] Implement next/font with display:swap for optimal font loading
+- [ ] Configure dynamic image priority for above-the-fold images
+- [ ] Add preconnect/dns-prefetch for critical third-party domains
+- [ ] Implement component-level code splitting with dynamic imports
+- [ ] Add service worker for offline support and improved loading
+- [ ] Configure persistent browser caching with ETags and cache-control headers
+- [ ] Implement preloading for critical assets
+- [ ] Add skeleton loading states for key UI components
+- [ ] Optimize bundle size with tree-shaking and better code splitting
+- [ ] Implement lazy loading for below-the-fold components
+- [ ] Add router-level prefetching for common navigation paths
+- [ ] Implement module/nomodule pattern for better JS delivery
+- [ ] Update image optimization script to create all needed sizes and formats
+- [ ] Implement resource hints (preload, prefetch) for critical resources
+- [ ] Configure Next.js image quality settings optimally (currently missing in config)
+- [ ] Add HTTP/2 server push for critical resources
+- [ ] Implement RUM (Real User Monitoring) for Core Web Vitals tracking
+- [ ] Optimize third-party script loading with async/defer attributes
+- [ ] Refine Tailwind configuration to reduce unused CSS in production
+- [ ] Update critical rendering path optimization with inline critical CSS
 
 ## Next Phase Activities
 
@@ -108,6 +136,20 @@
 - [ ] Set up data processing agreements with third-party services
 - [ ] Review compliance with Australian privacy laws
 - [ ] Create data retention policy
+
+## Priority 11: Resilience & Error Handling
+
+- [ ] Implement circuit breakers for external API calls
+- [ ] Add fallback UI components when data fetching fails
+- [ ] Implement retry mechanisms for critical API requests
+- [ ] Create comprehensive error boundaries at strategic UI levels
+- [ ] Add automated health checks for critical services
+- [ ] Implement graceful degradation for non-critical features
+- [ ] Add robust server-side error handling with user-friendly messages
+- [ ] Configure rate limiting for all API routes to prevent abuse
+- [ ] Implement data validation at all entry points
+- [ ] Create fallback static content for dynamic pages in case of failures
+- [ ] Set up feature flags for emergency feature disabling
 
 ---
 

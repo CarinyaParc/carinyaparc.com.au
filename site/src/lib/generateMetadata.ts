@@ -27,17 +27,19 @@ export async function generateMetadata(
   // Determine the current path based on params
   let currentPath = '/';
 
-  // Handle dynamic routes by checking params
-  if (Object.keys(params).length > 0) {
+  // Handle dynamic routes by checking params - ensure params is properly awaited
+  const paramsObj = params ? params : {};
+
+  if (paramsObj && Object.keys(paramsObj).length > 0) {
     // Handle each param type separately
-    if (params.post) {
-      currentPath = `/blog/${params.post}`;
-    } else if (params.param) {
-      currentPath = `/test-canonical/${params.param}`;
-    } else if (params.slug) {
+    if (paramsObj.post) {
+      currentPath = `/blog/${paramsObj.post}`;
+    } else if (paramsObj.param) {
+      currentPath = `/test-canonical/${paramsObj.param}`;
+    } else if (paramsObj.slug) {
       // For legal pages, this is handled at the page level via generateMetadata
       // This is a fallback for any other slug-based routes
-      currentPath = `/${params.slug}`;
+      currentPath = `/${paramsObj.slug}`;
     }
   }
 
