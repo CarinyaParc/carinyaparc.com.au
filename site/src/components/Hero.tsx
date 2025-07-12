@@ -125,9 +125,7 @@ export function HeroTitle({ children }: { children: ReactNode }) {
 }
 
 export function HeroText({ children }: { children: ReactNode }) {
-  return (
-    <p className="mt-8 text-xl font-medium text-pretty text-gray-200 sm:text-2xl">{children}</p>
-  );
+  return <p className="mt-8 text-xl font-medium text-pretty text-white sm:text-2xl">{children}</p>;
 }
 
 export function HeroLocation({ children }: { children: ReactNode }) {
