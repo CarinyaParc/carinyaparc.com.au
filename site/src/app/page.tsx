@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Card, CardContent } from '@/src/components/ui/card';
+import { Card, CardContent } from '@repo/ui/card';
 import { Heart, Users, Shovel, Sprout, Newspaper, Ticket, TentTree, Trees } from 'lucide-react';
 
 import {

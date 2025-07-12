@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from '@/src/components/ui/dialog';
+} from '@repo/ui/dialog';
 import SubscribeForm from '@/src/components/SubscribeForm';
 
 interface SubscribeModalProps {
