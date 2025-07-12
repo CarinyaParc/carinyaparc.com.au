@@ -34,11 +34,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section>
         <Hero>
-          <HeroBackgroundImage
-            src="/images/hero_image.jpg"
-            alt="Carinya Parc Hero"
-            priority
-          />
+          <HeroBackgroundImage src="/images/hero_image.jpg" alt="Carinya Parc Hero" priority />
           <HeroContent>
             <HeroTitle>
               Restoring the Land,

@@ -33,14 +33,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     img: ({ src, alt, ...props }) => {
       // Handle optimized images
       const imgSrc = src || '';
-      const optimizedSrc = imgSrc.startsWith('/images/') && !imgSrc.includes('/optimized/')
-        ? imgSrc.replace('/images/', '/images/optimized/')
-        : imgSrc;
-      
+
       return (
         <div className="my-6">
           <Image
-            src={optimizedSrc}
+            src={imgSrc}
             alt={alt || ''}
             width={800}
             height={450}

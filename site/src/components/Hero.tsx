@@ -104,7 +104,7 @@ export function HeroBackgroundImage({
   return (
     <HeroImage>
       <Image
-        src={imageSrc}
+        src={src}
         alt={alt}
         fill
         priority={priority}

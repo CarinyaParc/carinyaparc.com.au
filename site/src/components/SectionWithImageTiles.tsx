@@ -84,11 +84,6 @@ export function ImageTile({
   alt?: string;
   offset?: boolean;
 }) {
-  // Use optimized image path if source is from /images/ directory
-  const imageSrc = src.startsWith('/images/') && !src.includes('/optimized/')
-    ? src.replace('/images/', '/images/')
-    : src;
-
   return (
     <div
       className={`${
@@ -97,7 +92,7 @@ export function ImageTile({
     >
       <Image
         alt={alt}
-        src={imageSrc}
+        src={src}
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
         className="object-cover"
