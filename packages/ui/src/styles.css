@@ -1,6 +1,4 @@
-@tailwindcss /base;
-
-@tailwindcss /components;
+@import 'tailwindcss';
 
 @layer components {
   /* Base animation styles */
@@ -15,5 +13,3 @@
     will-change: transform, opacity;
   }
 }
-
-@tailwindcss /utilities;
