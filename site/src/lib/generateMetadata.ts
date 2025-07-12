@@ -27,10 +27,12 @@ export async function generateMetadata(
   // Determine the current path based on params
   let currentPath = '/';
 
-  // Handle dynamic routes by checking params - ensure params is properly awaited
-  const paramsObj = params ? params : {};
+  // Ensure params is properly awaited before using
+  const paramsObj = (await Promise.resolve(params)) || {};
 
-  if (paramsObj && Object.keys(paramsObj).length > 0) {
+  // Only access the keys after ensuring params is resolved
+  const paramKeys = Object.keys(paramsObj);
+  if (paramKeys.length > 0) {
     // Handle each param type separately
     if (paramsObj.post) {
       currentPath = `/blog/${paramsObj.post}`;
