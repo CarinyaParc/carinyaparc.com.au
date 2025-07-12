@@ -2,26 +2,63 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { CONSENT_COOKIE_NAME } from '@/src/lib/constants';
 
 export default function CookiePolicy() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    // Check if user has already made a choice
-    const cookieConsent = localStorage.getItem('cookieConsent');
-    if (cookieConsent) {
-      setIsVisible(false);
-    }
+    // Check for cookie consent cookie using document.cookie
+    const hasCookieConsent = document.cookie
+      .split('; ')
+      .some((cookie) => cookie.startsWith(`${CONSENT_COOKIE_NAME}=`));
+
+    // Only show the banner if no consent has been given
+    setIsVisible(!hasCookieConsent);
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem('cookieConsent', 'accepted');
-    setIsVisible(false);
+  const handleAccept = async () => {
+    try {
+      // Set consent via API call to use HTTP-only cookies
+      const response = await fetch('/api/cookie', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ consent: 'accepted' }),
+      });
+
+      if (response.ok) {
+        setIsVisible(false);
+        // Refresh to ensure the cookie is properly applied
+        router.refresh();
+      }
+    } catch (error) {
+      console.error('Failed to set cookie consent:', error);
+    }
   };
 
-  const handleReject = () => {
-    localStorage.setItem('cookieConsent', 'rejected');
-    setIsVisible(false);
+  const handleReject = async () => {
+    try {
+      // Set rejection via API call to use HTTP-only cookies
+      const response = await fetch('/api/cookie', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ consent: 'rejected' }),
+      });
+
+      if (response.ok) {
+        setIsVisible(false);
+        // Refresh to ensure the cookie is properly applied
+        router.refresh();
+      }
+    } catch (error) {
+      console.error('Failed to set cookie consent:', error);
+    }
   };
 
   if (!isVisible) {

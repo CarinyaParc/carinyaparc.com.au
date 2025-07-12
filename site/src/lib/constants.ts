@@ -8,3 +8,7 @@ export const BASE_URL =
 
 // File paths
 export const APP_DIR = process.cwd() + '/src/app';
+
+// Cookies
+export const CONSENT_COOKIE_NAME = 'carinya_parc_consent';
+export const SESSION_COOKIE_NAME = 'carinya_parc_session';

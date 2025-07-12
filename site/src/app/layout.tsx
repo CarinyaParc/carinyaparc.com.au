@@ -3,7 +3,9 @@ import '../styles/globals.css';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/next';
 import { draftMode } from 'next/headers';
+import { cookies } from 'next/headers';
 import { fontClassNames } from '../lib/font';
+import { CONSENT_COOKIE_NAME } from '@/src/lib/constants';
 
 import { navigation } from './navigation';
 import Banner from '@/src/components/Banner';
@@ -25,9 +27,14 @@ export default async function RootLayout({
 }>) {
   await draftMode();
 
+  const cookieStore = await cookies();
+  const cookieConsent = cookieStore.get(CONSENT_COOKIE_NAME);
+  const hasConsentedToAnalytics = cookieConsent?.value === 'accepted';
+
   return (
     <html lang="en" className={fontClassNames} suppressHydrationWarning>
-      <GoogleTagManager gtmId={GTM_ID || ''} />
+      {/* Only load Google Tag Manager if user consented */}
+      {hasConsentedToAnalytics && <GoogleTagManager gtmId={GTM_ID || ''} />}
       <body className="flex flex-col min-h-screen">
         <Banner />
         <Header navigation={navigation} />
@@ -35,7 +42,8 @@ export default async function RootLayout({
         <Newsletter />
         <Footer />
         <CookiePolicy />
-        <Analytics />
+        {/* Only load Analytics if user consented */}
+        {hasConsentedToAnalytics && <Analytics />}
       </body>
     </html>
   );
