@@ -152,6 +152,7 @@ export default function HeroWithTiles({
                         src={tileImages[0]?.src || '/placeholder.jpg'}
                         width={176}
                         height={264}
+                        loading="lazy"
                         className="aspect-[2/3] w-full rounded-xl bg-charcoal-900/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-charcoal-900/10 ring-inset" />
@@ -167,6 +168,7 @@ export default function HeroWithTiles({
                         src={tileImages[1]?.src || '/placeholder.jpg'}
                         width={176}
                         height={264}
+                        loading="lazy"
                         className="aspect-[2/3] w-full rounded-xl bg-charcoal-900/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-charcoal-900/10 ring-inset" />
@@ -177,6 +179,7 @@ export default function HeroWithTiles({
                         src={tileImages[2]?.src || '/placeholder.jpg'}
                         width={176}
                         height={264}
+                        loading="lazy"
                         className="aspect-[2/3] w-full rounded-xl bg-charcoal-900/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-charcoal-900/10 ring-inset" />
@@ -192,6 +195,7 @@ export default function HeroWithTiles({
                         src={tileImages[3]?.src || '/placeholder.jpg'}
                         width={176}
                         height={264}
+                        loading="lazy"
                         className="aspect-[2/3] w-full rounded-xl bg-charcoal-900/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-charcoal-900/10 ring-inset" />
@@ -202,6 +206,7 @@ export default function HeroWithTiles({
                         src={tileImages[4]?.src || '/placeholder.jpg'}
                         width={176}
                         height={264}
+                        loading="lazy"
                         className="aspect-[2/3] w-full rounded-xl bg-charcoal-900/5 object-cover shadow-lg"
                       />
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-charcoal-900/10 ring-inset" />

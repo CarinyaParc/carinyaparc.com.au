@@ -121,6 +121,7 @@ export default function HomePage() {
               className="object-cover"
               priority
               quality={80}
+              loading="lazy"
             />
           </SectionImage>
           <SectionContent>
@@ -152,6 +153,7 @@ export default function HomePage() {
               className="object-cover"
               priority
               quality={80}
+              loading="lazy"
             />
           </SectionImage>
           <SectionContent>
@@ -205,6 +207,7 @@ export default function HomePage() {
               className="object-cover"
               priority
               quality={80}
+              loading="lazy"
             />
           </SectionImage>
           <SectionContent>

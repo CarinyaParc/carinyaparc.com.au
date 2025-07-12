@@ -46,6 +46,7 @@ export function PostsLatest({ title, subtitle, posts, viewAllLink = '/blog' }: P
                 alt={post.title}
                 src={post.imageUrl}
                 fill
+                loading="lazy"
                 className="absolute inset-0 -z-10 object-cover"
                 sizes="(max-width: 768px) 100vw, 33vw"
                 quality={80}
@@ -68,6 +69,7 @@ export function PostsLatest({ title, subtitle, posts, viewAllLink = '/blog' }: P
                         src={post.author.imageUrl}
                         width={24}
                         height={24}
+                        loading="lazy"
                         className="size-6 flex-none rounded-full bg-white/10"
                         quality={80}
                       />

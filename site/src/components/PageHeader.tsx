@@ -82,7 +82,7 @@ export default function PageHeader({
               fill
               sizes="100vw"
               className="object-cover object-right md:object-center brightness-75"
-              priority
+              priority={isDark} // Only prioritize dark backgrounds which might be harder to load
             />
           </motion.div>
 

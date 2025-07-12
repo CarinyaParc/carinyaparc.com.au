@@ -41,6 +41,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             alt={alt || ''}
             width={800}
             height={450}
+            loading="lazy"
             className="rounded-md"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
             {...props}

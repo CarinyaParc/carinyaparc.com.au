@@ -94,6 +94,7 @@ export function ImageTile({
         alt={alt}
         src={src}
         fill
+        loading="lazy"
         sizes="(max-width: 768px) 100vw, 50vw"
         quality={80}
         className="object-cover"
