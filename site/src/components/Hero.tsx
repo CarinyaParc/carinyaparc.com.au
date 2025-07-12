@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { MapPin } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import Link from 'next/link';
-import { ResponsiveImage } from './ResponsiveImage';
+import Image from 'next/image';
 
 // Hero Container Component
 interface HeroProps {
@@ -90,7 +90,6 @@ export function HeroImage({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
 
-// Updated to use ResponsiveImage
 export function HeroBackgroundImage({
   src,
   alt,
@@ -104,13 +103,16 @@ export function HeroBackgroundImage({
 }) {
   return (
     <HeroImage>
-      <ResponsiveImage
-        src={src}
+      <Image
+        src={imageSrc}
         alt={alt}
         fill
         priority={priority}
         sizes="100vw"
-        className={cn('absolute inset-0 -z-10 opacity-80 brightness-50', className)}
+        quality={75}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+        className={cn('absolute inset-0 -z-10 object-cover opacity-80 brightness-50', className)}
       />
     </HeroImage>
   );

@@ -30,5 +30,26 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     code: ({ children }) => (
       <code className="bg-gray-100 rounded px-1 py-0.5 font-mono text-sm">{children}</code>
     ),
+    img: ({ src, alt, ...props }) => {
+      // Handle optimized images
+      const imgSrc = src || '';
+      const optimizedSrc = imgSrc.startsWith('/images/') && !imgSrc.includes('/optimized/')
+        ? imgSrc.replace('/images/', '/images/optimized/')
+        : imgSrc;
+      
+      return (
+        <div className="my-6">
+          <Image
+            src={optimizedSrc}
+            alt={alt || ''}
+            width={800}
+            height={450}
+            className="rounded-md"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+            {...props}
+          />
+        </div>
+      );
+    },
   };
 }
