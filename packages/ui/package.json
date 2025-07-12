@@ -5,11 +5,9 @@
     "**/*.css"
   ],
   "files": [
-    "dist",
     "src"
   ],
   "exports": {
-    "./styles.css": "./dist/index.css",
     "./*": {
       "types": "./src/*.tsx",
       "import": "./src/*.tsx",
@@ -18,12 +16,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build:ui": "pnpm build:components && pnpm build:styles",
-    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "build:components": "tsc",
     "typecheck": "tsc --noEmit",
-    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
-    "dev:components": "tsc --watch",
     "lint": "eslint src --max-warnings 0",
     "clean": "rm -rf dist"
   },

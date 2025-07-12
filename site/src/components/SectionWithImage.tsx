@@ -3,6 +3,7 @@
 import { ReactNode, createContext, useContext } from 'react';
 import Link from 'next/link';
 import { cn } from '../lib/utils';
+import { Button } from '@repo/ui/button';
 
 // Create context for section props
 interface SectionContextProps {
@@ -100,12 +101,9 @@ export function SectionButton({ href, children }: { href: string; children: Reac
       : 'bg-eucalyptus-600 text-white hover:bg-eucalyptus-700';
 
   return (
-    <Link
-      href={href}
-      className={`inline-flex rounded-md ${buttonClasses} px-3.5 py-2.5 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600`}
-    >
-      {children}
-    </Link>
+    <Button asChild className={buttonClasses}>
+      <Link href={href}>{children}</Link>
+    </Button>
   );
 }
 

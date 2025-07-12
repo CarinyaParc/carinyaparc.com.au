@@ -3,6 +3,7 @@
 import { cn } from '@/src/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@repo/ui/button';
 
 interface TileImage {
   src: string;
@@ -125,15 +126,9 @@ export default function HeroWithTiles({
               {(primaryButton || secondaryButton) && (
                 <div className="mt-10 flex items-center gap-x-6">
                   {primaryButton && (
-                    <Link
-                      href={primaryButton.href}
-                      className={cn(
-                        'rounded-md px-3.5 py-2.5 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600',
-                        primaryButtonClass,
-                      )}
-                    >
-                      {primaryButton.label}
-                    </Link>
+                    <Button asChild className={primaryButtonClass}>
+                      <Link href={primaryButton.href}>{primaryButton.label}</Link>
+                    </Button>
                   )}
                   {secondaryButton && (
                     <Link

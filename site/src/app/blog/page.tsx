@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Tag, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/src/components/ui/button';
+import { Button } from '@repo/ui/button';
 import { Card, CardContent } from '@/src/components/ui/card';
 import { Badge } from '@/src/components/ui/badge';
 import { PostsLatest } from '@/src/components/PostsLatest';
