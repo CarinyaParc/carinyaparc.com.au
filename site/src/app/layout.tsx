@@ -13,6 +13,7 @@ import Header from '@/src/components/Header';
 import Newsletter from '@/src/components/Newsletter';
 import Footer from '@/src/components/Footer';
 import CookiePolicy from '@/src/components/Policy';
+import { Toaster } from '@repo/ui/toaster';
 
 import { generateMetadata, viewport } from '../lib/generateMetadata';
 
@@ -42,6 +43,7 @@ export default async function RootLayout({
         <Newsletter />
         <Footer />
         <CookiePolicy />
+        <Toaster />
         {/* Only load Analytics if user consented */}
         {hasConsentedToAnalytics && <Analytics />}
       </body>
