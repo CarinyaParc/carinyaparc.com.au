@@ -5,6 +5,7 @@ import createMDX from '@next/mdx';
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   trailingSlash: true,
+  transpilePackages: ['@repo/ui'],
 
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

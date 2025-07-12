@@ -10,6 +10,7 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './content/**/*.{js,ts,jsx,tsx,mdx}',
     './mdx-components.tsx',
+    '../packages/ui/src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {

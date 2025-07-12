@@ -8,7 +8,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@repo/ui/*": ["../packages/ui/src/*"]
     },
     "skipLibCheck": true
   },
