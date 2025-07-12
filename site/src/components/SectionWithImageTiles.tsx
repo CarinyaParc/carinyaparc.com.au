@@ -95,6 +95,7 @@ export function ImageTile({
         src={src}
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
+        quality={80}
         className="object-cover"
       />
     </div>

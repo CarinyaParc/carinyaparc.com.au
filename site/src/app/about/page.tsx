@@ -123,6 +123,7 @@ export default function AboutPage() {
             width={1920}
             height={768}
             className="aspect-5/2 w-full object-cover xl:rounded-3xl"
+            quality={80}
           />
         </div>
       </section>

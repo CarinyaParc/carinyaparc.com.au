@@ -32,6 +32,7 @@ export default function PropertyPage() {
               fill
               className="absolute inset-0 size-full bg-gray-50 object-cover"
               priority
+              quality={80}
             />
           </div>
         </div>

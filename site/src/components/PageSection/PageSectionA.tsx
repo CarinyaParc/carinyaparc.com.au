@@ -106,6 +106,7 @@ export function SectionImage({
       width={width}
       height={height}
       className={`w-3xl max-w-none rounded-xl shadow-xl ring-1 ring-white/10 sm:w-228 md:-ml-4 lg:-ml-0 ${className}`}
+      quality={80}
     />
   );
 }

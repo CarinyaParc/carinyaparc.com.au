@@ -10,6 +10,7 @@ export default function NotFound() {
         className="absolute inset-0 -z-10 size-full object-cover object-top"
         width={3050}
         height={1500}
+        quality={80}
         priority
       />
       <div className="mx-auto max-w-7xl px-6 py-32 text-center sm:py-40 lg:px-8">

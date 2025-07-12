@@ -48,6 +48,7 @@ export function PostsLatest({ title, subtitle, posts, viewAllLink = '/blog' }: P
                 fill
                 className="absolute inset-0 -z-10 object-cover"
                 sizes="(max-width: 768px) 100vw, 33vw"
+                quality={80}
               />
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-eucalyptus-600 via-eucalyptus-600/40" />
               <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-eucalyptus-600/10 ring-inset" />
@@ -68,6 +69,7 @@ export function PostsLatest({ title, subtitle, posts, viewAllLink = '/blog' }: P
                         width={24}
                         height={24}
                         className="size-6 flex-none rounded-full bg-white/10"
+                        quality={80}
                       />
                       {post.author.name}
                     </div>

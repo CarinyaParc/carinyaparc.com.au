@@ -144,6 +144,7 @@ export default function BlogPage() {
                         alt={post.title}
                         fill
                         className="object-cover"
+                        quality={80}
                       />
                       <div className="absolute top-4 left-4">
                         <Badge className="bg-amber-600 hover:bg-amber-700">Featured</Badge>

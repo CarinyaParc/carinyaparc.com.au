@@ -120,6 +120,7 @@ export default function HomePage() {
               fill
               className="object-cover"
               priority
+              quality={80}
             />
           </SectionImage>
           <SectionContent>
@@ -144,7 +145,14 @@ export default function HomePage() {
       <section className="bg-white py-8 sm:py-12">
         <SectionWithImage variant="light" imagePosition="left">
           <SectionImage>
-            <Image src="/images/img_5.jpg" alt="Farm gate" fill className="object-cover" priority />
+            <Image
+              src="/images/img_5.jpg"
+              alt="Farm gate"
+              fill
+              className="object-cover"
+              priority
+              quality={80}
+            />
           </SectionImage>
           <SectionContent>
             <SectionSubtitle>Regenerate with Us</SectionSubtitle>
@@ -190,7 +198,14 @@ export default function HomePage() {
       <section className="bg-eucalyptus-600 py-8 sm:py-12">
         <SectionWithImage variant="dark" imagePosition="right">
           <SectionImage>
-            <Image src="/images/img_9.jpg" alt="Farm gate" fill className="object-cover" priority />
+            <Image
+              src="/images/img_9.jpg"
+              alt="Farm gate"
+              fill
+              className="object-cover"
+              priority
+              quality={80}
+            />
           </SectionImage>
           <SectionContent>
             <SectionSubtitle>Experience the Farm</SectionSubtitle>
