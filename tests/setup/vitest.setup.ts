@@ -32,7 +32,17 @@ global.IntersectionObserver = class IntersectionObserver {
 export const server = setupServer(...handlers);
 
 // Start MSW server before all tests
-beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }));
+let serverStarted = false;
+beforeAll(() => {
+  if (!serverStarted) {
+    try {
+      server.listen({ onUnhandledRequest: 'warn' });
+      serverStarted = true;
+    } catch (error) {
+      // Server already started, ignore
+    }
+  }
+});
 
 // Clean up after each test case
 afterEach(() => {
@@ -41,4 +51,13 @@ afterEach(() => {
 });
 
 // Clean up after all tests are done
-afterAll(() => server.close());
+afterAll(() => {
+  if (serverStarted) {
+    try {
+      server.close();
+      serverStarted = false;
+    } catch (error) {
+      // Server already closed, ignore
+    }
+  }
+});
