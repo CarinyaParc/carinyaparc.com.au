@@ -82,12 +82,20 @@ const withMDX = createMDX({
 });
 
 // Merge MDX config with Next.js config
-export default withSentryConfig(withMDX(nextConfig), {
-  org: 'carinya-parc-pty-ltd',
-  project: 'javascript-nextjs',
-  silent: !process.env.CI,
-  widenClientFileUpload: true,
-  tunnelRoute: '/monitoring',
-  disableLogger: true,
-  automaticVercelMonitors: true,
-});
+const mdxConfig = withMDX(nextConfig);
+
+// Only apply Sentry wrapper in production
+const finalConfig =
+  process.env.NODE_ENV === 'production'
+    ? withSentryConfig(mdxConfig, {
+        org: 'carinya-parc-pty-ltd',
+        project: 'javascript-nextjs',
+        silent: !process.env.CI,
+        widenClientFileUpload: true,
+        tunnelRoute: '/monitoring',
+        disableLogger: true,
+        automaticVercelMonitors: true,
+      })
+    : mdxConfig;
+
+export default finalConfig;

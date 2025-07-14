@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { NavItem } from '../app/navigation';
-import SubscribeModal from './SubscribeModal';
+import { NavItem } from '@/src/app/navigation';
+import SubscribeModal from '@/src/components/forms/SubscribeModal';
 
 interface HeaderProps {
   navigation: NavItem[];

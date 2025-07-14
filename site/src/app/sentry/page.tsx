@@ -14,14 +14,91 @@ class SentryExampleFrontendError extends Error {
 export default function Page() {
   const [hasSentError, setHasSentError] = useState(false);
   const [isConnected, setIsConnected] = useState(true);
+  const isProduction = process.env.NODE_ENV === 'production';
 
   useEffect(() => {
     async function checkConnectivity() {
-      const result = await Sentry.diagnoseSdkConnectivity();
-      setIsConnected(result !== 'sentry-unreachable');
+      if (isProduction) {
+        const result = await Sentry.diagnoseSdkConnectivity();
+        setIsConnected(result !== 'sentry-unreachable');
+      }
     }
     checkConnectivity();
-  }, []);
+  }, [isProduction]);
+
+  if (!isProduction) {
+    return (
+      <div>
+        <Head>
+          <title>Sentry Test Page</title>
+          <meta name="description" content="Test Sentry for your Next.js app!" />
+        </Head>
+        <main>
+          <div className="flex-spacer" />
+          <h1>Sentry Test Page</h1>
+          <div className="development-notice">
+            <p>Sentry is disabled in development mode.</p>
+            <p>To test Sentry error reporting, please run the application in production mode:</p>
+            <pre>NODE_ENV=production pnpm build && NODE_ENV=production pnpm start</pre>
+          </div>
+          <div className="flex-spacer" />
+        </main>
+        <style>{`
+          main {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+          }
+
+          h1 {
+            padding: 0px 4px;
+            border-radius: 4px;
+            background-color: rgba(24, 20, 35, 0.03);
+            font-family: monospace;
+            font-size: 20px;
+            line-height: 1.2;
+          }
+
+          p {
+            margin: 0;
+            font-size: 18px;
+          }
+
+          .development-notice {
+            padding: 24px;
+            background-color: #FEF3C7;
+            border: 1px solid #F59E0B;
+            border-radius: 8px;
+            max-width: 600px;
+            text-align: center;
+          }
+
+          .development-notice p {
+            margin-bottom: 12px;
+          }
+
+          pre {
+            background-color: #1F2937;
+            color: #F3F4F6;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            margin-top: 12px;
+          }
+
+          .flex-spacer {
+            flex: 1;
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div>

@@ -1,3 +1,10 @@
+# Content files
+content/
+
+# Generated files
+public/
+coverage/
+
 # Build output
 .next/
 out/
@@ -27,9 +34,5 @@ next-env.d.ts
 .vercel
 .swc/
 
-# Generated files
-public/
-coverage/
-
 # Package files
-pnpm-lock.yaml 
+pnpm-lock.yaml

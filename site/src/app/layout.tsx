@@ -8,11 +8,11 @@ import { fontClassNames } from '../lib/font';
 import { CONSENT_COOKIE_NAME } from '@/src/lib/constants';
 
 import { navigation } from './navigation';
-import Banner from '@/src/components/Banner';
-import Header from '@/src/components/Header';
-import Newsletter from '@/src/components/Newsletter';
-import Footer from '@/src/components/Footer';
-import CookiePolicy from '@/src/components/Policy';
+import Banner from '@/src/components/ui/Banner';
+import Header from '@/src/components/layouts/Header';
+import Newsletter from '@/src/components/ui/Newsletter';
+import Footer from '@/src/components/layouts/Footer';
+import CookiePolicy from '@/src/components/ui/Policy';
 import { Toaster } from '@repo/ui/toaster';
 
 import { generateMetadata, viewport } from '../lib/generateMetadata';

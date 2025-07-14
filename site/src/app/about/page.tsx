@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
-import HeroWithTiles from '@/src/components/HeroWithTiles';
+import HeroWithTiles from '@/src/components/sections/HeroWithTiles';
 import { generatePageMetadata } from '@/src/lib/generateMetadata';
 
 // Define stats data

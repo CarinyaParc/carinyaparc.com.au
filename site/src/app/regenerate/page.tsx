@@ -1,6 +1,6 @@
 'use client';
 
-import HeaderWithStats from '@/src/components/HeaderWithStats';
+import HeaderWithStats from '@/src/components/sections/HeaderWithStats';
 
 export default function RegeneratePage() {
   const links = [

@@ -2,7 +2,7 @@
 
 import { ReactNode, createContext, useContext } from 'react';
 import Link from 'next/link';
-import { cn } from '../lib/utils';
+import { cn } from '@/src/lib/utils';
 import { Button } from '@repo/ui/button';
 
 // Create context for section props

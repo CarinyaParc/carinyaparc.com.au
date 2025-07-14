@@ -10,7 +10,7 @@ import {
   DialogClose,
 } from '@repo/ui/dialog';
 import { cn } from '@/src/lib/utils';
-import SubscribeForm from '@/src/components/SubscribeForm';
+import SubscribeForm from '@/src/components/forms/SubscribeForm';
 
 interface SubscribeModalProps {
   open: boolean;
@@ -37,19 +37,22 @@ export default function SubscribeModal({ open, onOpenChange }: SubscribeModalPro
               <li className="flex gap-x-3">
                 <Shovel className="h-5 w-5 text-eucalyptus-300 mt-0.5" />
                 <span className="text-sm">
-                  <strong className="font-semibold">Invitations to participate</strong> in planting days, workshops and other opportunities
+                  <strong className="font-semibold">Invitations to participate</strong> in planting
+                  days, workshops and other opportunities
                 </span>
               </li>
               <li className="flex gap-x-3">
                 <Sprout className="h-5 w-5 text-eucalyptus-300 mt-0.5" />
                 <span className="text-sm">
-                  <strong className="font-semibold">Seasonal recipes</strong> that follow the rhythm of our developing gardens
+                  <strong className="font-semibold">Seasonal recipes</strong> that follow the rhythm
+                  of our developing gardens
                 </span>
               </li>
               <li className="flex gap-x-3">
                 <Newspaper className="h-5 w-5 text-eucalyptus-300 mt-0.5" />
                 <span className="text-sm">
-                  <strong className="font-semibold">Inspiring stories</strong> of regeneration and transformation of our landscape
+                  <strong className="font-semibold">Inspiring stories</strong> of regeneration and
+                  transformation of our landscape
                 </span>
               </li>
             </ul>

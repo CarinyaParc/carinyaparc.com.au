@@ -1,28 +1,11 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
-
-interface Author {
-  name: string;
-  imageUrl: string;
-}
-
-interface Post {
-  id: number;
-  title: string;
-  href: string;
-  description: string;
-  imageUrl: string;
-  date: string;
-  datetime: string;
-  author?: Author;
-}
+import type { Post as BlogPost } from '@/src/lib/posts';
 
 interface PostsLatestProps {
   title: string;
   subtitle: string;
-  posts: Post[];
+  posts: BlogPost[]; // Now required - must be passed from parent
   viewAllLink?: string;
 }
 
@@ -56,7 +39,7 @@ export function PostsLatest({ title, subtitle, posts, viewAllLink = '/blog' }: P
 
               <div className="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm/6 text-eucalyptus-200">
                 <time dateTime={post.datetime} className="mr-8">
-                  {post.date}
+                  {post.formattedDate}
                 </time>
                 {post.author && (
                   <div className="-ml-4 flex items-center gap-x-4">
@@ -64,16 +47,18 @@ export function PostsLatest({ title, subtitle, posts, viewAllLink = '/blog' }: P
                       <circle r={1} cx={1} cy={1} />
                     </svg>
                     <div className="flex gap-x-2.5">
-                      <Image
-                        alt=""
-                        src={post.author.imageUrl}
-                        width={24}
-                        height={24}
-                        loading="lazy"
-                        className="size-6 flex-none rounded-full bg-white/10"
-                        quality={80}
-                      />
-                      {post.author.name}
+                      {post.authorImageUrl && (
+                        <Image
+                          alt=""
+                          src={post.authorImageUrl}
+                          width={24}
+                          height={24}
+                          loading="lazy"
+                          className="size-6 flex-none rounded-full bg-white/10"
+                          quality={80}
+                        />
+                      )}
+                      {post.author}
                     </div>
                   </div>
                 )}

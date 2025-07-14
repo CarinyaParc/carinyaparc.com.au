@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { Shovel, Sprout, Newspaper } from 'lucide-react';
-import PageHeader from '@/src/components/PageHeader';
+import PageHeader from '@/src/components/sections/PageHeader';
 import { generatePageMetadata } from '@/src/lib/generateMetadata';
-import SubscribeForm from '@/src/components/SubscribeForm';
+import SubscribeForm from '@/src/components/forms/SubscribeForm';
 
 import {
   SectionWithImage,
@@ -12,7 +12,7 @@ import {
   SectionSubtitle,
   SectionTitle,
   SectionText,
-} from '@/src/components/SectionWithImage';
+} from '@/src/components/sections/SectionWithImage';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Subscribe - Carinya Parc',

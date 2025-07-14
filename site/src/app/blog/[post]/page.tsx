@@ -3,7 +3,7 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
-import DateComponent from '@/src/components/Date';
+import DateComponent from '@/src/components/ui/Date';
 
 // Define the frontmatter interface
 interface PostFrontmatter {
