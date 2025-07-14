@@ -28,7 +28,7 @@ jobs:
 
       # Wait for CI checks to complete
       - name: Wait for lint
-        uses: lewagon/wait-on-check-action@v1.3.4
+        uses: lewagon/wait-on-check-action@v1.4.0
         with:
           ref: ${{ github.sha }}
           check-name: 'lint'
@@ -37,7 +37,7 @@ jobs:
           allowed-conclusions: success
 
       - name: Wait for tests
-        uses: lewagon/wait-on-check-action@v1.3.4
+        uses: lewagon/wait-on-check-action@v1.4.0
         with:
           ref: ${{ github.sha }}
           check-name: 'test'
@@ -46,7 +46,7 @@ jobs:
           allowed-conclusions: success
 
       - name: Create PR from dev to staging
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore: promote dev → staging'
@@ -58,7 +58,7 @@ jobs:
 
       - name: Auto-merge the PR
         if: success()
-        uses: pascalgn/automerge-action@v0.15.6
+        uses: pascalgn/automerge-action@v0.16.4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_LABELS: ''
