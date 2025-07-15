@@ -1,0 +1,61 @@
+/* Base MDX Component Styles */
+
+.mdx-h1 {
+  @apply text-3xl md:text-4xl font-bold text-eucalyptus-600 mb-4;
+}
+
+.mdx-h2 {
+  @apply text-2xl font-bold mb-4;
+}
+
+.mdx-h3 {
+  @apply text-xl font-bold mb-3;
+}
+
+.mdx-p {
+  @apply mb-4;
+}
+
+.mdx-ul {
+  @apply list-disc pl-6 mb-4;
+}
+
+.mdx-ol {
+  @apply list-decimal pl-6 mb-4;
+}
+
+.mdx-li {
+  @apply mb-1;
+}
+
+.mdx-link {
+  @apply text-eucalyptus-600 hover:text-eucalyptus-500 underline;
+}
+
+.mdx-hr {
+  @apply my-8 border-gray-200;
+}
+
+.mdx-strong {
+  @apply font-bold;
+}
+
+.mdx-em {
+  @apply italic;
+}
+
+.mdx-blockquote {
+  @apply pl-4 border-l-4 border-eucalyptus-300 italic my-4;
+}
+
+.mdx-code {
+  @apply bg-gray-100 rounded px-1 py-0.5 font-mono text-sm;
+}
+
+.mdx-img-wrapper {
+  @apply my-6;
+}
+
+.mdx-img {
+  @apply rounded-md;
+}

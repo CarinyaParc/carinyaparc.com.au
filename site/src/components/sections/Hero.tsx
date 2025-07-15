@@ -146,7 +146,7 @@ export function HeroActions({ children }: { children: ReactNode }) {
 
 export function HeroButton({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Button asChild className="bg-eucalyptus-600 hover:bg-eucalyptus-200 hover:text-eucalyptus-600">
+    <Button asChild className="text-white bg-eucalyptus-600 hover:bg-eucalyptus-200 hover:text-eucalyptus-600">
       <Link href={href}>{children}</Link>
     </Button>
   );

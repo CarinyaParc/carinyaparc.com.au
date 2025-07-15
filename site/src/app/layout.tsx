@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import '../styles/index.css';
 
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/next';
@@ -6,6 +6,7 @@ import { draftMode } from 'next/headers';
 import { cookies } from 'next/headers';
 import { fontClassNames } from '../lib/font';
 import { CONSENT_COOKIE_NAME } from '@/src/lib/constants';
+import { getCriticalCSS } from '@/src/lib/get-critical-css';
 
 import { navigation } from './navigation';
 import Banner from '@/src/components/ui/Banner';
@@ -32,8 +33,15 @@ export default async function RootLayout({
   const cookieConsent = cookieStore.get(CONSENT_COOKIE_NAME);
   const hasConsentedToAnalytics = cookieConsent?.value === 'accepted';
 
+  // Get critical CSS for inlining
+  const criticalCSS = getCriticalCSS();
+
   return (
     <html lang="en" className={fontClassNames} suppressHydrationWarning>
+      <head>
+        {/* Inline critical CSS for immediate rendering */}
+        {criticalCSS && <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />}
+      </head>
       {/* Only load Google Tag Manager if user consented */}
       {hasConsentedToAnalytics && <GoogleTagManager gtmId={GTM_ID || ''} />}
       <body className="flex flex-col min-h-screen">

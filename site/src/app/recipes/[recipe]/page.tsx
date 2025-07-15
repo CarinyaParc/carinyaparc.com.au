@@ -3,6 +3,7 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
+import '@/src/styles/pages/recipes.css';
 
 // Define the Recipe frontmatter interface
 interface RecipeFrontmatter {
@@ -112,65 +113,71 @@ export default async function RecipePage({ params }: { params: Promise<{ recipe:
     return (
       <main className="isolate min-h-screen">
         <div className="relative isolate overflow-hidden py-24 sm:py-32">
-          <div className="container mx-auto max-w-4xl px-4 prose prose-eucalyptus">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">{frontmatter.title}</h1>
+          <div className="container mx-auto max-w-4xl px-4">
+            <article className="recipe-prose">
+              <h1>{frontmatter.title}</h1>
 
-            {/* Recipe metadata */}
-            <div className="bg-stone-100 p-4 rounded-lg mb-6">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {/* Recipe metadata */}
+              <div className="recipe-meta">
                 {frontmatter.servings && (
-                  <div>
-                    <p className="font-semibold text-sm">Servings</p>
-                    <p>{frontmatter.servings}</p>
+                  <div className="recipe-meta-item">
+                    <span className="recipe-meta-label">Servings</span>
+                    <span className="recipe-meta-value">{frontmatter.servings}</span>
                   </div>
                 )}
                 {frontmatter.prepTime && (
-                  <div>
-                    <p className="font-semibold text-sm">Prep Time</p>
-                    <p>{formatDuration(frontmatter.prepTime)}</p>
+                  <div className="recipe-meta-item">
+                    <span className="recipe-meta-label">Prep Time</span>
+                    <span className="recipe-meta-value">
+                      {formatDuration(frontmatter.prepTime)}
+                    </span>
                   </div>
                 )}
                 {frontmatter.cookTime && (
-                  <div>
-                    <p className="font-semibold text-sm">Cook Time</p>
-                    <p>{formatDuration(frontmatter.cookTime)}</p>
+                  <div className="recipe-meta-item">
+                    <span className="recipe-meta-label">Cook Time</span>
+                    <span className="recipe-meta-value">
+                      {formatDuration(frontmatter.cookTime)}
+                    </span>
                   </div>
                 )}
                 {frontmatter.totalTime && (
-                  <div>
-                    <p className="font-semibold text-sm">Total Time</p>
-                    <p>{formatDuration(frontmatter.totalTime)}</p>
+                  <div className="recipe-meta-item">
+                    <span className="recipe-meta-label">Total Time</span>
+                    <span className="recipe-meta-value">
+                      {formatDuration(frontmatter.totalTime)}
+                    </span>
                   </div>
                 )}
               </div>
-            </div>
 
-            {/* Display ingredients if they're in the frontmatter */}
-            {frontmatter.ingredients && frontmatter.ingredients.length > 0 && (
-              <div className="mb-6">
-                <h2>Ingredients</h2>
-                <ul>
-                  {frontmatter.ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <Content />
-
-            {/* Display tags if present */}
-            {frontmatter.tags && frontmatter.tags.length > 0 && (
-              <div className="mt-6 pt-4 border-t border-gray-200">
-                <div className="flex flex-wrap gap-2">
-                  {frontmatter.tags.map((tag, index) => (
-                    <span key={index} className="bg-stone-200 px-2 py-1 rounded text-sm">
-                      {tag}
-                    </span>
-                  ))}
+              {/* Display ingredients if they're in the frontmatter */}
+              {frontmatter.ingredients && frontmatter.ingredients.length > 0 && (
+                <div className="recipe-ingredients">
+                  <h2>Ingredients</h2>
+                  <ul>
+                    {frontmatter.ingredients.map((ingredient, index) => (
+                      <li key={index}>{ingredient}</li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            )}
+              )}
+
+              <Content />
+
+              {/* Display tags if present */}
+              {frontmatter.tags && frontmatter.tags.length > 0 && (
+                <div className="mt-6 pt-4 border-t border-gray-200">
+                  <div className="blog-tags">
+                    {frontmatter.tags.map((tag, index) => (
+                      <span key={index} className="blog-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </article>
           </div>
         </div>
       </main>

@@ -5,6 +5,7 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { generatePageMetadata } from '@/src/lib/generateMetadata';
+import '../../../styles/pages/legal.css';
 
 function legalPageExists(slug: string): boolean {
   const mdxPath = path.join(process.cwd(), 'content', 'legal', `${slug}.mdx`);
@@ -62,8 +63,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     return (
       <main className="isolate min-h-screen">
         <div className="relative isolate overflow-hidden py-24 sm:py-32">
-          <div className="container mx-auto max-w-4xl px-4 prose prose-eucalyptus">
-            <Content />
+          <div className="container mx-auto max-w-4xl px-4">
+            <article className="legal-prose">
+              <Content />
+            </article>
           </div>
         </div>
       </main>

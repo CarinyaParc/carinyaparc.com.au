@@ -1,0 +1,50 @@
+/* Blog Page Styles */
+
+@import '../components/mdx.css';
+
+.blog-prose {
+  @apply prose prose-lg max-w-none;
+
+  /* Custom blog typography */
+  --tw-prose-body: var(--color-charcoal-600);
+  --tw-prose-headings: var(--color-eucalyptus-600);
+  --tw-prose-lead: var(--color-charcoal-500);
+  --tw-prose-links: var(--color-eucalyptus-600);
+  --tw-prose-bold: var(--color-charcoal-600);
+  --tw-prose-counters: var(--color-eucalyptus-500);
+  --tw-prose-bullets: var(--color-eucalyptus-500);
+  --tw-prose-hr: var(--color-charcoal-200);
+  --tw-prose-quotes: var(--color-eucalyptus-600);
+  --tw-prose-quote-borders: var(--color-eucalyptus-300);
+  --tw-prose-captions: var(--color-charcoal-500);
+  --tw-prose-code: var(--color-charcoal-600);
+  --tw-prose-pre-code: var(--color-charcoal-200);
+  --tw-prose-pre-bg: var(--color-charcoal-600);
+  --tw-prose-th-borders: var(--color-charcoal-300);
+  --tw-prose-td-borders: var(--color-charcoal-200);
+}
+
+.blog-prose a {
+  @apply text-eucalyptus-600 hover:text-eucalyptus-500 underline;
+}
+
+.blog-prose h1 {
+  @apply text-3xl md:text-4xl font-bold text-eucalyptus-600 mb-4;
+}
+
+.blog-prose h2 {
+  @apply text-2xl font-bold text-charcoal-600;
+}
+
+/* Blog post metadata */
+.blog-meta {
+  @apply text-sm text-charcoal-500 mb-6;
+}
+
+.blog-tags {
+  @apply flex flex-wrap gap-2 mt-8;
+}
+
+.blog-tag {
+  @apply px-3 py-1 bg-eucalyptus-100 text-eucalyptus-600 rounded-full text-sm;
+}

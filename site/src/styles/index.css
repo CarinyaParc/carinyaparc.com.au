@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+/* Base theme and design tokens */
+@import './globals.css';
+
+/* Component animations and utilities */
+@import './components.css';

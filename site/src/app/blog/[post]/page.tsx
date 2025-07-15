@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import DateComponent from '@/src/components/ui/Date';
+import '../../../styles/pages/blog.css';
 
 // Define the frontmatter interface
 interface PostFrontmatter {
@@ -122,15 +123,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
     return (
       <main className="isolate min-h-screen">
         <div className="relative isolate overflow-hidden py-24 sm:py-32">
-          <div className="container mx-auto max-w-4xl px-4 prose prose-eucalyptus">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">{postData.title}</h1>
-            {postData.date && (
-              <div className="text-gray-600 mb-6">
-                <DateComponent dateString={postData.date} />
-                {postData.author && <span> • By {postData.author}</span>}
-              </div>
-            )}
-            <Content />
+          <div className="container mx-auto max-w-4xl px-4">
+            <article className="blog-prose">
+              <h1>{postData.title}</h1>
+              {postData.date && (
+                <div className="blog-meta">
+                  <DateComponent dateString={postData.date} />
+                  {postData.author && <span> • By {postData.author}</span>}
+                </div>
+              )}
+              <Content />
+            </article>
           </div>
         </div>
       </main>
