@@ -1,5 +1,7 @@
-/* UI Component Animation Styles */
+/* UI Component Custom Styles */
+
 @layer components {
+  /* Custom animation classes if not available in Tailwind v4 */
   .animate-in {
     animation-duration: 150ms;
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);

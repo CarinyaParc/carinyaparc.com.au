@@ -1,9 +1,11 @@
+// app/recipes/[recipe]/page.tsx
+import '@/src/styles/pages/recipes.css';
+
 import fs from 'fs';
 import path from 'path';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
-import '@/src/styles/pages/recipes.css';
 
 // Define the Recipe frontmatter interface
 interface RecipeFrontmatter {

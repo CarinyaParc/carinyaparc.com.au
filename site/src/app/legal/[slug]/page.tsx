@@ -1,11 +1,11 @@
 // app/legal/[slug]/page.tsx
+import '../../../styles/pages/legal.css';
 
 import fs from 'fs';
 import path from 'path';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { generatePageMetadata } from '@/src/lib/generateMetadata';
-import '../../../styles/pages/legal.css';
 
 function legalPageExists(slug: string): boolean {
   const mdxPath = path.join(process.cwd(), 'content', 'legal', `${slug}.mdx`);
