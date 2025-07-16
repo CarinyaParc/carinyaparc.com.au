@@ -70,7 +70,7 @@
 ## Priority 7: Security Enhancements
 
 - [ ] Conduct comprehensive security vulnerability scan
-- [ ] Review and refine CSP settings to remove 'unsafe-inline' and 'unsafe-eval'
+- [x] Review and refine CSP settings to remove 'unsafe-inline' and 'unsafe-eval'
 - [ ] Implement Subresource Integrity (SRI) for critical assets
 - [ ] Add security headers testing to CI pipeline
 - [ ] Implement rate limiting for contact form submissions

@@ -89,7 +89,7 @@ export default function Newsletter() {
 
               <p className="mt-4 text-sm/6 text-eucalyptus-100">
                 We promise to respect your privacy and your inbox. Read our{' '}
-                <Link href="/privacy-policy" className="font-semibold hover:text-white">
+                <Link href="/legal/privacy-policy" className="font-semibold hover:text-white">
                   privacy&nbsp;policy
                 </Link>
                 .

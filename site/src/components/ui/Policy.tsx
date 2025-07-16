@@ -72,7 +72,7 @@ export default function CookiePolicy() {
           This website uses cookies to supplement a balanced diet and provide a much deserved reward
           to the senses after consuming bland but nutritious meals. Accepting our cookies is
           optional but recommended, as they are delicious. See our{' '}
-          <Link href="/privacy-policy" className="font-semibold text-eucalyptus-600">
+          <Link href="/legal/privacy-policy" className="font-semibold text-eucalyptus-600">
             cookie policy
           </Link>
           .
