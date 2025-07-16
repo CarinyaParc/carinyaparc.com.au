@@ -5,3 +5,10 @@
 
 /* Component animations and utilities */
 @import './components.css';
+
+/* Note: Page-specific styles are imported directly in their respective pages:
+   - blog pages import ./pages/blog.css
+   - legal pages import ./pages/legal.css  
+   - recipe pages import ./pages/recipes.css
+   - sentry page imports ./pages/sentry.css
+*/
