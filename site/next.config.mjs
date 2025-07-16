@@ -32,21 +32,12 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              // Script sources - removed unsafe-inline and unsafe-eval
-              "script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://tagmanager.google.com https://connect.facebook.net https://vercel.live",
-              // Style sources - keep unsafe-inline for critical CSS (less dangerous than in script-src)
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com",
-              // Image sources
-              "img-src 'self' data: blob: https://www.google-analytics.com https://ssl.google-analytics.com https://www.googletagmanager.com https://tagmanager.google.com https://vercel.live",
-              // Font sources
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: https://www.google-analytics.com",
               "font-src 'self' https://fonts.gstatic.com",
-              // Connection sources
-              "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://ssl.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://tagmanager.google.com https://vercel.live wss://ws.pusher.com https://sockjs.pusher.com https://vitals.vercel-insights.com",
-              // Worker sources - this fixes the blob worker error
-              "worker-src 'self' blob: https://www.googletagmanager.com https://vercel.live",
-              // Frame sources
-              "frame-src 'self' https://www.googletagmanager.com https://vercel.live",
-              // Object sources
+              "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com",
+              "frame-src 'self'",
               "object-src 'none'",
             ].join('; '),
           },
