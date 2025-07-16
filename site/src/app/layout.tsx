@@ -1,4 +1,4 @@
-import '../styles/index.css';
+import '../styles/globals.css';
 
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/next';

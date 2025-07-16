@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './components.css';
 
 @theme {
   --font-sans: var(--font-raleway), sans-serif;
