@@ -5,11 +5,11 @@
   .legal-sections {
     counter-reset: section;
   }
-  
+
   .legal-sections h2 {
     counter-increment: section;
   }
-  
+
   .legal-sections h2::before {
     content: counter(section) '. ';
     color: var(--color-charcoal-600);
