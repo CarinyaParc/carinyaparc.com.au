@@ -1,15 +1,28 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Post as BlogPost } from '@/src/lib/posts';
+import { getBlogPosts } from '@/src/lib/posts';
 
-interface PostsLatestProps {
+// Force this component to be dynamic
+export const dynamic = 'force-dynamic';
+
+interface LatestPostsProps {
   title: string;
   subtitle: string;
-  posts: BlogPost[]; // Now required - must be passed from parent
+  limit?: number;
+  featured?: boolean;
   viewAllLink?: string;
 }
 
-export function PostsLatest({ title, subtitle, posts, viewAllLink = '/blog' }: PostsLatestProps) {
+export async function LatestPosts({
+  title,
+  subtitle,
+  limit = 3,
+  featured = false,
+  viewAllLink = '/blog',
+}: LatestPostsProps) {
+  // Fetch posts dynamically at runtime
+  const posts = await getBlogPosts({ limit, featured });
+
   return (
     <div className="">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

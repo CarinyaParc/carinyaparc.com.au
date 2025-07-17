@@ -1,5 +1,3 @@
-'use client';
-
 import HeaderWithStats from '@/src/components/sections/HeaderWithStats';
 
 export default function RegeneratePage() {

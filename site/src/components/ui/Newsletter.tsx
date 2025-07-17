@@ -51,7 +51,7 @@ export default function Newsletter() {
             </p>
           </div>
           <div className="flex-1 flex justify-center xl:justify-end">
-            <form onSubmit={handleSubmit} className="w-full max-w-md">
+            <form onSubmit={handleSubmit} className="w-full max-w-md" suppressHydrationWarning={true}>
               <div className="flex gap-x-4">
                 <label htmlFor="email-address" className="sr-only">
                   Email address
