@@ -42,7 +42,7 @@
 - [ ] Implement next/font with font-display: swap for optimal font loading
 - [ ] Add proper caching headers for static assets
 - [ ] Implement service worker for offline support and improved loading
-- [ ] Add critical CSS inlining for above-the-fold content
+- [x] Add critical CSS inlining for above-the-fold content
 - [ ] Implement resource hints (preload, prefetch, dns-prefetch)
 - [ ] Configure performance budgets in CI pipeline
 - [ ] Add skeleton loading states for key UI components

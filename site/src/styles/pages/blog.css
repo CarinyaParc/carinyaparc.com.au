@@ -1,15 +1,67 @@
 /* Blog Page Custom Styles */
 
-/* Currently no custom styles needed for blog pages.
-   All styling can be achieved with Tailwind utilities:
-   
-   - Use prose modifiers for typography colors
-   - Use utility classes for spacing and layout
-   
-   Example usage in components:
-   <article className="prose prose-lg max-w-none 
-     prose-headings:text-eucalyptus-600 
-     prose-a:text-eucalyptus-600 
-     prose-a:underline
-     prose-strong:text-charcoal-700">
-*/
+/* Blog Post Meta Styles */
+.blog-meta {
+  @apply mb-6 text-gray-600 flex flex-wrap items-center gap-4;
+}
+
+.blog-tags {
+  @apply flex flex-wrap gap-2 mt-2;
+}
+
+.blog-tag {
+  @apply inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.blog-excerpt {
+  @apply mb-8 text-lg text-gray-700 border-l-4 border-green-500 pl-4 italic;
+}
+
+/* Enhanced Blog Prose Styles */
+.blog-prose {
+  @apply prose prose-lg max-w-none 
+    prose-headings:text-green-800 
+    prose-a:text-green-600 
+    prose-a:underline
+    prose-strong:text-gray-800
+    prose-blockquote:text-gray-700
+    prose-blockquote:border-l-green-500
+    prose-code:text-green-700
+    prose-code:bg-green-50
+    prose-pre:bg-gray-800
+    prose-pre:text-gray-100;
+}
+
+.blog-prose h1 {
+  @apply text-4xl font-bold text-green-800 mb-4;
+}
+
+.blog-prose h2 {
+  @apply text-3xl font-semibold text-green-700 mt-8 mb-4;
+}
+
+.blog-prose h3 {
+  @apply text-2xl font-semibold text-green-600 mt-6 mb-3;
+}
+
+.blog-prose p {
+  @apply text-gray-700 leading-relaxed mb-4;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  @apply text-gray-700 mb-4;
+}
+
+.blog-prose li {
+  @apply mb-2;
+}
+
+.blog-prose img {
+  @apply rounded-lg shadow-lg my-8;
+}
+
+/* Blog Header Styles */
+.blog-prose header {
+  @apply border-b border-gray-200 pb-6 mb-8;
+}
