@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import Image from 'next/image';
+import { cn } from '@/src/lib/cn';
 
 // Main container component
 interface SectionWithImageTilesProps {
@@ -11,7 +12,7 @@ interface SectionWithImageTilesProps {
 
 export function SectionWithImageTiles({ children, className = '' }: SectionWithImageTilesProps) {
   return (
-    <div className={`overflow-hidden bg-white py-24 sm:py-32 ${className}`}>
+    <div className={cn('overflow-hidden bg-white py-24 sm:py-32', className)}>
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">{children}</div>
     </div>
   );
@@ -86,9 +87,10 @@ export function ImageTile({
 }) {
   return (
     <div
-      className={`${
-        offset ? '-mt-8 lg:-mt-40' : ''
-      } aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-eucalyptus-100/20 relative`}
+      className={cn(
+        'aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-eucalyptus-100/20 relative',
+        { '-mt-8 lg:-mt-40': offset },
+      )}
     >
       <Image
         alt={alt}
@@ -135,7 +137,11 @@ export function StatItem({
 }) {
   return (
     <div
-      className={`flex flex-col gap-y-2 ${!lastInRow ? 'border-b border-dotted border-eucalyptus-100/30 pb-4' : ''} ${lastInRow && !suffix ? 'max-sm:border-b max-sm:border-dotted max-sm:border-eucalyptus-100/30 max-sm:pb-4' : ''}`}
+      className={cn('flex flex-col gap-y-2', {
+        'border-b border-dotted border-eucalyptus-100/30 pb-4': !lastInRow,
+        'max-sm:border-b max-sm:border-dotted max-sm:border-eucalyptus-100/30 max-sm:pb-4':
+          lastInRow && !suffix,
+      })}
     >
       <dt className="text-sm/6 text-gray-600">{label}</dt>
       <dd className="order-first text-6xl font-semibold tracking-tight text-eucalyptus-600">

@@ -36,6 +36,9 @@ export default defineConfig({
         lines: 50,
       },
     },
+    deps: {
+      external: ['@sentry/nextjs'],
+    },
   },
   resolve: {
     alias: {
@@ -43,5 +46,8 @@ export default defineConfig({
       '@/src': resolve(__dirname, './src'),
       'test-utils': resolve(__dirname, '../tests/helpers/renderWithProviders.tsx'),
     },
+  },
+  define: {
+    'process.env': process.env,
   },
 });

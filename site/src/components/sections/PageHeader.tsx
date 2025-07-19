@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/lib/cn';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 

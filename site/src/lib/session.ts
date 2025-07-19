@@ -1,13 +1,7 @@
 import 'server-only';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
-import type { JWTPayload } from 'jose';
-
-// Define SessionPayload type as an extension of JWTPayload
-export interface SessionPayload extends JWTPayload {
-  // Add any custom fields you want to store in the session
-  [key: string]: unknown;
-}
+import type { SessionPayload } from '@/src/types/session';
 
 // Make sure SESSION_SECRET is set in your .env file
 const secretKey = process.env.SESSION_SECRET;
@@ -61,7 +55,10 @@ export async function setSession(data: SessionPayload): Promise<void> {
 export async function updateSession(
   updater: (data: SessionPayload) => SessionPayload,
 ): Promise<void> {
-  const currentSession = (await getSession()) || {};
+  const currentSession = await getSession();
+  if (!currentSession) {
+    throw new Error('No active session to update');
+  }
   const updatedSession = updater(currentSession);
   await setSession(updatedSession);
 }

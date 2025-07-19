@@ -1,0 +1,20 @@
+{
+  "extends": "./packages/typescript-config/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./site/*"],
+      "@/src/*": ["./site/src/*"],
+      "@site/*": ["./site/src/*"]
+    }
+  },
+  "include": ["tests/**/*", "site/**/*"],
+  "exclude": ["node_modules", "**/node_modules", ".next", "coverage"]
+}

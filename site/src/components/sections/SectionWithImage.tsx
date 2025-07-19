@@ -2,7 +2,7 @@
 
 import { ReactNode, createContext, useContext } from 'react';
 import Link from 'next/link';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/lib/cn';
 import { Button } from '@repo/ui/button';
 
 // Create context for section props
@@ -48,7 +48,10 @@ export function SectionImage({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className={`relative h-80 overflow-hidden shadow-xl ring-1 ring-eucalyptus-100/10 md:absolute ${positionClasses} md:h-full md:w-1/3 lg:w-1/2`}
+      className={cn(
+        'relative h-80 overflow-hidden shadow-xl ring-1 ring-eucalyptus-100/10 md:absolute md:h-full md:w-1/3 lg:w-1/2',
+        positionClasses,
+      )}
     >
       {children}
     </div>
@@ -73,20 +76,22 @@ export function SectionTitle({ children }: { children: ReactNode }) {
   const { variant } = useContext(SectionContext);
   const textColor = variant === 'dark' ? 'text-white' : 'text-eucalyptus-600';
   return (
-    <h2 className={`text-4xl font-semibold tracking-tight ${textColor} sm:text-5xl`}>{children}</h2>
+    <h2 className={cn('text-4xl font-semibold tracking-tight sm:text-5xl', textColor)}>
+      {children}
+    </h2>
   );
 }
 
 export function SectionSubtitle({ children }: { children: ReactNode }) {
   const { variant } = useContext(SectionContext);
   const textColor = variant === 'dark' ? 'text-eucalyptus-200' : 'text-eucalyptus-300';
-  return <p className={`text-base/7 font-semibold ${textColor}`}>{children}</p>;
+  return <p className={cn('text-base/7 font-semibold', textColor)}>{children}</p>;
 }
 
 export function SectionText({ children }: { children: ReactNode }) {
   const { variant } = useContext(SectionContext);
   const textColor = variant === 'dark' ? 'text-eucalyptus-100' : 'text-charcoal-400';
-  return <div className={`mt-6 text-base/7 ${textColor}`}>{children}</div>;
+  return <div className={cn('mt-6 text-base/7', textColor)}>{children}</div>;
 }
 
 export function SectionActions({ children }: { children: ReactNode }) {
@@ -112,7 +117,7 @@ export function SectionLink({ href, children }: { href: string; children: ReactN
   const textColor = variant === 'dark' ? 'text-white' : 'text-eucalyptus-600';
 
   return (
-    <Link href={href} className={`px-3.5 py-2.5 text-sm font-semibold leading-6 ${textColor}`}>
+    <Link href={href} className={cn('px-3.5 py-2.5 text-sm font-semibold leading-6', textColor)}>
       {children} <span aria-hidden="true">→</span>
     </Link>
   );

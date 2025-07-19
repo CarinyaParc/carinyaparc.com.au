@@ -9,7 +9,7 @@ import {
   DialogDescription,
   DialogClose,
 } from '@repo/ui/dialog';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/lib/cn';
 import SubscribeForm from '@/src/components/forms/SubscribeForm';
 
 interface SubscribeModalProps {

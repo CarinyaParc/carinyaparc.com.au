@@ -3,6 +3,18 @@ import { beforeAll, afterEach, afterAll, vi } from 'vitest';
 import { setupServer } from 'msw/node';
 import { handlers } from '../mocks/handlers';
 
+// Mock Next.js modules
+vi.mock('next/headers', () => ({
+  headers: vi.fn(),
+  cookies: vi.fn(),
+}));
+
+vi.mock('@sentry/nextjs', () => ({
+  captureException: vi.fn(),
+  withSentry: (handler: any) => handler,
+  init: vi.fn(),
+}));
+
 // Mock browser APIs not available in jsdom
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -19,14 +31,11 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
-  constructor(callback) {
-    this.callback = callback;
-  }
-  disconnect() {}
-  observe() {}
-  unobserve() {}
-};
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  disconnect: vi.fn(),
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+}));
 
 // Setup MSW server for API mocking
 export const server = setupServer(...handlers);

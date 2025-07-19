@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
+import { cn } from '@/src/lib/cn';
 
 export interface FormData {
   email: string;
@@ -181,11 +182,12 @@ export default function SubscribeForm({
           <button
             type="submit"
             disabled={status === 'loading' || status === 'success'}
-            className={`rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600 disabled:opacity-70 flex items-center justify-center ${
+            className={cn(
+              'rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-eucalyptus-600 disabled:opacity-70 flex items-center justify-center',
               status === 'success'
                 ? 'bg-eucalyptus-400'
-                : 'bg-eucalyptus-600 hover:bg-eucalyptus-500'
-            }`}
+                : 'bg-eucalyptus-600 hover:bg-eucalyptus-500',
+            )}
           >
             {status === 'loading' && <Loader2 className="animate-spin mr-2 h-4 w-4" />}
             {status === 'success' && <CheckCircle className="mr-2 h-4 w-4" />}

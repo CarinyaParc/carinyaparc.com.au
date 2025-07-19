@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NavItem } from '@/src/app/navigation';
 import SubscribeModal from '@/src/components/forms/SubscribeModal';
+import { cn } from '@/src/lib/cn';
 
 interface HeaderProps {
   navigation: NavItem[];
@@ -65,7 +66,7 @@ export default function Header({ navigation }: HeaderProps) {
 
   return (
     <>
-      <header className={`z-40 transition-all duration-300 ${headerClass}`}>
+      <header className={cn('z-40 transition-all duration-300', headerClass)}>
         <nav
           aria-label="Main navigation"
           className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
@@ -77,9 +78,7 @@ export default function Header({ navigation }: HeaderProps) {
               className="flex items-center space-x-2"
             >
               <Link href="/" className="hover:opacity-80 transition-opacity duration-300">
-                <span
-                  className={`text-2xl font-bold text-eucalyptus-600 transition-colors duration-300`}
-                >
+                <span className="text-2xl font-bold text-eucalyptus-600 transition-colors duration-300">
                   Carinya Parc
                 </span>
               </Link>
@@ -89,7 +88,7 @@ export default function Header({ navigation }: HeaderProps) {
           {/* Mobile menu button */}
           <div className="flex lg:hidden">
             <button
-              className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white transition-colors duration-300`}
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white transition-colors duration-300"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -107,9 +106,11 @@ export default function Header({ navigation }: HeaderProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`transition-colors duration-300 ${
-                    pathname === item.href ? 'text-eucalyptus-100' : ''
-                  } flex flex-col items-start text-left ${hoverClass} px-2 py-1`}
+                  className={cn(
+                    'transition-colors duration-300 flex flex-col items-start text-left px-2 py-1',
+                    hoverClass,
+                    { 'text-eucalyptus-100': pathname === item.href },
+                  )}
                 >
                   {item.label ? (
                     item.label

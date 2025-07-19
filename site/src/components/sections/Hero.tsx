@@ -3,7 +3,7 @@
 import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin } from 'lucide-react';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/src/lib/cn';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@repo/ui/button';

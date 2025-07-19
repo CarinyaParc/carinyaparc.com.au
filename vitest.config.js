@@ -12,16 +12,34 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      exclude: ['**/node_modules/**', '**/tests/**', '**/*.d.ts'],
+      exclude: [
+        '**/node_modules/**',
+        '**/tests/**',
+        '**/*.d.ts',
+        '**/.next/**',
+        '**/coverage/**',
+        '**/*.config.*',
+        '**/site/.next/**',
+      ],
     },
     include: ['./tests/**/*.{test,spec}.{ts,tsx}'],
-    deps: {
-      inline: [/\/testing-library\/react/, /\/testing-library\/user-event/],
+    exclude: ['./tests/security/**', '**/node_modules/**'],
+    server: {
+      deps: {
+        external: ['@sentry/nextjs'],
+      },
     },
   },
   resolve: {
     alias: {
       '@site': resolve(__dirname, './site/src'),
+      '@': resolve(__dirname, './site'),
+      '@/src': resolve(__dirname, './site/src'),
     },
+  },
+  esbuild: {
+    jsxFactory: 'React.createElement',
+    jsxFragment: 'React.Fragment',
+    jsxInject: `import React from 'react'`,
   },
 });
