@@ -7,8 +7,9 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import DateComponent from '@/src/components/ui/Date';
-import { BASE_URL, SITE_TITLE } from '@/src/lib/constants';
-import { generateJsonLd } from '@/src/lib/schema';
+import { BASE_URL } from '@/src/lib/constants';
+import { SchemaMarkup } from '@/src/components/ui/SchemaMarkup';
+import { Breadcrumb } from '@/src/components/ui/Breadcrumb';
 
 // Define the frontmatter interface
 interface PostFrontmatter {
@@ -137,7 +138,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
   // Create validated data for schema with guaranteed values
   const publishDate = postData.date || dateFromFilename || new Date().toISOString().split('T')[0];
 
-  const schemaData = {
+  const articleData = {
     title: postData.title || 'Blog Post',
     slug: post,
     author: postData.author,
@@ -149,33 +150,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
     tags: Array.isArray(postData.tags) ? postData.tags : undefined,
   };
 
-  // Generate JSON-LD schema using centralized utility
-  const articleSchema = generateJsonLd('blog', {
-    org: {
-      name: SITE_TITLE,
-      url: BASE_URL,
-      logoUrl: `${BASE_URL}/logo.png`,
-    },
-    breadcrumb: [
-      { name: 'Home', url: BASE_URL, position: 1 },
-      { name: 'Blog', url: `${BASE_URL}/blog`, position: 2 },
-      { name: schemaData.title, url: `${BASE_URL}/blog/${post}`, position: 3 },
-    ],
-    article: schemaData,
-  });
-
   try {
     // Import the MDX file directly
     const Content = (await import(`@/content/posts/${fileName}`)).default;
 
     return (
       <>
-        {/* JSON-LD Schema */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleSchema }} />
+        {/* Schema markup for blog post */}
+        <SchemaMarkup
+          type="blog"
+          data={{
+            article: articleData,
+          }}
+        />
 
         <main className="isolate min-h-screen">
           <div className="relative isolate overflow-hidden py-24 sm:py-32">
             <div className="container mx-auto max-w-4xl px-4">
+              {/* Breadcrumb navigation */}
+              <Breadcrumb />
+
               <article className="blog-prose">
                 <header>
                   <h1>{postData.title}</h1>

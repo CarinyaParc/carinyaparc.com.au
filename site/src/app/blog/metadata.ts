@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { generatePageMetadata } from '@/src/lib/generateMetadata';
+import { generatePageMetadata } from '@/lib/generateMetadata';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Blog - Life on Pasture - Carinya Parc',

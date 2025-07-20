@@ -16,6 +16,8 @@ import CookiePolicy from '@/src/components/ui/Policy';
 import { Toaster } from '@repo/ui/toaster';
 
 import { generateMetadata, viewport } from '../lib/generateMetadata';
+import { generateOrganizationSchema } from '../lib/schema/organization';
+import { SITE_TITLE, BASE_URL, ORG_LOGO_URL, ORG_SOCIAL_PROFILES } from '../lib/constants';
 
 export { generateMetadata, viewport };
 
@@ -82,11 +84,24 @@ export default async function RootLayout({
   const cookieConsent = cookieStore.get(CONSENT_COOKIE_NAME);
   const hasConsentedToAnalytics = cookieConsent?.value === 'accepted';
 
+  // Generate organization schema for all pages
+  const organizationSchema = generateOrganizationSchema({
+    name: SITE_TITLE,
+    url: BASE_URL,
+    logoUrl: ORG_LOGO_URL,
+    sameAs: ORG_SOCIAL_PROFILES,
+  });
+
   return (
     <html lang="en" className={fontClassNames} suppressHydrationWarning>
       <head>
         {/* Inline critical CSS for immediate rendering */}
         <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
+        {/* Organization schema present on all pages */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
       </head>
       {/* Only load Google Tag Manager if user consented */}
       {hasConsentedToAnalytics && <GoogleTagManager gtmId={GTM_ID || ''} />}

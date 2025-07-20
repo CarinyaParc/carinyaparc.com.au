@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import * as Sentry from '@sentry/nextjs';
 
 // Mock Sentry
 vi.mock('@sentry/nextjs', () => ({
@@ -36,7 +35,7 @@ describe('GlobalError', () => {
   });
 
   it('should render error message and retry button', async () => {
-    const GlobalError = await import('../src/app/global-error').then((m) => m.default);
+    const GlobalError = await import('@/app/global-error').then((m) => m.default);
 
     render(<GlobalError error={mockError} />);
 
@@ -45,7 +44,7 @@ describe('GlobalError', () => {
   });
 
   it('should have proper HTML structure', async () => {
-    const GlobalError = await import('../src/app/global-error').then((m) => m.default);
+    const GlobalError = await import('@/app/global-error').then((m) => m.default);
 
     const { container } = render(<GlobalError error={mockError} />);
 

@@ -1,11 +1,5 @@
 # Architecture
 
-## Technology
-
-- Next.js App Router v15 with TypeScript
-- React and React DOM v19
-- TailwindCSS v4
-
 ## Rules
 
 1. **Separation of Concerns:** Modules **SHALL** adhere to the single‑responsibility principle. UI components **SHALL NOT** contain side‑effects such as data fetching or business logic.

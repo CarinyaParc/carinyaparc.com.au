@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { CONSENT_COOKIE_NAME } from '@/src/lib/constants';
+import { CONSENT_COOKIE_NAME } from '@/lib/constants';
 
 export async function POST(req: Request) {
   try {

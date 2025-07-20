@@ -6,6 +6,8 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import matter from 'gray-matter';
+import { SchemaMarkup } from '@/src/components/ui/SchemaMarkup';
+import { Breadcrumb } from '@/src/components/ui/Breadcrumb';
 
 // Define the Recipe frontmatter interface
 interface RecipeFrontmatter {
@@ -112,77 +114,103 @@ export default async function RecipePage({ params }: { params: Promise<{ recipe:
       return isoDuration;
     };
 
+    // Prepare recipe data for schema
+    const recipeData = {
+      name: frontmatter.title || recipe,
+      description: frontmatter.description || '',
+      author: frontmatter.author || 'Carinya Parc',
+      datePublished: frontmatter.date,
+      prepTime: frontmatter.prepTime,
+      cookTime: frontmatter.cookTime,
+      totalTime: frontmatter.totalTime,
+      recipeYield: frontmatter.servings?.toString(),
+      recipeIngredient: frontmatter.ingredients,
+    };
+
     return (
-      <main className="isolate min-h-screen">
-        <div className="relative isolate overflow-hidden py-24 sm:py-32">
-          <div className="container mx-auto max-w-4xl px-4">
-            <article className="recipe-prose">
-              <h1>{frontmatter.title}</h1>
+      <>
+        {/* Schema markup for recipe */}
+        <SchemaMarkup
+          type="recipe"
+          data={{
+            recipe: recipeData,
+          }}
+        />
 
-              {/* Recipe metadata */}
-              <div className="recipe-meta">
-                {frontmatter.servings && (
-                  <div className="recipe-meta-item">
-                    <span className="recipe-meta-label">Servings</span>
-                    <span className="recipe-meta-value">{frontmatter.servings}</span>
-                  </div>
-                )}
-                {frontmatter.prepTime && (
-                  <div className="recipe-meta-item">
-                    <span className="recipe-meta-label">Prep Time</span>
-                    <span className="recipe-meta-value">
-                      {formatDuration(frontmatter.prepTime)}
-                    </span>
-                  </div>
-                )}
-                {frontmatter.cookTime && (
-                  <div className="recipe-meta-item">
-                    <span className="recipe-meta-label">Cook Time</span>
-                    <span className="recipe-meta-value">
-                      {formatDuration(frontmatter.cookTime)}
-                    </span>
-                  </div>
-                )}
-                {frontmatter.totalTime && (
-                  <div className="recipe-meta-item">
-                    <span className="recipe-meta-label">Total Time</span>
-                    <span className="recipe-meta-value">
-                      {formatDuration(frontmatter.totalTime)}
-                    </span>
-                  </div>
-                )}
-              </div>
+        <main className="isolate min-h-screen">
+          <div className="relative isolate overflow-hidden py-24 sm:py-32">
+            <div className="container mx-auto max-w-4xl px-4">
+              {/* Breadcrumb navigation */}
+              <Breadcrumb />
 
-              {/* Display ingredients if they're in the frontmatter */}
-              {frontmatter.ingredients && frontmatter.ingredients.length > 0 && (
-                <div className="recipe-ingredients">
-                  <h2>Ingredients</h2>
-                  <ul>
-                    {frontmatter.ingredients.map((ingredient, index) => (
-                      <li key={index}>{ingredient}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <article className="recipe-prose">
+                <h1>{frontmatter.title}</h1>
 
-              <Content />
-
-              {/* Display tags if present */}
-              {frontmatter.tags && frontmatter.tags.length > 0 && (
-                <div className="mt-6 pt-4 border-t border-gray-200">
-                  <div className="blog-tags">
-                    {frontmatter.tags.map((tag, index) => (
-                      <span key={index} className="blog-tag">
-                        {tag}
+                {/* Recipe metadata */}
+                <div className="recipe-meta">
+                  {frontmatter.servings && (
+                    <div className="recipe-meta-item">
+                      <span className="recipe-meta-label">Servings</span>
+                      <span className="recipe-meta-value">{frontmatter.servings}</span>
+                    </div>
+                  )}
+                  {frontmatter.prepTime && (
+                    <div className="recipe-meta-item">
+                      <span className="recipe-meta-label">Prep Time</span>
+                      <span className="recipe-meta-value">
+                        {formatDuration(frontmatter.prepTime)}
                       </span>
-                    ))}
-                  </div>
+                    </div>
+                  )}
+                  {frontmatter.cookTime && (
+                    <div className="recipe-meta-item">
+                      <span className="recipe-meta-label">Cook Time</span>
+                      <span className="recipe-meta-value">
+                        {formatDuration(frontmatter.cookTime)}
+                      </span>
+                    </div>
+                  )}
+                  {frontmatter.totalTime && (
+                    <div className="recipe-meta-item">
+                      <span className="recipe-meta-label">Total Time</span>
+                      <span className="recipe-meta-value">
+                        {formatDuration(frontmatter.totalTime)}
+                      </span>
+                    </div>
+                  )}
                 </div>
-              )}
-            </article>
+
+                {/* Display ingredients if they're in the frontmatter */}
+                {frontmatter.ingredients && frontmatter.ingredients.length > 0 && (
+                  <div className="recipe-ingredients">
+                    <h2>Ingredients</h2>
+                    <ul>
+                      {frontmatter.ingredients.map((ingredient, index) => (
+                        <li key={index}>{ingredient}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <Content />
+
+                {/* Display tags if present */}
+                {frontmatter.tags && frontmatter.tags.length > 0 && (
+                  <div className="mt-6 pt-4 border-t border-gray-200">
+                    <div className="blog-tags">
+                      {frontmatter.tags.map((tag, index) => (
+                        <span key={index} className="blog-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </article>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </>
     );
   } catch (error) {
     console.error('Error loading recipe MDX file:', error);

@@ -6,6 +6,8 @@ import path from 'path';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { generatePageMetadata } from '@/src/lib/generateMetadata';
+import { SchemaMarkup } from '@/src/components/ui/SchemaMarkup';
+import { Breadcrumb } from '@/src/components/ui/Breadcrumb';
 
 function legalPageExists(slug: string): boolean {
   const mdxPath = path.join(process.cwd(), 'content', 'legal', `${slug}.mdx`);
@@ -61,15 +63,23 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     const Content = content.default;
 
     return (
-      <main className="isolate min-h-screen">
-        <div className="relative isolate overflow-hidden py-24 sm:py-32">
-          <div className="container mx-auto max-w-4xl px-4">
-            <article className="legal-prose">
-              <Content />
-            </article>
+      <>
+        {/* Schema markup for legal pages */}
+        <SchemaMarkup type="legal" />
+
+        <main className="isolate min-h-screen">
+          <div className="relative isolate overflow-hidden py-24 sm:py-32">
+            <div className="container mx-auto max-w-4xl px-4">
+              {/* Breadcrumb navigation */}
+              <Breadcrumb />
+
+              <article className="legal-prose">
+                <Content />
+              </article>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </>
     );
   } catch {
     notFound();

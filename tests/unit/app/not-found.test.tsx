@@ -27,7 +27,7 @@ vi.mock('next/image', () => ({
 
 describe('NotFound', () => {
   it('should render 404 error message', async () => {
-    const NotFound = await import('./src/app/not-found').then((m) => m.default);
+    const NotFound = await import('@/app/not-found').then((m) => m.default);
 
     render(<NotFound />);
 
@@ -39,7 +39,7 @@ describe('NotFound', () => {
   });
 
   it('should render return home link', async () => {
-    const NotFound = await import('./src/app/not-found').then((m) => m.default);
+    const NotFound = await import('@/app/not-found').then((m) => m.default);
 
     render(<NotFound />);
 
@@ -49,7 +49,7 @@ describe('NotFound', () => {
   });
 
   it('should render background image', async () => {
-    const NotFound = await import('./src/app/not-found').then((m) => m.default);
+    const NotFound = await import('@/app/not-found').then((m) => m.default);
 
     render(<NotFound />);
 

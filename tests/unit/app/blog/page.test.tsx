@@ -82,7 +82,7 @@ vi.mock('../src/components/posts/FeaturedPosts', () => ({
 
 describe('BlogPage', () => {
   it('should render all main sections', async () => {
-    const BlogPage = await import('./src/app/blog/page').then((m) => m.default);
+    const BlogPage = await import('@/app/blog/page').then((m) => m.default);
 
     render(await BlogPage());
 
@@ -92,7 +92,7 @@ describe('BlogPage', () => {
   });
 
   it('should render back button with correct props', async () => {
-    const BlogPage = await import('../src/app/blog/page').then((m) => m.default);
+    const BlogPage = await import('@/app/blog/page').then((m) => m.default);
 
     render(await BlogPage());
 

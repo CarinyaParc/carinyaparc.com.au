@@ -1,6 +1,6 @@
 # Carinya Parc Website - TODO List
 
-## Priority 1: Content & Navigation
+## Content & Navigation
 
 - [ ] Replace remaining placeholder content with final copy
 - [ ] Enable hidden navigation items (currently marked as visible: false)
@@ -12,19 +12,11 @@
 - [ ] Finalize all blog post content and ensure consistency
 - [ ] Add proper internal linking strategy
 
-## Priority 2: SEO & Structured Data
+## SEO & Structured Data
 
-- [ ] Implement JSON-LD structured data for:
-  - [x] Organization markup
-  - [x] Article markup for blog posts
-  - [x] BreadcrumbList markup
-  - [x] LocalBusiness markup
-- [x] Add rich snippets for recipes
-- [ ] Implement schemas across the site pages
 - [ ] Implement FAQ schema where appropriate
-- [x] Add blog post schema markup with proper article structure
 
-## Priority 3: Accessibility & WCAG Compliance
+## Accessibility & WCAG Compliance
 
 - [ ] Add comprehensive ARIA labels and landmarks throughout the site
 - [ ] Implement screen reader support for all interactive elements
@@ -37,19 +29,18 @@
 - [ ] Add accessibility documentation for content editors
 - [ ] Ensure sufficient color contrast ratios across all content
 
-## Priority 4: Performance & Core Web Vitals
+## Performance & Core Web Vitals
 
 - [ ] Implement next/font with font-display: swap for optimal font loading
 - [ ] Add proper caching headers for static assets
 - [ ] Implement service worker for offline support and improved loading
-- [x] Add critical CSS inlining for above-the-fold content
 - [ ] Implement resource hints (preload, prefetch, dns-prefetch)
 - [ ] Configure performance budgets in CI pipeline
 - [ ] Add skeleton loading states for key UI components
 - [ ] Optimize bundle size with better tree-shaking
 - [ ] Run comprehensive Lighthouse audits and address issues
 
-## Priority 5: Testing & QA Enhancements
+## Testing & QA Enhancements
 
 - [ ] Add integration tests for contact form functionality
 - [ ] Implement visual regression testing with Chromatic
@@ -58,8 +49,9 @@
 - [ ] Conduct cross-browser compatibility testing
 - [ ] Add API endpoint testing for all routes
 - [ ] Implement load testing for critical user journeys
+- [ ] Implement end-to-end testing with Playwright
 
-## Priority 6: Contact Form
+## Contact Form
 
 - [ ] Implement contact form with validation and submission
 - [ ] Create `/contact` page with ContactForm component
@@ -67,7 +59,7 @@
 - [ ] Add contact form tests (unit + integration)
 - [ ] Configure email delivery service for contact form submissions
 
-## Priority 7: Security Enhancements
+## Security Enhancements
 
 - [ ] Conduct comprehensive security vulnerability scan
 - [x] Review and refine CSP settings to remove 'unsafe-inline' and 'unsafe-eval'
@@ -76,7 +68,7 @@
 - [ ] Implement rate limiting for contact form submissions
 - [ ] Add input sanitization for all user-generated content
 
-## Priority 8: Documentation & Code Quality
+## Documentation & Code Quality
 
 - [ ] Add inline code documentation for complex functions
 - [ ] Document contact form API endpoint when implemented
@@ -85,7 +77,7 @@
 - [ ] Document deployment and rollback procedures
 - [ ] Create content management guidelines
 
-## Priority 9: Advanced Features
+## Advanced Features
 
 - [ ] Implement Progressive Web App (PWA) features
 - [ ] Add social sharing functionality for blog posts
@@ -95,7 +87,7 @@
 - [ ] Add print stylesheet optimization
 - [ ] Implement dark mode support
 
-## Priority 10: Infrastructure & Deployment
+## Infrastructure & Deployment
 
 - [ ] Rebase branches (`dev`, `staging`) to `main`
 - [ ] Configure promotion from dev to staging (to be fixed)
@@ -108,7 +100,7 @@
 - [ ] Enable HTTP/2 or HTTP/3 on server
 - [ ] Configure CDN for static assets
 
-## Priority 11: Monitoring & Analytics
+## Monitoring & Analytics
 
 - [ ] Set up comprehensive performance monitoring dashboard
 - [ ] Configure uptime monitoring for all critical endpoints
@@ -121,6 +113,25 @@
 ---
 
 ## Done
+
+### ✅ SEO & Structured Data
+
+- [x] Implement JSON-LD structured data for:
+  - [x] Organization markup
+  - [x] Article markup for blog posts
+  - [x] BreadcrumbList markup
+  - [x] LocalBusiness markup
+- [x] Add rich snippets for recipes
+- [x] Implement schemas across the site pages
+- [x] Add blog post schema markup with proper article structure
+- [x] Created flexible SchemaMarkup component for reusability
+- [x] Created dynamic Breadcrumb component with visual navigation
+- [x] Added unit tests for all schema generators
+- [x] Added smoke tests for SchemaMarkup and Breadcrumb components
+
+### ✅ Performance & Core Web Vitals
+
+- [x] Add critical CSS inlining for above-the-fold content
 
 ### ✅ Newsletter & Subscription System
 
@@ -141,8 +152,6 @@
 - [x] Add Referrer-Policy header
 - [x] Add Permissions-Policy header
 - [x] Implement cookie consent mechanism
-- [x] Add Privacy Policy page
-- [x] Add Terms of Service page
 - [x] Review and finalize Privacy Policy
 - [x] Review and finalize Terms of Service
 - [x] Sanitize user inputs in API endpoints
@@ -152,7 +161,6 @@
 - [x] Implement unit testing framework (Vitest)
 - [x] Add component tests for critical UI components
 - [x] Add integration tests for key user flows
-- [x] Implement end-to-end testing with Playwright
 - [x] Perform cross-browser testing setup
 - [x] Create comprehensive test structure and documentation
 - [x] Set up MSW for API mocking in tests

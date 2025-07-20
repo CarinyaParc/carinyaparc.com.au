@@ -1,4 +1,6 @@
 // src/lib/schema/recipe.ts
+import { BASE_URL } from '../constants';
+
 export interface RecipeSchema {
   '@context': string;
   '@type': string;
@@ -14,6 +16,8 @@ export interface RecipeSchema {
   recipeYield?: string;
   recipeIngredient?: string[];
   recipeInstructions?: string;
+  image?: string;
+  datePublished?: string;
 }
 
 export function generateRecipeSchema(data: {
@@ -26,6 +30,8 @@ export function generateRecipeSchema(data: {
   recipeYield?: string;
   recipeIngredient?: string[];
   recipeInstructions?: string;
+  image?: string;
+  datePublished?: string;
 }): RecipeSchema {
   return {
     '@context': 'https://schema.org',
@@ -39,5 +45,12 @@ export function generateRecipeSchema(data: {
     ...(data.recipeYield && { recipeYield: data.recipeYield }),
     ...(data.recipeIngredient && { recipeIngredient: data.recipeIngredient }),
     ...(data.recipeInstructions && { recipeInstructions: data.recipeInstructions }),
+    ...(data.image && {
+      image: data.image.startsWith('http') ? data.image : `${BASE_URL}${data.image}`,
+    }),
+    ...(data.datePublished && { datePublished: data.datePublished }),
   };
 }
+
+// Export the input data type for use in components
+export type RecipeData = Parameters<typeof generateRecipeSchema>[0];

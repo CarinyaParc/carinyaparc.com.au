@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom';
 import { beforeAll, afterEach, afterAll, vi } from 'vitest';
-import { setupServer } from 'msw/node';
-import { handlers } from '../mocks/handlers';
+
+// Only import and setup MSW in jsdom environment
+const isJsdomEnvironment = typeof window !== 'undefined';
 
 // Mock Next.js modules
 vi.mock('next/headers', () => ({
@@ -15,58 +16,58 @@ vi.mock('@sentry/nextjs', () => ({
   init: vi.fn(),
 }));
 
-// Mock browser APIs not available in jsdom
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: vi.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(), // Deprecated
-    removeListener: vi.fn(), // Deprecated
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-});
+// Only mock browser APIs if we're in jsdom environment
+if (isJsdomEnvironment) {
+  // Mock browser APIs not available in jsdom
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: vi.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(), // Deprecated
+      removeListener: vi.fn(), // Deprecated
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  });
 
-// Mock IntersectionObserver
-global.IntersectionObserver = vi.fn().mockImplementation(() => ({
-  disconnect: vi.fn(),
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-}));
+  // Mock IntersectionObserver
+  global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+    disconnect: vi.fn(),
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+  }));
+}
 
-// Setup MSW server for API mocking
-export const server = setupServer(...handlers);
+// Setup MSW server for API mocking only in jsdom environment
+if (isJsdomEnvironment) {
+  const { setupServer } = await import('msw/node');
+  const { handlers } = await import('../mocks/handlers');
 
-// Start MSW server before all tests
-let serverStarted = false;
-beforeAll(() => {
-  if (!serverStarted) {
-    try {
-      server.listen({ onUnhandledRequest: 'warn' });
-      serverStarted = true;
-    } catch (error) {
-      // Server already started, ignore
-    }
-  }
-});
+  const server = setupServer(...handlers);
 
-// Clean up after each test case
+  // Start MSW server before all tests
+  beforeAll(() => {
+    server.listen({ onUnhandledRequest: 'warn' });
+  });
+
+  // Reset handlers after each test
+  afterEach(() => {
+    server.resetHandlers();
+  });
+
+  // Clean up after all tests
+  afterAll(() => {
+    server.close();
+  });
+}
+
+// Environment-agnostic cleanup
 afterEach(() => {
-  document.body.innerHTML = '';
-  server.resetHandlers();
+  vi.clearAllMocks();
 });
 
-// Clean up after all tests are done
-afterAll(() => {
-  if (serverStarted) {
-    try {
-      server.close();
-      serverStarted = false;
-    } catch (error) {
-      // Server already closed, ignore
-    }
-  }
-});
+// Export a placeholder to satisfy TypeScript
+export {};

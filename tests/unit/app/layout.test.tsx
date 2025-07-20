@@ -1,7 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { draftMode } from 'next/headers';
-import { cookies } from 'next/headers';
 
 // Mock Next.js modules
 vi.mock('next/headers', () => ({
@@ -94,7 +92,7 @@ describe('RootLayout', () => {
   });
 
   it('should render basic layout structure', async () => {
-    const RootLayout = await import('../src/app/layout').then((m) => m.default);
+    const RootLayout = await import('@/app/layout').then((m) => m.default);
 
     render(
       await RootLayout({

@@ -1,4 +1,6 @@
 import HeaderWithStats from '@/src/components/sections/HeaderWithStats';
+import { SchemaMarkup } from '@/src/components/ui/SchemaMarkup';
+import { Breadcrumb } from '@/src/components/ui/Breadcrumb';
 
 export default function RegeneratePage() {
   const links = [
@@ -16,18 +18,28 @@ export default function RegeneratePage() {
   ];
 
   return (
-    <main className="min-h-screen">
-      <HeaderWithStats
-        subtitle="Regenerate with Us"
-        title="Healing Land Through Ecological Restoration"
-        description="Join us as we transform 42 hectares of former grazing land into thriving, biodiverse ecosystems through strategic restoration, wildlife corridors, and regenerative agroforestry."
-        backgroundImage="/images/img_5.jpg"
-        backgroundImageAlt="Carinya Parc landscape being regenerated"
-        links={links}
-        stats={stats}
-      />
+    <>
+      {/* Schema markup for regenerate page */}
+      <SchemaMarkup type="page" />
 
-      {/* Additional page content will be added in future tasks */}
-    </main>
+      <main className="min-h-screen">
+        {/* Breadcrumb navigation */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <Breadcrumb />
+        </div>
+
+        <HeaderWithStats
+          subtitle="Regenerate with Us"
+          title="Healing Land Through Ecological Restoration"
+          description="Join us as we transform 42 hectares of former grazing land into thriving, biodiverse ecosystems through strategic restoration, wildlife corridors, and regenerative agroforestry."
+          backgroundImage="/images/img_5.jpg"
+          backgroundImageAlt="Carinya Parc landscape being regenerated"
+          links={links}
+          stats={stats}
+        />
+
+        {/* Additional page content will be added in future tasks */}
+      </main>
+    </>
   );
 }

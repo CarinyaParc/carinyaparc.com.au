@@ -14,16 +14,17 @@ import {
   ARTICLE_ABOUT_TOPIC,
   BLOG_NAME,
   BLOG_URL_PATH,
-} from '@/src/lib/constants';
+} from '@/lib/constants';
 
 export interface ArticleSchema {
+  '@context': string;
   '@type': string;
   headline: string;
   description: string;
   author: {
     '@type': string;
     name: string;
-    url: string;
+    url?: string;
   };
   publisher: {
     '@type': string;
@@ -37,22 +38,23 @@ export interface ArticleSchema {
     };
   };
   datePublished: string;
-  dateModified: string;
-  mainEntityOfPage: {
+  dateModified?: string;
+  mainEntityOfPage?: {
     '@type': string;
     '@id': string;
   };
   url: string;
-  image: string;
-  articleSection: string;
-  wordCount: number;
-  keywords: string;
-  about: {
+  image?: string;
+  articleSection?: string;
+  wordCount?: number;
+  articleBody?: string;
+  keywords?: string;
+  about?: {
     '@type': string;
     name: string;
     description: string;
   };
-  isPartOf: {
+  isPartOf?: {
     '@type': string;
     name: string;
     url: string;
@@ -73,11 +75,14 @@ export function generateArticleSchema(data: {
   tags?: string[];
   articleSection?: string;
   wordCount?: number;
+  content?: string;
 }): ArticleSchema {
   const fullUrl = data.url || `${BASE_URL}/blog/${data.slug}`;
   const authorName = data.author || DEFAULT_AUTHOR_NAME;
   const authorUrl = data.authorUrl || `${BASE_URL}${DEFAULT_AUTHOR_URL_PATH}`;
-  return {
+
+  const schema: ArticleSchema = {
+    '@context': 'https://schema.org',
     '@type': 'Article',
     headline: data.title,
     description: data.excerpt || data.description || `Blog post from ${SITE_TITLE}`,
@@ -104,9 +109,16 @@ export function generateArticleSchema(data: {
       '@id': fullUrl,
     },
     url: fullUrl,
-    image: data.imageUrl ? `${BASE_URL}${data.imageUrl}` : `${BASE_URL}${DEFAULT_ARTICLE_IMAGE}`,
+    image: data.imageUrl
+      ? data.imageUrl.startsWith('http')
+        ? data.imageUrl
+        : `${BASE_URL}${data.imageUrl}`
+      : `${BASE_URL}${DEFAULT_ARTICLE_IMAGE}`,
     articleSection: data.articleSection || DEFAULT_ARTICLE_SECTION,
-    wordCount: data.wordCount || DEFAULT_ARTICLE_WORD_COUNT,
+    wordCount:
+      data.wordCount ||
+      (data.content ? data.content.split(' ').length : DEFAULT_ARTICLE_WORD_COUNT),
+    articleBody: data.content,
     keywords: data.tags && data.tags.length > 0 ? data.tags.join(', ') : DEFAULT_ARTICLE_KEYWORDS,
     about: {
       '@type': 'Thing',
@@ -119,4 +131,8 @@ export function generateArticleSchema(data: {
       url: `${BASE_URL}${BLOG_URL_PATH}`,
     },
   };
+  return schema;
 }
+
+// Export the input data type for use in components
+export type ArticleData = Parameters<typeof generateArticleSchema>[0];

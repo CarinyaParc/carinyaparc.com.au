@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { cn } from '@/src/lib/cn';
+import { cn } from '@/lib/cn';
 
 describe('cn', () => {
   it('should combine class names correctly', () => {

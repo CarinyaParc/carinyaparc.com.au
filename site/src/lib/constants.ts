@@ -1,5 +1,3 @@
-import path from 'path';
-
 // Site metadata
 export const SITE_TITLE = 'Carinya Parc';
 export const SITE_DESCRIPTION = 'Carinya Parc - Regenerative farming and sustainable living';
@@ -40,8 +38,49 @@ export const BLOG_URL_PATH = '/blog';
 export const DEFAULT_BREADCRUMB_HOME = { name: 'Home', url: BASE_URL, position: 1 };
 
 // File‑system paths (build‑time only)
-export const APP_DIR = path.join(process.cwd(), 'src', 'app');
+// Use string path instead of path.join to avoid issues in tests
+export const APP_DIR = process.cwd() + '/src/app';
 
 // Cookies
 export const CONSENT_COOKIE_NAME = 'carinya_parc_consent';
 export const SESSION_COOKIE_NAME = 'carinya_parc_session';
+
+// LocalBusiness schema defaults
+export const LOCAL_BUSINESS = {
+  name: 'Carinya Parc',
+  description:
+    'Regenerative farm demonstrating ecological restoration, sustainable agriculture, and community building in The Branch, NSW.',
+  address: {
+    streetAddress: '315 Warraba Road',
+    addressLocality: 'The Branch',
+    addressRegion: 'NSW',
+    postalCode: '2425',
+    addressCountry: 'AU',
+  },
+  geo: {
+    latitude: -32.0, // TODO: Add actual coordinates
+    longitude: 152.0,
+  },
+  openingHours: ['By appointment'],
+  priceRange: '$$',
+};
+
+// Organization social profiles
+export const ORG_SOCIAL_PROFILES = [
+  'https://www.facebook.com/carinyaparc',
+  'https://www.instagram.com/carinyaparc',
+];
+
+// Breadcrumb name mapping
+export const BREADCRUMB_NAME_MAP: Record<string, string> = {
+  about: 'About',
+  blog: 'Blog',
+  recipes: 'Recipes',
+  regenerate: 'Regenerate with Us',
+  subscribe: 'Subscribe',
+  legal: 'Legal',
+  'privacy-policy': 'Privacy Policy',
+  'terms-of-service': 'Terms of Service',
+  jonathan: 'Jonathan Daddia',
+  'the-property': 'The Property',
+};

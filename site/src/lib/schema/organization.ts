@@ -1,22 +1,43 @@
 // src/lib/schema/organization.ts
+import { ORG_LOGO_WIDTH, ORG_LOGO_HEIGHT } from '../constants';
+
 export interface OrganizationSchema {
   '@context': string;
   '@type': string;
   name: string;
   url: string;
-  logo: string;
+  logo: {
+    '@type': 'ImageObject';
+    url: string;
+    width: number;
+    height: number;
+  };
+  sameAs?: string[];
 }
 
 export function generateOrganizationSchema(config: {
   name: string;
   url: string;
   logoUrl: string;
+  sameAs?: string[];
 }): OrganizationSchema {
-  return {
+  const schema: OrganizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: config.name,
     url: config.url,
-    logo: config.logoUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: config.logoUrl,
+      width: ORG_LOGO_WIDTH,
+      height: ORG_LOGO_HEIGHT,
+    },
   };
+
+  // Only add sameAs if provided and not empty
+  if (config.sameAs && config.sameAs.length > 0) {
+    schema.sameAs = config.sameAs;
+  }
+
+  return schema;
 }

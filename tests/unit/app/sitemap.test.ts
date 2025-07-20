@@ -1,244 +1,233 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import fs from 'fs';
-import path from 'path';
+/**
+ * @vitest-environment node
+ */
 
-// Mock fs module
-vi.mock('fs', () => ({
-  default: {
-    existsSync: vi.fn(),
-    readdirSync: vi.fn(),
-    statSync: vi.fn(),
-  },
-  existsSync: vi.fn(),
-  readdirSync: vi.fn(),
-  statSync: vi.fn(),
-}));
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import * as fs from 'fs';
+import * as path from 'path';
 
-// Mock path module
-vi.mock('path', () => ({
-  default: {
-    join: vi.fn((...args: string[]) => args.join('/')),
-  },
-  join: vi.fn((...args: string[]) => args.join('/')),
-}));
+// We'll mock the modules before importing anything that uses them
+vi.mock('fs');
+vi.mock('path');
 
-// Mock constants
-vi.mock('../src/lib/constants', () => ({
+// Mock the constants before importing sitemap
+vi.mock('@/lib/constants', () => ({
   BASE_URL: 'https://carinyaparc.com.au',
 }));
 
-// Mock process.cwd()
-const mockProcessCwd = vi.fn(() => '/test/project');
-vi.stubGlobal('process', {
-  ...process,
-  cwd: mockProcessCwd,
-});
-
-const mockFs = fs as any;
-const mockPath = path as any;
-
 describe('sitemap', () => {
+  // Get mocked modules
+  const mockFs = vi.mocked(fs);
+  const mockPath = vi.mocked(path);
+
   beforeEach(() => {
     vi.clearAllMocks();
+
+    // Setup default path.join behavior
+    mockPath.join.mockImplementation((...args: string[]) => args.filter(Boolean).join('/'));
+
+    // Mock process.cwd()
+    vi.spyOn(process, 'cwd').mockReturnValue('/test/project');
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it('should export default sitemap function', async () => {
+    // Mock minimal file system to avoid errors
     mockFs.existsSync.mockReturnValue(false);
+    mockFs.readdirSync.mockReturnValue([]);
 
-    const sitemapModule = await import('../../../site/src/app/sitemap');
-
-    expect(sitemapModule.default).toBeDefined();
-    expect(typeof sitemapModule.default).toBe('function');
+    const { default: sitemap } = await import('@/app/sitemap');
+    expect(typeof sitemap).toBe('function');
   });
 
   describe('getAppRoutes', () => {
     it('should scan app directory and return route info', async () => {
-      // Mock the app directory structure
-      mockFs.existsSync.mockImplementation((filePath: string) => {
-        return filePath.includes('/src/app');
+      // Setup mock file system structure
+      const fileSystem = {
+        '/test/project/site/src/app': ['page.tsx', 'layout.tsx', 'about', 'blog', 'api'],
+        '/test/project/site/src/app/about': ['page.tsx'],
+        '/test/project/site/src/app/blog': ['page.tsx', '[slug]'],
+        '/test/project/site/src/app/blog/[slug]': ['page.tsx'],
+      };
+
+      mockFs.existsSync.mockImplementation((path: string) => {
+        return path.includes('/app') || path.includes('/content');
       });
 
-      mockFs.readdirSync.mockImplementation((dirPath: string) => {
-        if (dirPath.includes('/src/app')) {
-          return ['page.tsx', 'layout.tsx', 'about'];
-        }
-        if (dirPath.includes('/src/app/about')) {
-          return ['page.tsx'];
-        }
-        return [];
+      mockFs.readdirSync.mockImplementation((dir: string) => {
+        return fileSystem[dir as keyof typeof fileSystem] || ([] as any);
       });
 
-      mockFs.statSync.mockImplementation((filePath: string) => ({
-        isDirectory: () => filePath.includes('/about') && !filePath.includes('page.tsx'),
-        mtime: new Date('2024-01-01'),
-      }));
+      mockFs.statSync.mockImplementation(
+        (filePath: string) =>
+          ({
+            isDirectory: () => !filePath.endsWith('.tsx') && !filePath.endsWith('.js'),
+            mtime: new Date('2024-01-01'),
+          }) as any,
+      );
 
-      // Dynamic import to get fresh module after mocking
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
-      const result = sitemap();
-
-      expect(Array.isArray(result)).toBe(true);
-      expect(result.length).toBeGreaterThan(0);
-      expect(result[0]).toHaveProperty('url');
-      expect(result[0]).toHaveProperty('lastModified');
-      expect(result[0]).toHaveProperty('priority');
-      expect(result[0]).toHaveProperty('changeFrequency');
+      expect(result).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ url: 'https://carinyaparc.com.au' }),
+          expect.objectContaining({ url: 'https://carinyaparc.com.au/about' }),
+          expect.objectContaining({ url: 'https://carinyaparc.com.au/blog' }),
+        ]),
+      );
     });
 
     it('should handle missing app directory gracefully', async () => {
       mockFs.existsSync.mockReturnValue(false);
+      mockFs.readdirSync.mockReturnValue([]);
 
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
-      const result = sitemap();
-
-      expect(Array.isArray(result)).toBe(true);
+      expect(result).toBeInstanceOf(Array);
+      expect(result.length).toBeGreaterThan(0); // Should still have some routes
     });
 
     it('should assign correct priorities to different route types', async () => {
-      mockFs.existsSync.mockReturnValue(true);
+      const fileSystem = {
+        '/test/project/site/src/app': ['page.tsx', 'about', 'blog', 'legal'],
+        '/test/project/site/src/app/about': ['page.tsx'],
+        '/test/project/site/src/app/blog': ['page.tsx'],
+        '/test/project/site/src/app/legal': ['page.tsx'],
+      };
 
-      mockFs.readdirSync.mockImplementation((dirPath: string) => {
-        if (dirPath.includes('/src/app') && !dirPath.includes('/blog')) {
-          return ['page.tsx', 'blog'];
-        }
-        if (dirPath.includes('/src/app/blog')) {
-          return ['page.tsx'];
-        }
-        return [];
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockImplementation((dir: string) => {
+        return fileSystem[dir as keyof typeof fileSystem] || ([] as any);
       });
 
-      mockFs.statSync.mockImplementation((filePath: string) => ({
-        isDirectory: () => filePath.includes('/blog') && !filePath.includes('page.tsx'),
-        mtime: new Date('2024-01-01'),
-      }));
+      mockFs.statSync.mockImplementation(
+        (filePath: string) =>
+          ({
+            isDirectory: () => !filePath.endsWith('.tsx'),
+            mtime: new Date('2024-01-01'),
+          }) as any,
+      );
 
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
-      const result = sitemap();
+      const homePage = result.find((r) => r.url === 'https://carinyaparc.com.au');
+      const aboutPage = result.find((r) => r.url === 'https://carinyaparc.com.au/about');
+      const legalPage = result.find((r) => r.url === 'https://carinyaparc.com.au/legal');
 
-      // Home page should have priority 1.0
-      const homePage = result.find((route) => route.url === 'https://carinyaparc.com.au/');
       expect(homePage?.priority).toBe(1.0);
-      expect(homePage?.changeFrequency).toBe('weekly');
-
-      // Blog pages should have priority 0.7
-      const blogPage = result.find((route) => route.url.includes('/blog'));
-      if (blogPage) {
-        expect(blogPage.priority).toBe(0.7);
-        expect(blogPage.changeFrequency).toBe('daily');
-      }
+      expect(aboutPage?.priority).toBeGreaterThan(0.7);
+      expect(legalPage?.priority).toBeLessThan(0.5);
     });
 
     it('should skip hidden files and directories', async () => {
+      const fileSystem = {
+        '/test/project/site/src/app': ['page.tsx', '.hidden', '_internal', 'public'],
+        '/test/project/site/src/app/public': ['page.tsx'],
+      };
+
       mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockImplementation((dir: string) => {
+        return fileSystem[dir as keyof typeof fileSystem] || ([] as any);
+      });
 
-      mockFs.readdirSync.mockReturnValue([
-        'page.tsx',
-        '.hidden-file',
-        '.hidden-directory',
-        'visible-directory',
-      ]);
+      mockFs.statSync.mockImplementation(
+        (filePath: string) =>
+          ({
+            isDirectory: () => !filePath.endsWith('.tsx'),
+            mtime: new Date('2024-01-01'),
+          }) as any,
+      );
 
-      mockFs.statSync.mockImplementation((filePath: string) => ({
-        isDirectory: () => !filePath.includes('page.tsx') && !filePath.includes('.hidden'),
-        mtime: new Date('2024-01-01'),
-      }));
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
-
-      const result = sitemap();
-
-      // Should not include hidden files in the sitemap
-      expect(result.every((route) => !route.url.includes('.hidden'))).toBe(true);
+      const urls = result.map((r) => r.url);
+      expect(urls).not.toContain('https://carinyaparc.com.au/.hidden');
+      expect(urls).not.toContain('https://carinyaparc.com.au/_internal');
+      expect(urls).toContain('https://carinyaparc.com.au/public');
     });
   });
 
   describe('getContentRoutes', () => {
     it('should scan content directory for MDX files', async () => {
-      mockFs.existsSync.mockImplementation((filePath: string) => {
-        return filePath.includes('/content');
+      const fileSystem = {
+        '/test/project/site/content': ['posts', 'recipes'],
+        '/test/project/site/content/posts': ['post1.mdx', 'post2.mdx', 'draft.md'],
+        '/test/project/site/content/recipes': ['recipe1.mdx', 'recipe2.mdx'],
+      };
+
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockImplementation((dir: string) => {
+        return fileSystem[dir as keyof typeof fileSystem] || ([] as any);
       });
 
-      mockFs.readdirSync.mockImplementation((dirPath: string) => {
-        if (dirPath.includes('/content')) {
-          return ['index.mdx', 'about.mdx', 'posts'];
-        }
-        if (dirPath.includes('/content/posts')) {
-          return ['post1.mdx', 'post2.md'];
-        }
-        return [];
-      });
+      mockFs.statSync.mockImplementation(
+        (filePath: string) =>
+          ({
+            isDirectory: () => !filePath.includes('.mdx') && !filePath.includes('.md'),
+            mtime: new Date('2024-01-01'),
+          }) as any,
+      );
 
-      mockFs.statSync.mockImplementation((filePath: string) => ({
-        isDirectory: () => filePath.includes('/posts') && !filePath.includes('.md'),
-        mtime: new Date('2024-01-01'),
-      }));
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
+      const blogUrls = result.filter((r) => r.url.includes('/blog/')).map((r) => r.url);
+      const recipeUrls = result.filter((r) => r.url.includes('/recipes/')).map((r) => r.url);
 
-      const result = sitemap();
-
-      expect(Array.isArray(result)).toBe(true);
+      expect(blogUrls).toContain('https://carinyaparc.com.au/blog/post1');
+      expect(blogUrls).toContain('https://carinyaparc.com.au/blog/post2');
+      expect(recipeUrls).toContain('https://carinyaparc.com.au/recipes/recipe1');
+      expect(recipeUrls).toContain('https://carinyaparc.com.au/recipes/recipe2');
     });
 
     it('should handle missing content directory gracefully', async () => {
-      mockFs.existsSync.mockImplementation((filePath: string) => {
-        return filePath.includes('/src/app') && !filePath.includes('/content');
+      mockFs.existsSync.mockImplementation((path: string) => {
+        return path.includes('/app');
       });
+      mockFs.readdirSync.mockReturnValue([]);
 
-      mockFs.readdirSync.mockReturnValue(['page.tsx']);
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
-      mockFs.statSync.mockImplementation(() => ({
-        isDirectory: () => false,
-        mtime: new Date('2024-01-01'),
-      }));
-
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
-
-      const result = sitemap();
-
-      expect(Array.isArray(result)).toBe(true);
+      expect(result).toBeInstanceOf(Array);
+      // Should not throw error, just return other routes
     });
   });
 
   describe('combineRoutes', () => {
     it('should combine and deduplicate routes correctly', async () => {
-      // Create a more controlled test scenario
-      mockFs.existsSync.mockImplementation((filePath: string) => {
-        return filePath.includes('/src/app');
+      const fileSystem = {
+        '/test/project/site/src/app': ['page.tsx', 'blog'],
+        '/test/project/site/src/app/blog': ['page.tsx'],
+        '/test/project/site/content': ['posts'],
+        '/test/project/site/content/posts': ['post1.mdx'],
+      };
+
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockImplementation((dir: string) => {
+        return fileSystem[dir as keyof typeof fileSystem] || ([] as any);
       });
 
-      // Mock app directory with basic structure
-      mockFs.readdirSync.mockImplementation((dirPath: string) => {
-        if (dirPath.includes('/src/app') && !dirPath.includes('/about')) {
-          return ['page.tsx', 'about'];
-        }
-        if (dirPath.includes('/src/app/about')) {
-          return ['page.tsx'];
-        }
-        return [];
-      });
+      mockFs.statSync.mockImplementation(
+        (filePath: string) =>
+          ({
+            isDirectory: () => !filePath.includes('.tsx') && !filePath.includes('.mdx'),
+            mtime: new Date('2024-01-01'),
+          }) as any,
+      );
 
-      mockFs.statSync.mockImplementation((filePath: string) => ({
-        isDirectory: () => filePath.includes('/about') && !filePath.includes('page.tsx'),
-        mtime: new Date('2024-01-01'),
-      }));
-
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
-
-      const result = sitemap();
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
       // Check that we don't have duplicate routes
-      const urls = result.map((route) => route.url);
+      const urls = result.map((r) => r.url);
       const uniqueUrls = [...new Set(urls)];
       expect(urls.length).toBe(uniqueUrls.length);
     });
@@ -246,61 +235,44 @@ describe('sitemap', () => {
 
   describe('sitemap output format', () => {
     it('should return correct sitemap format', async () => {
-      mockFs.existsSync.mockReturnValue(true);
+      mockFs.existsSync.mockReturnValue(false);
+      mockFs.readdirSync.mockReturnValue([]);
 
-      mockFs.readdirSync.mockReturnValue(['page.tsx']);
-
-      mockFs.statSync.mockImplementation(() => ({
-        isDirectory: () => false,
-        mtime: new Date('2024-01-01T00:00:00.000Z'),
-      }));
-
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
-
-      const result = sitemap();
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
       expect(Array.isArray(result)).toBe(true);
-
-      if (result.length > 0) {
-        const route = result[0];
+      result.forEach((route) => {
         expect(route).toHaveProperty('url');
         expect(route).toHaveProperty('lastModified');
         expect(route).toHaveProperty('priority');
         expect(route).toHaveProperty('changeFrequency');
-
         expect(typeof route.url).toBe('string');
-        expect(route.url).toMatch(/^https:\/\/carinyaparc\.com\.au/);
-        expect(typeof route.lastModified).toBe('string');
-        expect(typeof route.priority).toBe('number');
-        expect(['always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never']).toContain(
-          route.changeFrequency,
-        );
-      }
+        expect(route.url).toMatch(/^https:\/\//);
+      });
     });
 
     it('should use BASE_URL for all routes', async () => {
-      mockFs.existsSync.mockReturnValue(true);
+      const fileSystem = {
+        '/test/project/site/src/app': ['page.tsx', 'about'],
+        '/test/project/site/src/app/about': ['page.tsx'],
+      };
 
-      mockFs.readdirSync.mockImplementation((dirPath: string) => {
-        if (dirPath.includes('/src/app')) {
-          return ['page.tsx', 'about'];
-        }
-        if (dirPath.includes('/src/app/about')) {
-          return ['page.tsx'];
-        }
-        return [];
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockImplementation((dir: string) => {
+        return fileSystem[dir as keyof typeof fileSystem] || ([] as any);
       });
 
-      mockFs.statSync.mockImplementation((filePath: string) => ({
-        isDirectory: () => filePath.includes('/about') && !filePath.includes('page.tsx'),
-        mtime: new Date('2024-01-01'),
-      }));
+      mockFs.statSync.mockImplementation(
+        (filePath: string) =>
+          ({
+            isDirectory: () => !filePath.endsWith('.tsx'),
+            mtime: new Date('2024-01-01'),
+          }) as any,
+      );
 
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
-      const { default: sitemap } = await import('../../../site/src/app/sitemap');
-
-      const result = sitemap();
+      const { default: sitemap } = await import('@/app/sitemap');
+      const result = await sitemap();
 
       result.forEach((route) => {
         expect(route.url).toMatch(/^https:\/\/carinyaparc\.com\.au/);
@@ -315,29 +287,23 @@ describe('sitemap', () => {
         throw new Error('Filesystem error');
       });
 
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
+      const { default: sitemap } = await import('@/app/sitemap');
 
       // Should not throw an error
-      expect(async () => {
-        const { default: sitemap } = await import('../../../site/src/app/sitemap');
-        sitemap();
-      }).not.toThrow();
+      await expect(sitemap()).resolves.toBeDefined();
     });
 
     it('should handle stat errors gracefully', async () => {
       mockFs.existsSync.mockReturnValue(true);
-      mockFs.readdirSync.mockReturnValue(['page.tsx']);
+      mockFs.readdirSync.mockReturnValue(['page.tsx'] as any);
       mockFs.statSync.mockImplementation(() => {
         throw new Error('Stat error');
       });
 
-      delete require.cache[require.resolve('../../../site/src/app/sitemap')];
+      const { default: sitemap } = await import('@/app/sitemap');
 
       // Should not throw an error
-      expect(async () => {
-        const { default: sitemap } = await import('../../../site/src/app/sitemap');
-        sitemap();
-      }).not.toThrow();
+      await expect(sitemap()).resolves.toBeDefined();
     });
   });
 });

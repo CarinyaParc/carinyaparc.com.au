@@ -1,9 +1,12 @@
 // src/lib/schema/localBusiness.ts
+import { BASE_URL } from '../constants';
+
 export interface LocalBusinessSchema {
   '@context': string;
   '@type': string;
   name: string;
   description: string;
+  url: string;
   address: {
     '@type': string;
     streetAddress: string;
@@ -18,6 +21,7 @@ export interface LocalBusinessSchema {
     longitude: number;
   };
   openingHours?: string[];
+  priceRange?: string;
 }
 
 export function generateLocalBusinessSchema(data: {
@@ -32,12 +36,14 @@ export function generateLocalBusinessSchema(data: {
   };
   geo?: { latitude: number; longitude: number };
   openingHours?: string[];
+  priceRange?: string;
 }): LocalBusinessSchema {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: data.name,
     description: data.description,
+    url: BASE_URL,
     address: {
       '@type': 'PostalAddress',
       ...data.address,
@@ -48,6 +54,7 @@ export function generateLocalBusinessSchema(data: {
         ...data.geo,
       },
     }),
-    ...(data.openingHours && { openingHours: data.openingHours }),
+    ...(data.openingHours && data.openingHours.length > 0 && { openingHours: data.openingHours }),
+    ...(data.priceRange && { priceRange: data.priceRange }),
   };
 }
