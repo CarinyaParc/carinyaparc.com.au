@@ -1,7 +1,7 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import HeroWithTiles from '@/src/components/sections/HeroWithTiles';
-import { generatePageMetadata } from '@/src/lib/generateMetadata';
+import { generatePageMetadata } from '@/src/lib/metadata';
 import { SchemaMarkup } from '@/src/components/ui/SchemaMarkup';
 import { Breadcrumb } from '@/src/components/ui/Breadcrumb';
 

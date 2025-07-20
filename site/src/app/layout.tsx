@@ -15,11 +15,19 @@ import Footer from '@/src/components/layouts/Footer';
 import CookiePolicy from '@/src/components/ui/Policy';
 import { Toaster } from '@repo/ui/toaster';
 
-import { generateMetadata, viewport } from '../lib/generateMetadata';
+import type { Metadata } from 'next';
+import { viewport, generateMetadata as generateMetadataHelper } from '../lib/metadata';
 import { generateOrganizationSchema } from '../lib/schema/organization';
 import { SITE_TITLE, BASE_URL, ORG_LOGO_URL, ORG_SOCIAL_PROFILES } from '../lib/constants';
 
-export { generateMetadata, viewport };
+export { viewport };
+
+// Site-wide metadata that all pages inherit
+export const metadata: Metadata = await generateMetadataHelper({
+  // No pageTitle here - just use the default SITE_TITLE
+  // No path here - this is site-wide
+  path: '/',
+});
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 

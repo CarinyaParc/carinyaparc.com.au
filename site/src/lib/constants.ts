@@ -5,10 +5,34 @@ export const SITE_DESCRIPTION = 'Carinya Parc - Regenerative farming and sustain
 export const BASE_URL =
   process.env.NODE_ENV === 'production' ? 'https://carinyaparc.com.au' : 'http://localhost:3000';
 
+// SEO Keywords
+export const DEFAULT_KEYWORDS = [
+  'regenerative farming',
+  'sustainable agriculture',
+  'permaculture',
+  'biodiversity',
+  'soil health',
+  'ecosystem restoration',
+  'organic farming',
+  'Australia',
+  'NSW',
+  'The Branch',
+];
+
 // Social defaults
 export const DEFAULT_SOCIAL_IMAGE = '/default-og.jpg';
+export const DEFAULT_OG_IMAGE = '/images/hero_image.jpg';
+export const DEFAULT_OG_IMAGE_WIDTH = 1200;
+export const DEFAULT_OG_IMAGE_HEIGHT = 630;
+export const DEFAULT_OG_IMAGE_ALT = 'Carinya Parc regenerative farm landscape';
 export const TWITTER_HANDLE = '@carinyaparc';
 export const TWITTER_CARD_TYPE = 'summary_large_image';
+
+// Icons and manifest
+export const SITE_MANIFEST_PATH = '/site.webmanifest';
+export const FAVICON_ICO_PATH = '/favicon.ico';
+export const FAVICON_16_PATH = '/favicon-16x16.png';
+export const APPLE_TOUCH_ICON_PATH = '/apple-touch-icon.png';
 
 // JSON‑LD schema defaults
 export const ORG_LOGO_URL = `${BASE_URL}/logo.png`;

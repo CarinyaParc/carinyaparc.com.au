@@ -3,9 +3,9 @@ import '../../../styles/pages/legal.css';
 
 import fs from 'fs';
 import path from 'path';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
-import { generatePageMetadata } from '@/src/lib/generateMetadata';
+import { generatePageMetadata } from '@/src/lib/metadata';
 import { SchemaMarkup } from '@/src/components/ui/SchemaMarkup';
 import { Breadcrumb } from '@/src/components/ui/Breadcrumb';
 

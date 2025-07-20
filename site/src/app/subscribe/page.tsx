@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Shovel, Sprout, Newspaper } from 'lucide-react';
 import PageHeader from '@/src/components/sections/PageHeader';
-import { generatePageMetadata } from '@/src/lib/generateMetadata';
+import { generatePageMetadata } from '@/src/lib/metadata';
 import SubscribeForm from '@/src/components/forms/SubscribeForm';
 import { SchemaMarkup } from '@/src/components/ui/SchemaMarkup';
 import { Breadcrumb } from '@/src/components/ui/Breadcrumb';

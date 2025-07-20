@@ -1,9 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import {
-  viewport,
-  generateMetadata,
-  generatePageMetadata,
-} from '../../../site/src/lib/generateMetadata';
+import { generateMetadata, generatePageMetadata, getPathFromParams } from '@/site/src/lib/metadata';
 
 // Mock the constants
 vi.mock('../../../site/src/lib/constants', () => ({

@@ -1,11 +1,19 @@
 import { describe, it, expect, vi } from 'vitest';
 
 // Mock the generatePageMetadata function with the actual path
-vi.mock('../../../../site/src/lib/generateMetadata', () => ({
+vi.mock('@/src/lib/metadata', () => ({
   generatePageMetadata: vi.fn((config) => ({
     title: config.title,
     description: config.description,
-    path: config.path,
+    openGraph: {
+      title: config.title,
+      description: config.description,
+      url: `https://carinyaparc.com.au${config.path}`,
+      images: [config.image],
+    },
+    alternates: {
+      canonical: `https://carinyaparc.com.au${config.path}`,
+    },
   })),
 }));
 

@@ -1,21 +1,10 @@
-import { Metadata } from 'next';
-import { generatePageMetadata } from '@/lib/generateMetadata';
+import { generatePageMetadata } from '@/src/lib/metadata';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = generatePageMetadata({
-  title: 'Blog - Life on Pasture - Carinya Parc',
+  title: 'Blog',
   description:
-    'Follow our regeneration journey through detailed updates, insights, and lessons learned as we transform Carinya Parc into a thriving ecosystem.',
+    'Articles on regenerative farming, permaculture, and sustainable living practices from Carinya Parc.',
   path: '/blog',
-  image: '/images/img_23.jpg',
-  keywords: [
-    'blog',
-    'farm updates',
-    'soil health',
-    'biodiversity',
-    'water systems',
-    'education',
-    'wildlife',
-    'regenerative practices',
-    'seasonal updates',
-  ],
+  keywords: ['regenerative farming blog', 'permaculture articles', 'sustainable living tips'],
 });
