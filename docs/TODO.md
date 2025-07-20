@@ -15,14 +15,14 @@
 ## Priority 2: SEO & Structured Data
 
 - [ ] Implement JSON-LD structured data for:
-  - [ ] Organization markup
-  - [ ] Article markup for blog posts
-  - [ ] BreadcrumbList markup
-  - [ ] LocalBusiness markup
-- [ ] Add rich snippets for recipes
+  - [x] Organization markup
+  - [x] Article markup for blog posts
+  - [x] BreadcrumbList markup
+  - [x] LocalBusiness markup
+- [x] Add rich snippets for recipes
+- [ ] Implement schemas across the site pages
 - [ ] Implement FAQ schema where appropriate
-- [x] Register site with Google Search Console and Bing Webmaster Tools
-- [ ] Add blog post schema markup with proper article structure
+- [x] Add blog post schema markup with proper article structure
 
 ## Priority 3: Accessibility & WCAG Compliance
 
@@ -183,6 +183,7 @@
 - [x] Create robots.txt file
 - [x] Implement canonical URLs
 - [x] Configure proper meta descriptions and titles
+- [x] Register site with Google Search Console and Bing Webmaster Tools
 
 ### ✅ Error Tracking & Monitoring
 

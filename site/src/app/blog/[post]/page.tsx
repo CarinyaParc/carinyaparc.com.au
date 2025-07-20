@@ -8,6 +8,7 @@ import type { Metadata } from 'next';
 import matter from 'gray-matter';
 import DateComponent from '@/src/components/ui/Date';
 import { BASE_URL, SITE_TITLE } from '@/src/lib/constants';
+import { generateJsonLd } from '@/src/lib/schema';
 
 // Define the frontmatter interface
 interface PostFrontmatter {
@@ -46,57 +47,6 @@ function getBlogPostPath(slug: string): string | null {
   }
 
   return null;
-}
-
-// Generate JSON-LD schema for blog post
-function generateArticleSchema(postData: PostFrontmatter, slug: string): string {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: postData.title || 'Blog Post',
-    description: postData.excerpt || postData.description || 'Blog post from Carinya Parc',
-    author: {
-      '@type': 'Person',
-      name: postData.author || 'Jonathan Daddia',
-      url: `${BASE_URL}/about/jonathan`,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: SITE_TITLE,
-      url: BASE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/logo.png`,
-        width: 600,
-        height: 600,
-      },
-    },
-    datePublished: postData.date || new Date().toISOString().split('T')[0],
-    dateModified: postData.date || new Date().toISOString().split('T')[0],
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${BASE_URL}/blog/${slug}`,
-    },
-    url: `${BASE_URL}/blog/${slug}`,
-    image: postData.image ? `${BASE_URL}${postData.image}` : `${BASE_URL}/images/hero_image.jpg`,
-    articleSection: 'Blog',
-    wordCount: 2000, // Approximate word count
-    keywords: Array.isArray(postData.tags)
-      ? postData.tags.join(', ')
-      : 'regenerative farming, sustainable agriculture, permaculture',
-    about: {
-      '@type': 'Thing',
-      name: 'Regenerative Agriculture',
-      description: 'Sustainable farming practices that restore soil health and biodiversity',
-    },
-    isPartOf: {
-      '@type': 'Blog',
-      name: `${SITE_TITLE} Blog`,
-      url: `${BASE_URL}/blog`,
-    },
-  };
-
-  return JSON.stringify(schema);
 }
 
 // Generate metadata for the page
@@ -184,8 +134,35 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
     date: frontmatter.date || dateFromFilename,
   } as PostFrontmatter;
 
-  // Generate JSON-LD schema
-  const articleSchema = generateArticleSchema(postData, post);
+  // Create validated data for schema with guaranteed values
+  const publishDate = postData.date || dateFromFilename || new Date().toISOString().split('T')[0];
+
+  const schemaData = {
+    title: postData.title || 'Blog Post',
+    slug: post,
+    author: postData.author,
+    datePublished: publishDate as string, // We know this is always a string due to fallback
+    dateModified: postData.date || dateFromFilename || undefined,
+    imageUrl: postData.image,
+    description: postData.description,
+    excerpt: postData.excerpt,
+    tags: Array.isArray(postData.tags) ? postData.tags : undefined,
+  };
+
+  // Generate JSON-LD schema using centralized utility
+  const articleSchema = generateJsonLd('blog', {
+    org: {
+      name: SITE_TITLE,
+      url: BASE_URL,
+      logoUrl: `${BASE_URL}/logo.png`,
+    },
+    breadcrumb: [
+      { name: 'Home', url: BASE_URL, position: 1 },
+      { name: 'Blog', url: `${BASE_URL}/blog`, position: 2 },
+      { name: schemaData.title, url: `${BASE_URL}/blog/${post}`, position: 3 },
+    ],
+    article: schemaData,
+  });
 
   try {
     // Import the MDX file directly
