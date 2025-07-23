@@ -1,9 +1,24 @@
 # Carinya Parc Website - TODO List
 
+## Content & Navigation (High Priority)
+
+- [ ] Replace remaining placeholder content with final copy
+- [ ] Enable hidden navigation items (currently marked as visible: false)
+- [ ] Create missing pages for navigation items:
+  - [ ] Experience the Farm page
+  - [ ] Learn About Our Produce page
+  - [ ] Cook From The Hearth page
+  - [ ] Join Our Community page
+- [ ] Finalize all blog post content and ensure consistency
+- [ ] Add proper internal linking strategy
+- [ ] Implement breadcrumb schema for all pages
+
+---
+
 ## Critical Architecture & Performance Improvements (High Priority)
 
 - [ ] Implement React 19 Server Components optimization patterns (use/parallel data fetching)
-- [ ] Add next/font integration for optimal font loading performance
+- [x] Add next/font integration for optimal font loading performance
 - [ ] Implement dynamic OG image generation for blog posts and pages
 - [ ] Add React Error Boundaries for granular error handling in components
 - [ ] Enable TypeScript strict mode and resolve all type safety issues
@@ -13,7 +28,6 @@
 
 ## Component Architecture & Design System (High Priority)
 
-- [ ] Set up Storybook for component documentation and visual testing
 - [ ] Create comprehensive design tokens system in Tailwind v4 format
 - [ ] Implement compound component patterns for complex UI components
 - [ ] Add component-level error boundaries with fallback UI
@@ -52,19 +66,6 @@
 - [ ] Implement partial hydration for static content
 - [ ] Optimize bundle size with tree shaking analysis
 
-## Content & Navigation (Medium Priority)
-
-- [ ] Replace remaining placeholder content with final copy
-- [ ] Enable hidden navigation items (currently marked as visible: false)
-- [ ] Create missing pages for navigation items:
-  - [ ] Experience the Farm page
-  - [ ] Learn About Our Produce page
-  - [ ] Cook From The Hearth page
-  - [ ] Join Our Community page
-- [ ] Finalize all blog post content and ensure consistency
-- [ ] Add proper internal linking strategy
-- [ ] Implement breadcrumb schema for all pages
-
 ## Advanced Security (Medium Priority)
 
 - [ ] Implement Content Security Policy nonce for inline scripts
@@ -85,7 +86,7 @@
 - [ ] Implement hreflang tags for future internationalization
 - [ ] Add schema markup for videos when added
 
-## ♿ Accessibility & WCAG Compliance (Low Priority)
+## Accessibility & WCAG Compliance (Low Priority)
 
 - [ ] Add comprehensive ARIA labels and landmarks throughout the site
 - [ ] Implement screen reader support for all interactive elements
@@ -98,7 +99,7 @@
 - [ ] Add accessibility documentation for content editors
 - [ ] Ensure sufficient color contrast ratios across all content
 
-## 🛠️ Developer Experience (Low Priority)
+## Developer Experience (Low Priority)
 
 - [ ] Create comprehensive ADR (Architecture Decision Records)
 - [ ] Add JSDocs for all utility functions and hooks
